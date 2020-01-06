@@ -17,7 +17,7 @@ remote_theme : mmistakes/minimal-mistakes
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Site Title"
+title                    : "Road to S7"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Your Name"
@@ -108,11 +108,11 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "SooHyeon"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  bio              : "Android 개발 덕후입니다."
   location         : "Somewhere"
-  email            :
+  email            :  kshvv975@gmail.com
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
