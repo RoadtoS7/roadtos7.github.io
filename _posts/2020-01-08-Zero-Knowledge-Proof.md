@@ -1,5 +1,5 @@
 ---
-title: "BACKJOON - 1931"
+title: "Zero-Knowledge Proof"
 date: 2020-01-08 17:26:28 -0400
 categories: cryptography z
 ---
