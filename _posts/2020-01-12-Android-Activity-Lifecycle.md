@@ -28,9 +28,12 @@ categories: android activity lifecycle
 예를 들어, 처음 Empty 액티비티를 생성하면 자동으로 만들어져 있는 onCreate() 메소드는 액티비티가 만들어질 때 시스템이 자동으로 호출하는 메소드입니다.  
 
 </br>
+</br>
 다음은 액티비티 생명주기를 표현한 다이어그램입니다.
+
 ![액티비티수명주기](https://t1.daumcdn.net/cfile/tistory/99918D3359910D222E)
 
+</br>
 </br>
 </br>
 위 다어이그램을 통해서 액티비티 상태가 바뀔 때마다 어떤 메소드가 호출되는지 손 쉽게 알 수 있습니다.  
@@ -38,8 +41,10 @@ categories: android activity lifecycle
 
 </br>
 </br>
+</br>
 만약 새로운 액티비티가 생성된다면 onCraete(), onStart(), onResume() 이 차례대로 호출됩니다. 이 세 메소드가 호출된 후 최종적으로 액비티가 화면에 보이게 됩니다.  
 
+</br>
 </br>
 </br>
 액티비티가 실행된 후, 새로운 액티비티가 그 위로 새로 실행된다면 onPause() 가 호출되면서 액티비티는 일시 정지나 중지 상태로 변하게 됩니다.
