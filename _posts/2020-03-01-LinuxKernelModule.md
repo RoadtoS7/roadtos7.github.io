@@ -27,6 +27,7 @@ categories: Linux LinuxKernelModule
 
 <br/>
 <br/>
+
 ## 어떻게 모듈이 커널에 로드될까(적재될까)?  
 현재 커널에 로드된 모듈들을 보려면 lsmod 라는 명령어를 실행하면 됩니다.    
 이 명령어는 /proc/modules 파일 내용을 출력하여 현재 로드된 모듈들을 보여줍니다.    
