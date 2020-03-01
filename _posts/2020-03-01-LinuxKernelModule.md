@@ -116,6 +116,7 @@ Linux distros(리눅스 배포판들)는 modprobe, insmode, depmod를 module-ini
 
 <br/>
 <br/>
+
 ## 우선 알아두어야할 것  
 우리가 세부적인 코드를 분석하기 전에 다루어야할 것들이 있습니다.  
 모든 사람들의 시스템은 다르고 사람들은 다다른 형태의 시슽메을 가지고 있습니다.  
@@ -124,6 +125,7 @@ Linux distros(리눅스 배포판들)는 modprobe, insmode, depmod를 module-ini
 
 <br/>
 <br/>
+
 ## Modversioning  
 만약 여러분이 커널에 CONFIG_MODVERSIONS를 허용하지 않고 부팅할 경우에는, 특정한 커널을 위해 컴파일된 모듈은 여러분의 모듈에 로드되지 않을 것입니다.
 제 포스팅에서 module versioning을 다루기 전에 나오는 예제들은 module verioning이 활성화되어있는 커널을 사용한다면 제대로 동작하지 않을 수 있습니다.  
@@ -132,6 +134,7 @@ Linux distros(리눅스 배포판들)는 modprobe, insmode, depmod를 module-ini
 
 <br/>
 <br/>
+
 ## Using X  
 이 포스팅에서 다루는 모든 예제들을 쳐보고, 컴파일하고 로드해보시는 것을 매우 추천합니다.  
 그리고 console에서 이 작업들을 할 것을 매우 추천합니다.  
@@ -148,6 +151,7 @@ Linux distros(리눅스 배포판들)는 modprobe, insmode, depmod를 module-ini
 
 <br/>
 <br/>
+
 ## Compliling Issues and Kernel Version  
 매우 자주 리눅스 배포판들(Linux distor: Readhat Linux, Fedora, Ubunt...)들은 기준에 부합하지 않는 다양한 방법으로 패치된 커널 소스들을 배포합니다.   
 그렇기 때문에 이로인해서 문제가 발생할 수 있습니다.  
