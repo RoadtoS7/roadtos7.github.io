@@ -166,6 +166,13 @@ Linux distros(리눅스 배포판들)는 modprobe, insmode, depmod를 module-ini
 여러분의 시스템에 있는 gcc는 여러분이 새롭게 설치한 커널(/usr/src)이 아니라 default 위치에 있는 커널 헤더부터 찾기 때문입니다.   
 이 문제는 gcc의 -l switch 를 이용해서 해결할 수 있습니다.  
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 ###### 이 포스팅은 Peter Jay Salzman, Michael Burian, Ori Pomerantz의 The Linux Kernel Module Programming Guide를 번역한 포스팅입니다.
 
 
