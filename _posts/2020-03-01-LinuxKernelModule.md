@@ -1,3 +1,8 @@
+---
+title: "리눅스 커널 모듈: 개요"
+date: 2020-03-01 20:36:07 -0400
+categories: Linux LinuxKernelModule
+---
 # 리눅스 커널 모듈 개요
 ## Kernel Module 이란 무엇일까?  
 이 포스팅을 읽는 분들 중에는 C프로그래밍으로 프로그램을 작성해본 적이 있는 분들이 있을 것입니다.  
