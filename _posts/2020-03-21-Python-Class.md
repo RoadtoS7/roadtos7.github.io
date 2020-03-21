@@ -36,20 +36,17 @@ self를 통해서 멤버함수를 호출하는 객체가 전달된다.
 
 a.setData(2, 4) 의 함수 수행문을 살펴본다면 self는 함수를 호출한 객체인 a이기 때문에 다음과 같이 해석된다.  
 ```
-a.first = 2 
+>>> a.first = 2 
 # a 객체에 객체 변수 first 가 생성되고 여기에 값 4가 저장된다.
 
-a.second = 4
+>>> a.second = 4
 # a 객체에 객체 변수 second 가 생성되고 여기에 값 2가 저장된다.
-```
 
-
->>> a = Cal()
->>> a.setData(2, 4)
 >>> print(a.first)
 2
 >>> print(a.second)
 4
+```
 
 print(a.first), print(a.second) 의 결과가 정상적으로 출력되는 것으로 볼 때, 멤버변수를 따로 선언하지 않았지만  
 first와 second 라는 멤버변수가 생성되었음을 알 수 있다.  
