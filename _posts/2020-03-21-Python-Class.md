@@ -14,7 +14,7 @@ categories: Python
 
 ```
 Class Calculator:
-  def __setData(self, first, second):
+  def setData(self, first, second):
     self.first = first
     self.second = second
 ```
