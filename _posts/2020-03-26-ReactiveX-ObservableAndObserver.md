@@ -180,6 +180,11 @@ onNext, onError, onCompleted 함수가 Observer를 구현한다는 것을 알아
 subscribe는 다양하게 오버라이딩 된 형태들을 가지고 있습니다.  
 그렇다면 어떤 형태들을 가지고 있는지, 그리고 각 형태별로 차이점에 대해서 알아보겠습니다.
 
+<br/>
+<br/>
+<br/>
+<br/>
+
 ## subscribe() 함수
 앞서서 우리는 Observer가 Observable을 구독하게 되면, 구독 시점 이후부터 Observer는 Observable이 아이템을 발행하는 것을 기다리기게 됩니다. 그리고 Observable이 아이템을 발행하면 그 아이템을 포착(수집)한 후, 아이템 발행에 대해서 반응하게 됩니다.  
 
@@ -222,8 +227,22 @@ subscribe() 함수의 원형에 대해서 각각 들여다 보겠습니다.
 
 
 5. Observer 클래스 객체를 파라미터로 전달하면서 subscribe() 함수를 호출할 수 있습니다.  
-이 경우에는 파라미터로 전달된 Observer가 subscribe()를 호출한 Observable을 구독합니다.  
-그리고 Observable이 아이템을 발행할 때마다, Observer내부에 구현되어있는 onNext, onError, onCompeted 함수가 발행되는 아이템에 따라서 호출됩니다.
+이 경우에는 파라미터로 전달된 Observer가 subscribe()를 호출한 Observable을 구독합니다.    
+그리고 Observable이 아이템을 발행할 때마다, Observer내부에 구현되어있는 onNext, onError, onCompeted 함수가 발행되는 아이템에 따라서 호출됩니다.  
+
+위의 원형에서 Observer 객체를 전달할 때를 제외한 모든 경우에서 Disposable 인터페이스 객체가 반환되는 것을 확인할 수 있습니다.  
+
+Disposable 객체는 Rx에서 Subscription 객체에 해당하며, 아래의 2가지 함수만 가지고 있습니다.  
+1. dispose()
+2. isDisposed()
+
+먼저 dispose()는 Observable이 더이상 아이템을 반환하지 않도록 구독을 취소하는 역할을 합니다.  
+Observable 계약(Contract) 문서에 따르면, Observable이 onCompleted 알림을 전달하면 자동으로 dispose() 함수가 호출되어 구독자와의 관계가 끊어집니다.  
+
+만약  onComplete알림이 정상적으로 전달이 되었다면, 우리는 따로 dispose() 함수를 호출할 필요가 없습니다.  
+
+isDisposed() 함수는 Observable이 아이템을 발행하는 것을 중단했는지(구독이 취소되었는지)를 확인하는 함수입니다.  
+true 가 반환되면 구독이 취소된 것이고, false가 반환되면 아직 구독이 취소되지 않았음을 의미합니다.  
 
 
 이제까지 subscribe() 함수의 역할에 대해서 알아보았습니다.  
