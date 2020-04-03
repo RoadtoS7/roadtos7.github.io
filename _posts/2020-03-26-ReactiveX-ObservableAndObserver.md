@@ -1,5 +1,5 @@
 ---
-title: "ReactiveX_Observable"
+title: "ReactiveX_Observable & Observer"
 date: 2020-03-23 14:58:17 -0400
 categories: ReactiveX
 --- 
@@ -203,13 +203,106 @@ subscribe() 함수의 원형에 대해서 각각 들여다 보겠습니다.
 해당 Observable을 구독하는 Observer가 생성되지만, Observer에 아무런 함수도 구현되지 않았기 때문에 Observable의 아이템 발행이나 알림에 대해서 아무런 동작도 일어나지 않습니다.  
 
 2. 함수 한개를 파라미터로 전달하면서 subscribe() 함수를 호출할 수 있습니다.  
-이 경우에 파라미터로 전달된 함수는 onNext 함수로서 
-즉, Observable이 아이템을 발행하면 발행된 아이템을 가지고 파라미터로 전달된 함수가 동작하게 됩니다.  
+이 경우에 파라미터로 전달된 함수를 onNext 함수로서 가지는 Observer가 생성됩니다.  
+그리고 생성된 Observer가 subscribe() 함수를 호출한 Observable를 구독합니다.  
+결과적으로 Observable이 아이템을 발행하면 발행된 아이템을 가지고 파라미터로 전달된 함수가 동작하게 됩니다.  
+
 3. 함수 두개를 파라미터로 전달하면서 subscribe() 함수를 호출할 수 있습니다.
-이 경우에는 첫번째 함수는 onNext 함수로서, 두번째 함수는 onError 함수로서 동작합니다.  
+이 경우에는 첫번째 함수를 onNext 함수로서, 두번째 함수를 onError 함수로서 가지는 Observer가 생성됩니다.  
+그리고 생성된 Observer 가 subscribe() 를 호출한 Observable을 구독합니다.  
 
 4. 함수 세개를 파라미터로 전달하면서 subscribe() 함수를 호출할 수 있습니다.  
-이 경우에는 첫번째 함수는 onNext 함수로서, 두번째 함수는 onError 함수로서, 세번째 함수는 onComplete 함수로서 동작합니다.
+이 경우에는 첫번째 함수를 onNext 함수로서, 두번째 함수를 onError 함수로서, 세번째 함수를 onCompleted 함수로서 가지는 Observer가 생성됩니다.  
+그리고 생성된 Observer 가 subscrbie()를 호출한 Observable을 구독합니다.  
+
+
+5. Observer 클래스 객체를 파라미터로 전달하면서 subscribe() 함수를 호출할 수 있습니다.  
+이 경우에는 파라미터로 전달된 Observer가 subscribe()를 호출한 Observable을 구독합니다.  
+그리고 Observable이 아이템을 발행할 때마다, Observer내부에 구현되어있는 onNext, onError, onCompeted 함수가 발행되는 아이템에 따라서 호출됩니다.
+
+
+이제까지 subscribe() 함수의 역할에 대해서 알아보았습니다.  
+앞서서 subscribe() 함수를 호출하여 Observer가 Observable을 구독하게 된 이후부터, Observable이 발행하는 아이템을 Observer가 반응한다고 했습니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 구독취소(Unsubscribing)
+RX에는 특별한 옵저버 인터페이스인 Subscriber 가 존재하며, 이 인터페이스에는 unsubcribe() 메소드가 존재합니다.  
+(RX는 여러 언어로 구현되어있는데 구현되어있는 언어에 따라서 Subscriber 인터페이스는 존재하지 않을 수도 있습니다.)  
+
+Subscribe 인터페이스를 구현한 객체가 현재 구독중인 객체에 더이상 관심이 없음을 나타내기 위해서 unsubscirbe() 함수를 이용합니다.  
+
+만약 자신의 모든 구독자가 unsubscribe() 를 호출하여 더이상 구독자가 없는 Observable은 새로운 아이템 발행을 중단할 수 있습니다.  
+
+한 Observer가 unsubscribe() 를 호출하여 구독을 취소하게 되면, 해당 Observer가 구독하고 있던 Observable에게 적용되던 연산자 체인에 존재하는 연산자들이 취소되는데, 이는 연산자 체인의 역방향으로 일어납니다.  
+그리고 이것은 연산자 체인의 연산자들이 데이터를 발행하는 것을 중단시킵니다.  
+
+하지만 구독자가 subscribe() 를 호출하자마자 데이터 발행이 중지되지는 않습니다.  
+Observable의 구독자가 더이상 없게 되더라도 그 이후에 한동안은 데이터를 생성하고 발행할 수 있습니다.  
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 뜨거운 Observable, 차가운 Observable
+Observable에는 뜨거운 Observable과 차가운 Observable이 있습니다.  
+이 둘을 구분하는 기준은 옵저버블의 데이터를 발행하는 시점입니다.
+
+- 뜨거운 Observable은 생성과 동시에 데이터가 발행될 수 있습니다.  
+그리고 뜨거운 Observable이 데이터를 발행하기 시작한 후에 Observer가 이 Observable을 구독하게 되면, 구독한 시점 이후부터 발행되는 아이템를 관찰할 수 있습니다(받을 수 있습니다).  
+Observer는 구독 이전에 발행된 아이템은 놓치게 됩니다.  
+
+- 차가운 Observable은 Observer가 자신을 구독할 때까지 데이터를 발행하지 않습니다.  
+따라서 차가운 Observable을 구독하는 Observer는 자신이 구독하는 Observable이 발행하는 데이터 시퀀스를 처음부터 관찰할 수 있습니다.  
+
+차가운 Observable과 뜨거운 Observable의 차이를 알아두는 것은 매우 중요합니다.  
+그렇기 때문에 차가운 Observable과 뜨거운 Observable에 대해서는 이후의 포스팅에서 더 자세히 다루도록 하겠습니다.  
+
+또한 Rx에는 "Connectable" Observable 이라고 불리는 것이 있습니다.  
+Connectable Observable은 자신을 구독하는 Observer의 존재 여부에 관계없이 Connectable Observable의 connect 함수가 호출될 때까지 데이터를 발행하지 않습니다.  
+Connectable Observable에 대해서도 이후의 포스팅에서 더 자세히 다루도록 하겠습니다.  
+그때까지는 Connectable Observable은 자신의 connect 함수가 호출될 때까지 아이템을 발행하지 않는 Observable이라고 기억해두시면 됩니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 연산자를 통한 Observable의 조합
+우리는 Observable 연산자를 이용하여 Observable을 조합할 수 있습니다.  
+Observable과 Observer에 대한 이해는 Rx를 시작하는데 매우 중요합니다. 하지만 Rx의 진정한 힘은 연산자를 가지고 Observerable을 조합할 때 나옵니다. 
+연산자들은 Observable이 발해한 데이터를 가지고 변형하고, 결합하고, 조작하고, 작업할 수 있도록합니다.  
+또한 Rx연산자들은 콜백의 장점인 비동기적인 작업들을 선언하는 방식으로 효율적으로 구성할 수 있도록하지만, 일반적인 비동기 시스템이 가지는 단점인 콜백이 중첩되는 형상은 일어나지 않습니다.  
+
+앞으로의 포스팅에서는 다양한 연산자에 대해서도 다룰 것입니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 연산자 체이닝
+Rx에서 연산자들은 Observable을 가지고 연산하여 결과값을 반환합니다.  
+우리는 이러한 연산자들을 체인과 같이 엮어서 사용할 수 있습니다.  
+체인에서 각각의 연산자들은 자신의 앞에 있는 연산자가 반환한 Observable을 가지고 작업합니다. 
+
+즉, Observable 연산자 체인에서는 가장 오리지널 Observable을 가지고 독립적으로 실행되지 않습니다. 체인에 있는 연산자들은 차례대로 실행되며, 각각의 연산자들은 체인상에서 자신의 앞에 위치한 연산자가 반환한 Observable을 가지고 작업합니다. 
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 네이밍 컨벤션(Naming Convengion)
+Rx에서는 특정하게 사용하는 네이밍 컨벤션이 존재하지 않습니다.  
+
+
+다음 포스팅에서는 이번 포스팅에서 설명한 뜨거운 Observable과 차가운 Observable에 대해서 자세히 다루도록 하겠습니다.  
+
+
 
 
 
