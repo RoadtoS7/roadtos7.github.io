@@ -119,6 +119,11 @@ subscribe 함수를 통해서 우리는 Observer와 Observable을 연결시킵�
 위에서와 같이 subscribe 함수에는 인자가 한개만 들어갈 수도 있지만 최대 3개까지 들어갈 수 있습니다.  
 그렇다면 각각의 인자의 의미에 대해서 알아보겠습니다.  
 
+<br/>
+<br/>
+<br/>
+<br/>
+
 ## onNext, onCompled, onError 함수
 - 우리는 Observable과, 이 Observable이 반환하는 값을 가지고 동작하는 Observer를 연결시킬 때 subscribe() 라는 함수를 사용합니다.
 - Observer는 총 세가지의 함수를 구현하는데, 전부 구현하지 않고 일부만 구현하기도 합니다.
@@ -299,6 +304,10 @@ Rx에서 연산자들은 Observable을 가지고 연산하여 결과값을 반�
 ## 네이밍 컨벤션(Naming Convengion)
 Rx에서는 특정하게 사용하는 네이밍 컨벤션이 존재하지 않습니다.  
 
+<br/>
+<br/>
+<br/>
+<br/>
 
 다음 포스팅에서는 이번 포스팅에서 설명한 뜨거운 Observable과 차가운 Observable에 대해서 자세히 다루도록 하겠습니다.  
 
