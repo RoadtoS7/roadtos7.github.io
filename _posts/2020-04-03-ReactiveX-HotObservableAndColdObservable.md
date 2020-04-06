@@ -196,3 +196,26 @@ Subscriber #2 => 5
 - BehaviorSubject에서도 AsyncSubject와 마찬가지로 error를 만나 종료하게 되면, BehaviorSubject는 이후에 구독한 구독자들에게 어떤 아이템도 발행하지 않습니다.
 - 대신에 source Observable이 발행하는 error알림을 그대로 발행합니다.
 
+
+### 3.1.3 PublishSubject
+세번째 Subject로 PublishSubject를 알아보겠습니다.  
+- PublishSubject는 가장 기본적인 Subject 클래스 입니다.
+- 구독자가 subscribe() 함수를 호출하면, 구독한 시점 이후부터 발행된 데이터만 구독자에게 발행됩니다.  
+AsyncSubject에서는 데이터 발행이 모두 완료된 이후에, 가장 마지막으로 발행된 데이터가 발행됬습니다.  반면에 BehaviorSubject에서는 AsyncSubject와 비슷하게 구독시점에서 가장 최근에 발행된 데이터가 발행되지만, 만약 source Observable에서 발행한 데이터가 없다면 기본값으로 설정된 아이템이 발행됩니다.  
+- **PublishSubject는 생성되자마자 아이템을 발행하기 시작합니다.** 이는 PublishSubject에서 매우 중요한 사항입니다.  
+- PublishSubject도 AsyncSubject와 마찬가지로 create() 함수를 사용하여 생성합니다.
+
+<br/>
+<br/>
+- 다음 예시 마블 다이어그램에 해당하는 코드를 살펴보면서 PublishSubject에 대해서 더 자세히 알아보도록 하겠습니다.  
+![image](https://user-images.githubusercontent.com/57262833/78528648-d5d1ca00-781a-11ea-8213-77c0156f9cf8.png)
+```
+PublishSubject<String> subject = PublishSubject.create();
+subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
+subject.onNext("1");
+subject.onNext("3");
+subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
+subject.onNext("5");
+subject.onComplete();
+```
+1. 구독자 1은 subject가 데이터를 발행하기 전부터 구독을 하고 있었기 때문에, 
