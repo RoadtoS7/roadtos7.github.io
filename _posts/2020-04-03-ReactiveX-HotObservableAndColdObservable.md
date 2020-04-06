@@ -46,7 +46,7 @@ RxJava에서는 모두 이용할 수 있습니다.
 <br/>
 <br/>
 
-#### 3.1.1 AsyncSubejct
+### 3.1.1 AsyncSubejct
 ![AsyncSubject](http://reactivex.io/documentation/operators/images/S.AsyncSubject.png)
 - 완료된 시점에서 (onCompleted 알림이 전달된 시점)에서 가장 마지막에 발행된 데이터를 구독자에게 발행(전달)한다.
 - 위의 마블 다이어그램을 볼 때, 구독자의 개수에 상관없이 첫번째 구독자와 똑같은 값을 발행한다.
@@ -150,4 +150,49 @@ Subscriber #3 => 12
 - 즉, Subject도 Observable과 마찬가지로 onComplete 알림 전달 이후에는 어떤 아이템도 발행하지 않습니다.  
 - 그리고 Subject가 아이템 발행을 완료한 이후에도 마지막에 발행된 아이템을 가져올 수 있습니다.  
 
+### 3.1.2 BehaviorSubject
+두번째로 알아볼 Subject클래스는 BehaviorSubject 클래스입니다.  
+- BehaviroSubject는 구독자가 자신을 구독했을 때 가장 최근에 발행한 값 또는 기본값을 발행합니다.
+즉, source Observable이 가장 최근에 발행한 값을 발행합니다. 그러나 만약에 source Observable이 아직까지 발행한 값이 없다면 기본 값(default 값)을 발행합니다.
+- 구독시점 이후에는 BehaviorSubject는 source Observable이 발행하는 값을 계속해서 발행합니다.
+- createDefault() 함수를 이용하여 BehaviorSubject를 생성합니다. 이때 기본값으로 설정할 값을 createDefault의 인자로 넣어줍니다.
+
+<br/>
+- 마블 다이어그램
+![BahaviorSubject](http://reactivex.io/documentation/operators/images/S.BehaviorSubject.png)
+
+
+다음 마블다이어그램과 일치되는 코드를 예시로 BehaviroSubject 함수의 사용을 보겠습니다. ![image](https://user-images.githubusercontent.com/57262833/78527020-c9e40900-7816-11ea-915f-eb46222f0b75.png)
+
+```
+BehaviorSubject<String> subject = BehaviorSubject.createDefault("6");
+subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
+subject.onNext("1");
+subject.onNext("3");
+subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
+subject.onNext("5");
+subject.onComplete();
+```
+
+1. BahaviorSubject인 subject 생성할 때 초기값으로 6을 설정했습니다.
+2. 첫번째 구독자가 subject를 구독할 때 6을 발행받습니다. 
+그결과 6이 출력됩니다.
+3. subject는 그 다음 1, 3이라는 데이터를 발행하고, 첫번째 구독자는 1, 3을 출력하게 됩니다.
+4. 두번째 구독자가 subject를 구독하고 가장 최근에 발행된 값인 3을 발행받게됩니다.
+5. subject는 5라는 데이터를 발행하고, 첫번째와 두번째 구독자는 3, 5를 출력합니다.
+6. onComplete()를 호출하여 subject가 완료됩니다.  
+
+출력결과는 다음과 같습니다.  
+```
+Subscriber #1 => 6
+Subscriber #1 => 1
+Subscriber #1 => 3
+Subscriber #2 => 3
+Subscriber #1 => 5
+Subscriber #2 => 5
+```
+
+![BehaviroSubjectError](http://reactivex.io/documentation/operators/images/S.BehaviorSubject.e.png)
+- BehaviorSubject에서도 AsyncSubject와 마찬가지로 error를 만나 종료하게 되면, BehaviorSubject는 이후에 구독한 구독자들에게 어떤 아이템도 발행하지 않습니다.
+- 대신에 source Observable이 발행하는 error알림을 그대로 발행합니다.
 
