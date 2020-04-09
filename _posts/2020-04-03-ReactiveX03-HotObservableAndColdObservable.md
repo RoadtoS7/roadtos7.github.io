@@ -301,12 +301,12 @@ Subscriber #1 => 5
 Subscriber #2 => 5
 ```
 
-## 4. '데이터 발행자'와 '수신자'
+## 3.2 '데이터 발행자'와 '수신자'
 지금 까지 Rx를 볼 때 '데이터 발행자'를 담당하는 역할인 Observable 과 '데이터 수신자' 역할을 하는 Observer가 있는 것을 확인할 수 있었습니다.  
 하지만 '데이터 발행자' 담당을 하는 것에는 Observable외에도 많은 것들이 있었습니다.  
 데이터 발행자와 수신자에 어떤 것들이 속하는지 좀 더 명확히 짚어보도록 하겠습니다.  
 
-### 4.1 데이터 발행자
+### 3.2.1 데이터 발행자
 - Observable
 - Single
 - Maybe
@@ -316,7 +316,7 @@ Subscriber #2 => 5
 데이터 발행자는 클래스 개념이기 때문에 명확하게 구분됩니다.  
 그러나 데이터 수신자는 Rx 문서에서도 여러가지 용어를 혼용해서 쓰기 때문에 명확하게 구분되지 않습니다.
 
-### 4.2 데이터 수신자
+### 3.2.2 데이터 수신자
 - 구독자(Subscriber)
 - 옵서버(Observer)
 - 소비자(Consumer)
@@ -328,8 +328,74 @@ Subscriber #2 => 5
 <br/>
 <br/>
 
-## 5. ConnectableObservable
-앞선 차가운 Observable과 뜨거운 Observable에 대한 포스팅에서 
+## 3.3 ConnectableObservable
+앞서서 차가운 Observable을 뜨거운 Observable로 바꾸기 위해 Subject와 ConnectableObservable을 사용한다고 말씀드렸습니다.  
+Subject에 이어서 이번에는 ConnectableObservable에 대해서 알아보도록 하겠습니다.  
+
+- ConnectableObservable은 일반적인 ObservablerObservable과 유사합니다.  
+단, ConnectableObservable은 구독자가 구독한 시점에도 아이템을 발행하지 않는다는 점이 다릅니다.  
+- 대신에 connect연산자가 호출되었을 때 아이템 발행을 시작합니다.  
+- 따라서 프로그래머가 원하는 시점에 Observable이 아이템을 발행하도록 만들 수 있습니다. 
+- ConnectableObservable의 마블다이어그램은 다음과 같습니다.  
+![ConnectableObservable](http://reactivex.io/documentation/operators/images/publishConnect.c.png)
+
+- 여러구독자에게 Observable 하나를 공유할 수 있기 때문에, 데이터를 여러 구독자에게 동시에 전달할 때 사용합니다.
+- connect()를 호출한 이후부터 아이템 발행을 시작하지만, connect를 호출한 후부터 구독하기 시작한 구독자는 subscribe() 호출 이후 발행된 데이터부터 발행받습니다.  
+- ConnectableObservable을 생성하는 방법은 publish() 함수를 호출하여 일반적인 Observable을 ConnectableObservable로 바꾸어주면 됩니다. 
+- 여기서 publish() 함수는 connect 함수가 호출될 때까지 데이터 발행을 유예시키는 역할을 합니다.  
+
+다음과 같은 마블다이어그램을 바탕으로 예제코드를 살펴보겠습니다.  
+![image](https://user-images.githubusercontent.com/57262833/78863210-fba5db80-7a73-11ea-8298-4906eff90bd1.png)
+
+```
+String[] dt = {"1", "3", "5"}; 
+Observable<String> balls = Observable.interval(100L, TimeUnit.MILLIESECONDS)
+  .map(Long::intValue)
+  .map(i -> dt[i])
+  .take(dt.length);
+  
+ConnectableObservable<String> source = balls.publish();
+source.subscribe(data -> System.out.println("Subscriber #1 " + data));
+source.subscribe(data -> System.out.println("Subscriber #2 " + data));
+source.connect();
+
+CommonUtils.sleep(250);
+source.subscribe(data -> System.out.println("Subscriber #3 " + data));
+CommonUtils.sleep(100);
+```
+
+- 발행하려는 데이터는 1, 3, 5입니다.  
+Observable.interval의 인자는 두가지로, 첫번째는 시간이며, 두번째는 시간의 단위입니다.  
+여기서는 100ms 단위로 0부터 차례대로 1씩 증가시키면서 Long값을 발행시킵니다.
+
+- 다음은 map() 함수를 활용하여 interval 함수가 발행한 데이터를 각각 int타입으로 바꾸어줍니다.  마찬가지로 다시한번 map 함수를 이용하여 앞에서 만든 int값을 이용하여 배열의 값을 반환합니다.  이때 take함수를 이용하여 배열의 요소 개수 만큼만 배열의 값을 가지고 옵니다.  
+
+- ConnectableObservable 클래스의 인자인 source를 생성합니다. 이때 위에서 생성한 Observable인 balls의 publish 함수를 호출하는 방식으로 source를 생성합니다.  
+- source의 첫번째 구독자와 두번째 구독자가 구독을 시작합니다.
+- source의 connect 연산자를 호출하여 source가 아이템 발행을 시작합니다.
+- 그리고 250ms 를  쉰 후 세번째 구독자가 구독을 시작합니다.
+connect 함수를 앞서서 호출했기 때문에 세번째 구독자는 아이템을 바로 수신합니다.  
+- 다시 100ms 를 쉰 후에는 balls 객체의 데이터가 모두 발행됩니다.  
+
+실행결과는 다음과 같습니다.  
+```
+Subscriber #1 => 1
+Subscriber #2 => 1
+Subscriber #1 => 3
+Subscriber #2 => 3
+Subscriber #1 => 5
+Subscriber #2 => 5
+Subscriber #3 => 5
+```
+아직 배우지 않은 interval(), take() 등 여러가지 함수가 있어서 이해가 잘 되지 않을 수 있습니다. 하지만 차차 앞으로의 포스팅에서 배워나갈 것들이기 때문에 지금은 눈으로만 익숙해지셔도 괜찮습니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+이번 포스팅에서는 차가운 Observable을 뜨거운 Observable로 바꾸는데 사용되는 Subject와 ConnectableObservable을 살펴보았습니다.  
+
 
 
 
