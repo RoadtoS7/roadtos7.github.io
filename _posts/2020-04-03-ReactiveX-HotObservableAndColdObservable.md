@@ -209,6 +209,7 @@ AsyncSubject에서는 데이터 발행이 모두 완료된 이후에, 가장 마
 <br/>
 - 다음 예시 마블 다이어그램에 해당하는 코드를 살펴보면서 PublishSubject에 대해서 더 자세히 알아보도록 하겠습니다.  
 ![image](https://user-images.githubusercontent.com/57262833/78528648-d5d1ca00-781a-11ea-8213-77c0156f9cf8.png)
+
 ```
 PublishSubject<String> subject = PublishSubject.create();
 subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
@@ -218,4 +219,125 @@ subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
 subject.onNext("5");
 subject.onComplete();
 ```
-1. 구독자 1은 subject가 데이터를 발행하기 전부터 구독을 하고 있었기 때문에, 
+1. 구독자 1은 subject가 데이터를 발행하기 전부터 구독을 하고 있었기 때문에,  
+subject가 발행하는 모든 데이터를 발행받습니다.  
+발행받는 데이터 : 1, 3, 5
+
+2. 구독자 2는 subject가 1과 3을 발행한 이후에 구독을 시작했기 때문에,  
+subject가 발행하는 모든 데이터를 발행받지 못하고, 그 이후의 데이터부터 발행받습니다.  
+발행받는 데이터 : 5
+
+<br/>
+<br/>
+<br/>
+
+- 만약 source Observable이 에러와 함께 종료된다면, 
+PublishSubject는 에러 이후에 구독한 구독자들에게 아무런 아이템도 발행하지 않습니다.  
+단, source Observable이 발행한 error 메시지만을 구독자에게 전달합니다.  
+
+PublishSubject는 생성되자 마자 데이터를 발행하기 때문에, 구독자가 PublishSubject가 발행하는 모든 데이터를 받지 못할 가능성이 있습니다.  
+따라서 source Observabel이 발행하는 모든 데이터가 이것을 구독하는 PublishSubject를 통해 모두 발행되어야한다면, 
+즉, PublishSubject가 발행하는 모든데이터를 구독자가 발행받아야 한다면,  
+다음과 같은 방법을 사용해야 합니다.  
+
+1) 아이템을 발행할 객체를 PublishSubject가 아니라, create 연산자를 사용하여 Observable을 만든다.  
+이는 Cold Observable 처럼 행동하도록 수동으로 만드는 방법입니다.  
+그리고 이 경우에는 Observable이 데이터를 발행하기 전에 모든 구독자가 구독을 완료했는지 확인해야합니다.  
+
+2) ReplaySubject를 사용합니다.  
+
+그렇다면 ReplaySubject가 무엇인지 정확히 알아보도록 하겠습니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+### 3.1.4 ReplaySubject 
+- ReplaySubject는 source Observable이 발행한 모든 아이템들을 구독자가 구독한 시점에 관계없이 구독자들에게 모두 발행합니다.  
+- Subject 클래스의 원래 목적은 뜨거운 Observable을 사용하기 위함이지만, ReplaySubject는 차가운 Observable 처럼 동작합니다.  
+(뜨거운 Observable은 생성과 동시에 아이템 발행을 시작하고, 차가운 Observable은 구독자가 생길 때까지 아이템을 발행하지 않습니다.   
+결과적으로 뜨거운 Observable을 구독하는 구독자들은 Observable이 발행하는 모든 데이터를 받을 수 있다는 보장이 없지만, 차가운 Observable을 구독하는 구독자는 Observable이 발행하는 데이터를 모두 받을 수 있습니다.  
+구독자들이 Observable이 발행하는 모든 데이터를 받을 수 있다는 점에서, RepalySubject는 차가운 Observable 처럼 동작합니다.)
+
+- 따라서 사용시 매우 주의해야합니다.  
+왜냐하면 ReplaySubject는 replay buffer라는 데이터들을 저장해놓는 버퍼를 두고 작동하는데, 이 버퍼가 저장할 수 있는 양을 넘어서 저장하게 되거나 혹은 특정 시간이 지나면 이전에 발행된 오래된 데이터들을 버리는 경우도 있기 때문입니다.
+
+- 또한 ReplaySubject를 Observer로 사용한다면, 여러개의 스레드에서 옵저버로 이미 동작하고 있는 ReplaySubject의 onNext 메소드 혹은 다른 on메소드를 호출하면 안됩니다.  
+왜냐하면 이 경우에는 동시호출(비순차호출)이 발생할 수 있기 때문입니다.  
+동시 호출(비순차 호출)이 발생하게 되면 ObservabelContract에 위배되고, 어떤 아이템이나 알림이 첫번째가 되어서 재발행되어야할지에 대해 결과 Subject에서 모호성(ambigutiy)를 만들어낼 수 있습니다.  
+
+좀 더, 자세히 설명하자면 ObservabelContract 중 Observable은 Observer들에게 알림을 순차적으로 발행해야 합니다. 즉, 병렬적으로 발행하면 안됩니다.  
+즉, 모든 Observable들을 순서를 정해서 차례대로 한 순간에 한 Observer에게만 아이템 혹은 알림을 발행할 수 있습니다.  
+Observable들이 각각 다른 스레드에 위치하면서 알림을 발행할 수 있지만, 그 발행된 알림 사이에는 공식적으로 무엇이 먼저 발행되었는지 순서가 정해져있어야 합니다.  
+
+- ReplaySubject를 생성하는 연산자는 create()입니다.  
+![image](https://user-images.githubusercontent.com/57262833/78860559-7dded180-7a6d-11ea-9a6a-757558e9e082.png)
+
+
+다음 마블다이어그램을 바탕으로 예시코드를 살펴보겠습니다.  
+
+```
+ReplaySubject<String> subject = ReplaySubject.create();
+subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
+subject.onNext("1");
+subject.onNext("3");
+subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
+subject.onNext(5);
+subject.onComplete();
+```
+- 첫번째 구독자가 구독을 시작한 후 1, 3이라는 데이터를 발행합니다. 
+- 그 후, 두번째 구독자가 구독을 시작하는데, 이때 두번째 구독자는 이제까지 subject가 발행한 모든 데이터(1, 3)을 발행받습니다.
+- subect는 5를 발행합니다. 첫번째 구독자, 두번째 구독자 모두 1, 3, 5를 발행받습니다.  
+- onCreate()를 호출하여 발행을 완료합니다.  
+
+- 실행결과는 다음과 같습니다.  
+```
+Subscriber #1 => 1
+Subscriber #1 => 3
+Subscriber #2 => 1
+Subscriber #2 => 3
+Subscriber #1 => 5
+Subscriber #2 => 5
+```
+
+## 4. '데이터 발행자'와 '수신자'
+지금 까지 Rx를 볼 때 '데이터 발행자'를 담당하는 역할인 Observable 과 '데이터 수신자' 역할을 하는 Observer가 있는 것을 확인할 수 있었습니다.  
+하지만 '데이터 발행자' 담당을 하는 것에는 Observable외에도 많은 것들이 있었습니다.  
+데이터 발행자와 수신자에 어떤 것들이 속하는지 좀 더 명확히 짚어보도록 하겠습니다.  
+
+### 4.1 데이터 발행자
+- Observable
+- Single
+- Maybe
+- Subject
+- Completable
+
+데이터 발행자는 클래스 개념이기 때문에 명확하게 구분됩니다.  
+그러나 데이터 수신자는 Rx 문서에서도 여러가지 용어를 혼용해서 쓰기 때문에 명확하게 구분되지 않습니다.
+
+### 4.2 데이터 수신자
+- 구독자(Subscriber)
+- 옵서버(Observer)
+- 소비자(Consumer)
+
+위의 용어 모두 데이터 수신자를 의미합니다. 참고로 알아두시면 좋을 것 같습니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 5. ConnectableObservable
+앞선 차가운 Observable과 뜨거운 Observable에 대한 포스팅에서 
+
+
+
+
+
+
+
+
+
+
+
