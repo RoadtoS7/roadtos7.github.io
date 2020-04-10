@@ -1,0 +1,17 @@
+---
+title: "자료구조: Linked List 01 - Singl Linked List"
+data: "2020-04-10 19:44:17 -400"
+categories: Data Structure
+---
+
+# 자료구조: Linked List 01 - Singl Linked List
+## Singly linked list
+Singly linked list는 데이터와 주소를 다음 노드의 주소를 담고 있는 노드들이 **한줄**로 연결되어있는 방식의 자료구조입니다.
+
+따라서 데이터와 다음 노드의 주소를 담고 있는 
+```
+class Node:
+  self.data = data
+  self.next = None
+```
+
