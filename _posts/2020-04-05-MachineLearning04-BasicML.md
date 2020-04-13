@@ -63,8 +63,8 @@ ex. 투자한 시간을 바탕으로 시험의 등급을 예측하는 경우
 
 그렇다면 이중에서도 regression의 예시인 투자한 시간을 가지고 시험점수를 예측하는 경우를 더 자세히 살펴보겠습니다.  
 
-:x(hours):|y(score)
----
+x(hours)|y(score)
+:---:|:--:
 10|90
 9|80
 3|50
@@ -76,8 +76,8 @@ ex. 투자한 시간을 바탕으로 시험의 등급을 예측하는 경우
 
 다음으로는 binary classification의 예시인 Pass/Non Pass 의 예시에 대해서 살펴보겠ㅅ브니다.
 
-:x(hours):|y(pass/fail)
----
+x(hours)|y(pass/fail)
+:---:|:--:
 10|P
 9|P
 3|F
@@ -90,8 +90,8 @@ ex. 투자한 시간을 바탕으로 시험의 등급을 예측하는 경우
 예측하는 데이터 결과가 A, B, C, F 와 같이 정해져있지만 결과가 2개보다 더 다양하게 나올 수 있는 경우를 multi-label classfication 이라고 합니다.  
 예시 데이터 셋은 다음과 같습니다.
 
-:x(hours):|y(grade)
----
+x(hours)|y(grade)
+:---:|:--:
 10|A
 9|B
 3|C
