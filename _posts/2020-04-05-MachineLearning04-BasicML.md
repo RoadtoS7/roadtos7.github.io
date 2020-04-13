@@ -98,12 +98,7 @@ x(hours)|y(grade)
 2|C
 
 다음 포스팅에소는 이 세가지 Learning 기법 중에서 Linear Regression 에 대해서 더 자세히 알아보도록 하겠습니다.  
-<:x(hours):|y(pass/fail)
----
-10|P
-9|P
-3|F
-2|F
+
 
 <br/>
 <br/>
