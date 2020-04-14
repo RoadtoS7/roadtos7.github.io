@@ -14,23 +14,23 @@ categories: MachinLearning
 
 ### 1.1 머신러닝(Machine Learning)
 일반적인 프로그램으로는 해결할 수 없는 문제들이 너무 많습니다.  
-예를 들어서, 스팸메일을 거르는 프로그램을 짜려고 할 때 스팸메일에 해당하는 규칙이 너무 많아서 스팸메일 필터링 프로그램은 개발하기 여렵습니다.  
+예를 들어서, 스팸메일을 거르는 프로그램을 짜려고 할 때 스팸메일에 해당하는 규칙이 너무 많아서 개발하기 여렵습니다.  
 또 다른 예로는 자율주행자동차가 있습니다.  
-자율 주행자동차의 경우에도 고려해야하는 경우의 수가 너무나도 많기 때문에 일방적인 프로그램의 형태로는 개발하기 어렵습니다.  
+자율 주행자동차의 경우에도 고려해야하는 경우의 수가 너무나도 많기 때문에 개발하기 어렵습니다.  
 
 따라서 이러한 문제를 해결하기 위해서 Arthur Samuel은 컴퓨터가 스스로 해결방법을 배우면 어떨까 라는 생각을 하게 됩니다. 이러한 Arthrur Samuel 의 생각으로부터 Machine Learning은 출발하게 됩니다.  
 
-곧 Machine Learning은 데이터를 보고 학습해서 능력을 갖는 프로그래밍을 의미합니다.
+곧 Machine Learning은 데이터를 학습해서 능력을 갖는 프로그래밍을 의미합니다.
 
 ### 1.2 Learning(학습)
-프로그램이 데이터를 보고 학습을 해야하는데, 학습의 방법에 따라서 두 가지 종류의 학습이 존재합니다.  
+프로그램이 데이터를 보고 학습을 해야하는데, 학습 방법에 따라서 두 가지 종류의 학습이 존재합니다.  
 1. Supervised Learning : labeling이 된 데이터 셋(집합)을 가지고 학습을 하는 것을 SuperVised Learning 이라고 합니다.  
-2. Unpervised Learning: label을 우리가 만들어주는 것이 아니라, labeling되지 않은 데이터를 가지고 스스로 학습하는 것입니다.
+2. Unpervised Learning: label을 labeling되지 않은 데이터를 가지고 스스로 학습하는 것입니다.
 
 
 이 포스팅에서는 SuperVised Learning에 대해서 먼저 다루겠습니다.
 Supervised Learning 예는 다음과 같습니다.  
-1. Image Labeling: 고양이, 강아지와 같이 labeling 된 이미지로부터의 학습을 의미합니다.
+1. Image Labeling: 고양이, 강아지와 같이 labeling 된 이미지로부터 학습하는 것을 의미합니다.
 2. Email spam filter: 이미 이메일 가운데 어떤 이메일이 스펨인지 스펨이 아닌지 labeling이 된 이메일을 가지고 학습합니다.
 3. Predicting exam score: 이전에 시험을 친 사람들이 준비한 시간 데이터와 점수를 가지고 학습하는 것을 말합니다.
 
@@ -74,7 +74,7 @@ x(hours)|y(score)
 이런 데이터를 학습한 모델을 가지고 7시간을 공부했을 때 어떤 점수가 나올지 예측할 수 있습니다.
 이런 모델을 regression 모델이라고 합니다.   
 
-다음으로는 binary classification의 예시인 Pass/Non Pass 의 예시에 대해서 살펴보겠ㅅ브니다.
+다음으로는 binary classification의 예시인 Pass/Non Pass 의 예시에 대해서 살펴보겠습니다.
 
 x(hours)|y(pass/fail)
 :---:|:--:
@@ -84,7 +84,7 @@ x(hours)|y(pass/fail)
 2|F
 
 이런 형식의 데이터 셋을 학습한 모델은 사용자가 공부한 시간을 입력했을 때, 그에 대한 pass/non pass 결과를 예측합니다.
-이런 모델을 binary classfication 이라고 합니다.
+이런식으로 두가지 결과중 하나로 결과를 내는 모델을 binary classfication 이라고 합니다.
 
 그렇다면 multi-label classfication 모델의 데이터 셋에 대해서도 예상이 되실 것 같습니다.
 예측하는 데이터 결과가 A, B, C, F 와 같이 정해져있지만 결과가 2개보다 더 다양하게 나올 수 있는 경우를 multi-label classfication 이라고 합니다.  
