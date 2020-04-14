@@ -1,5 +1,5 @@
 ---
-title: "ReactiveX 04 - Creator(생성 연산자)
+title: "ReactiveX 04 - Creator(생성 연산자)"
 date: "2020-04-14 14:03:17 -400"
 categories: ReactiveX
 ---
@@ -190,7 +190,7 @@ source.subscribe( order ->
 );
 ```
 
-### 4.5.4 fromCallable()
+### 4.6 fromCallable()
 기존 자바에서 제공하는 비동기 클래스나 인터페이스와 연동하여 사용할 수 있습니다.  
 
 자바 5에서 제공되는 Callable 인터페이스는 비동기 실행후 결과를 반환하는 call() 함수를 정의합니다.  
@@ -214,22 +214,56 @@ Observable<String> source = Observable.fromCallable(callable);
 source.subscibe(System.out::println);
 ```
 
-callable 객체는 람다 표현식을 이용하여 call 함수를 구현했습니다.
-
-- 실행결과
+- 실행 결과
 ```
 Hello Callable
 ```
 
-callable 객체를 생성할 때 람다 표현식을 이용하지 않는다면 코드는 다음과 같습니다.  
+### 4.7 fromFuture()
+Future 인터페이스 역시 자바 5에서 추가된 동시성 API로 비동기 계산의 결과를 구할 때 사용합니다.  
+
+Future 인테페이스 객체와 fromFuture() 함수를 이용하여 Observable을 만들 수 있습니다.  
 ```
-Callable<String> callable = new Callable<String>(){
-  @override
-  public String call() throws Exception{
-  
-   }
-}
+Future<String> future = Executors.newSingleThreadExecutor().submit(() -> {
+  Thread.sleep(1000);
+  return "Hello Future";
+});
+
+Observable<String> source = Observable.fromFuture(future);
+  source.subscribe(System.out::println);
 ```
+
+- 실행 결과
+```
+Hello Future
+```
+
+### 4.8 fromPublisher()
+Publisher는 자바 9의 표준인 Flow API의 일부입니다.
+Publisher와 fromPublisher() 함수를 통해서 Observable 을 만들 수 있습니다.
+```
+Publisher<String> publisher = (Subscriber<? super String> s) -> {
+  s.onNext("Hello Observable.fromPublisher()");
+  s.onComplete();
+};
+
+Observable<String> source = Observable.fromPublisher(publisher);
+source.subscribe(System.out::println);
+```
+
+- 실행 결과
+```
+Hello Observable.fromPublisher()
+```
+
+이러한 생성 연산자외에도 굉장히 많은 생성 연산자가 있습니다.  
+기존의 데이터 구조를 사용하지 않는 추가적인 생성연산자에 대해서는 다음 포스팅에서 더 자세히 다루도록 하겠습니다.  
+
+<br/>
+<br/>
+<br/>
+<br/>
+
 
 
 
