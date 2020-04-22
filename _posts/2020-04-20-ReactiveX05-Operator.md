@@ -95,3 +95,13 @@ ex. doOnNext(), doOnComplete(), doOnError()
 4. all()
 - 현재 Observable이 발행하는 모든 데이터가 주어진 조건이 맞을 때에만 true값을 반환하고발행된 데이터 중 하나라도 조건에 맞지 않는 것이 있으면 fasle를 
 
+
+### 5.5 수학연산자 및 그 외 연산자
+
+1. sum
+2. max
+3. min
+4. average
+
+
+
