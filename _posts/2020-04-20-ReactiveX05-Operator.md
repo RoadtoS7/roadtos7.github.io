@@ -98,10 +98,42 @@ ex. doOnNext(), doOnComplete(), doOnError()
 
 ### 5.5 수학연산자 및 그 외 연산자
 
-1. sum
-2. max
-3. min
-4. average
+1. count()
+- Observable에서 발행한 데이터 개수를 반환합니다.
+- 결과값이 한개 이기 때문에 반환 타입은 Single<Long> 타입으로 반환합니다.  
+  
+2. max()
+- Observable이 발행하는 데이터 중에서 최대값을 반환한다.
+
+3. min()
+- Observable이 발행하는 데이터 중에서 최소값을 발환한다.
+
+4. sum()
+- Observable이 발행하는 데이터의 총합을 반환한다.
+- 반환하는 데이터 타입에 따라서 sumInt(), sumDouble() 등 메서드 이름이 바뀐다.
+
+5. average()
+- Observable이 발행하는 데이터의 평균을 반환한다.
+- 반환하는 데이터 타입에 따라서 averageInt(), averageDouble() 등 메서드 이름이 바뀐다.  
+
+6. delay()
+- Observable이 데이터 발행하는 것을 진행시킨다.
+- 인자로 지연시키는 시간과 시간의 단위를 받는다.  
+- 계산 스케쥴러에서 실행된다. 
+> 시간과 관련된 Observable 연산자
+> interval(), timer(), defer()(Callable 함수를 등록해놓고 실행을 지연시키는 함수)
+
+7. timeInterval()
+- Observable을 아이템이 발행되었을 때 이전 아이템이 발행된지 얼만큼 시간이 지났는지, 시간 간격을 발행하는 Observable로 변환한다.
+- 마블 다이어그램은 다음과 같다.
+
+![image](https://user-images.githubusercontent.com/57262833/80072905-d8a21e00-8581-11ea-95e2-cb39f7daf81f.png)
+
+
+
+
+
+
 
 
 
