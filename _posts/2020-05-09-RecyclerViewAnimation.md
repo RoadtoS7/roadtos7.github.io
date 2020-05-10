@@ -1,5 +1,5 @@
 ---
-title:"RecyclerView에 애니메이션 효과주기"
+title: "RecyclerView에 애니메이션 효과주기"
 date: "2020-05-09 17:55:17 -400"
 categories: Android
 ---
