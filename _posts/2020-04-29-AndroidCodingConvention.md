@@ -64,6 +64,7 @@ fun <T, O> List<T>.map(func: (T) -> O): List<O> = //...
 - 파일에 저작권 또는 라이선스 헤더를 넣고자 하는 경우에는 `블럭 주석`을 사용해서 넣습니다.
 
 ```
+    // 맞는 예시
     /*
      * Copyright 2017 Google, Inc.
      *
@@ -71,16 +72,9 @@ fun <T, O> List<T>.map(func: (T) -> O): List<O> = //...
      */
      
 ```
-- KDoc스타일 또는 한 줄 주석을 사용하여 저작권/라이선스 헤더를 넣지 않습니다.
+- 한 줄 주석을 사용하여 저작권/라이선스 헤더를 넣지 않습니다.
 ```
-    /**
-     * Copyright 2017 Google, Inc.
-     *
-     * ...
-     */
- 
-```
-```
+    // 틀린 예시
     // Copyright 2017 Google, Inc.
     //
     // ...
@@ -88,7 +82,7 @@ fun <T, O> List<T>.map(func: (T) -> O): List<O> = //...
 ```
 
 2. 파일 수준 주석
-- (use-site target)[https://kotlinlang.org/docs/reference/annotations.html#annotation-use-site-targets]을 포함하는 주석은 헤더 주석과 패키지 선언 사이에 배치됩니다.
+- [use-site targe](https://kotlinlang.org/docs/reference/annotations.html#annotation-use-site-targets)을 포함하는 주석은 헤더 주석과 패키지 선언 사이에 배치됩니다.
 Pacakge문은 열 제한을 받지 않으며 줄바꿈을 하지 않습니다.
 
 3. Package 문
@@ -105,6 +99,8 @@ Pacakge문은 열 제한을 받지 않으며 줄바꿈을 하지 않습니다.
 5. 최상위 수준 선언
 - `.kt` 파일은 최상위 수준에서 한개 이상의 함수, 속성, 유형, 타입 알리아스(alias)를 선언할 수 있습니다.
 
-- 하나의 파일은 하나의 기능에 중점을 두어야합니다. <br/> 예를 들어서 
+- 하나의 파일은 하나의 기능에 중점을 두어야합니다. <br/> 예를 들어 한 소스 파일에, 수신기 유형에 관해서 동일한 작업을 하는 확장 함수들이 존재하거나 혹은 하나의 public 클래스로만 파일이 이루어져 있다면, 그 외의 작업을 하는 함수, 속성 등은 다른 파일로 분리되어야 합니다.
+- 파일 내에서 public 선언은 최소화되어야 합니다.
+
 
 
