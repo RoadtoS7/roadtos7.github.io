@@ -16,6 +16,7 @@ categories: Spring
 - java 파일들이 들어있습니다.
 - Controller 와 Model에 해당하는 파일들이 들어있습니다.
 - 이중에서 Controller라는 단어가 붙은 파일들은 아래와 같이 Controller annotation을 가지고 있습니다.
+
 ```
 @Controller
 class OwnerController {
@@ -55,6 +56,7 @@ class OwnerController {
 	}
 
 ```
+
 - Controller annotation 이 붙은 파일은 클라이언트의 요청을 비즈니스 로직으로 분기 및 수행결과를 응답하는 역할을 합니다.
 - 즉, 클라이언트 요청이 들어오면 Controller 파일 내부에서 GetMapping anntation 이나 PostMapping annotation이 달린 함수로 요청이 맵핑되서 처리됩니다.
 
