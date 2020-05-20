@@ -62,6 +62,7 @@ class OwnerController {
 
 ### src/main/resources
 <img src="https://user-images.githubusercontent.com/57262833/82395960-afdd4d80-9a87-11ea-9181-0a0d79d25e80.png" height="300">
+
 - Resources들(자바코드에서 사용할 리소스들 html, db 등)이 저장되는 디렉터리입니다.
 
 
