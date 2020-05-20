@@ -73,10 +73,43 @@ class OwnerController {
 ### src/web/WEB-INF
 - WEB-INF 폴더는 외부에서 직접접근할 수 없습니다.  
 - 컨트롤러를 통하여 경유하여 접근할 수 있습니다.
-- 이유: 컴파일된 클래스와 스프링 환경 설정파일이 존재하기 때문입니다.
+- 이유: 컴파일된 클래스와 스프링 환경 설정파일이 존재하기 때문입니다. 또한 jsp파일을 외부에서 접속하여 수정되는 것을 방지하기 위함입니다.(보안을 위해서 입니다.)
+
+#### src/web/WEB-INF/web.xml
+- 톰캣 설정 파일입니다. 
 
 #### src/web/WEB-INF/views
 - 출력할 웹페이지 html, jsp 파일을 가지고 있습니다.
+
+#### src/web/WEB-INF/dispatcher-servlet.xml
+- 클라이언트로부터 요청이 들어오면 Tomcat과 같은 서블릿컨테이너가 요청을 받는데,  
+이때 제일 앞에서 서버로 들어오는 모든 요청을 처리하는 프론트 컨트롤러가 존재합니다.
+- Spring에서는 프론트 컨트롤러를 Dispatcher Servelet에 해당합니다.
+- 따라서 공통 작업을 Dispatcher Servlet 이 처리한 후, 적절한 컨트롤러로 작업을 위임합니다.
+- dispatcher-servlet.xml이 Dispatcher Servlet에 대한 설정파일입니다.
+
+
+#### src/web/WEB-INF/applicatonContext.xml
+- 의존성 주입을 위한 객체들을 미리 정의하는 곳 입니다.
+- 의존성 주입할 객체들을 지정하면서 객체 주입방식을 선택할 수 있습니다.
+```
+<context:anntation-config/>
+<context:component-scan>
+	base-package="com.base.guest.repository"
+	<context:include-filter type="annotaion"
+		expression="org.springframework.streotype.Repository"/>
+	<context:include-filter type="annotaion"
+		expression="org.springframework.streotype.Service"/>
+	<context:include-filter type="annotaion"
+		expression="org.springframework.streotype.Component"/>
+</context:component-scan>
+```
+- base-package 범위에서 @Reopository, @Serice, @Component 어노테이션이 붙어져있는 클래스 객체를 싱글톤 행태로 생성하여 IoC Container에 저장됩니다.
+
+### .iml 
+- IntelliJ 가 생성한 모듈 파일입니다.
+- .iml 파일은 개발 모듈에 대한 정보를 가지고 있습니다.
+- 개발모듈에 대한 정보: 모듈 경로, dependency들, 그외 다른 설정
 
 ### pom.xml
 
@@ -111,10 +144,15 @@ class OwnerController {
 - maven이 pom.xml을 읽어서 서술된 라이브러리를 jar파일로 로컬저장소에 다운 받아줍니다.
 - = spring의 장점: 기존의 웹프로젝트는 모든 라이브러리 파일을 직접 다운 받아서 적용해야했습니다. 반면에 spring은 dependency 태그만 적어주면, 알아서 적용시켜줍니다. 또한 다른 프로젝트에서 같은 dependency 태그를 적어주면, 별도의 다운로드 없이 로컬 저장소에 저장된 라이브러리를 자동으로 가져다가 사용합니다.
  
+### target 디렉터리
+- maven으로 빌드하면 생기는 jar 파일을 저장하는 곳입니다.
+- 개발할 때는 중요하지 않지만, jar파일을 실제 서버에 반영할 때 target 디렉터리안에 잇는 jar 파일이나 war 파일을 배포하게 됩니다.
 
 
 
 
-
-
-> 참고 : https://doublesprogramming.tistory.com/16
+> 참고 : 
+>>https://doublesprogramming.tistory.com/16
+>>https://victorydntmd.tistory.com/161
+>>https://mangkyu.tistory.com/18
+>> https://mangkyu.tistory.com/13
