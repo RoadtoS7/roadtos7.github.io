@@ -1,5 +1,5 @@
 ---
-title: "안드로이드 코딩 컨벤션"
+title: "내가 보려고 만든 안드로이드 코딩 컨벤션"
 date: "2020-05-04 23:54:17 -400"
 categories: Android
 ---
@@ -61,7 +61,7 @@ fun <T, O> List<T>.map(func: (T) -> O): List<O> = //...
  
 1. 저작권 또는 라이선스 헤더  
 
-파일에 저작권 또는 라이선스 헤더를 넣고자 하는 경우에는 `블럭 주석`을 사용해서 넣습니다.
+- 파일에 저작권 또는 라이선스 헤더를 넣고자 하는 경우에는 `블럭 주석`을 사용해서 넣습니다.
 ```
     /*
      * Copyright 2017 Google, Inc.
@@ -70,7 +70,7 @@ fun <T, O> List<T>.map(func: (T) -> O): List<O> = //...
      */
      
 ```
-KDoc스타일 또는 한 줄 주석을 사용하여 저작권/라이선스 헤더를 넣지 않습니다.
+- KDoc스타일 또는 한 줄 주석을 사용하여 저작권/라이선스 헤더를 넣지 않습니다.
 ```
     /**
      * Copyright 2017 Google, Inc.
@@ -86,5 +86,14 @@ KDoc스타일 또는 한 줄 주석을 사용하여 저작권/라이선스 헤�
     
 ```
 
+2. 파일 수준 주석
+- (use-site target)[https://kotlinlang.org/docs/reference/annotations.html#annotation-use-site-targets]을 포함하는 주석은 헤더 주석과 패키지 선언 사이에 배치됩니다.
+Pacakge문은 열 제한을 받지 않으며 줄바꿈을 하지 않습니다.
+
+3. Package 문
+- package 문은 들여써도, 들여쓰지 않아도 괜찮습니다.
+- pacakge 문은 줄 바꿈을 하지 않습니다.
+
+클래스, 함수 및 속성의 import 문은 단일 목록으로 그룹솨되고 ASCII 정렬됩니다.
 
 
