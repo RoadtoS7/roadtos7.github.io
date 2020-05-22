@@ -3,7 +3,6 @@ title: "Spring 02 - 스프링 폴더 구조"
 date: "2020-05-20 21:58:17 -400"
 categories: Spring
 ---
-
 ## 스프링 폴더 구조
 스프링 폴더 구조는 maven 프로젝트 구조와 같습니다.  
 예시를 통해서 더 자세히 알아보도록 하겠습니다.  
@@ -148,13 +147,93 @@ class OwnerController {
 - maven으로 빌드하면 생기는 jar 파일을 저장하는 곳입니다.
 - 개발할 때는 중요하지 않지만, jar파일을 실제 서버에 반영할 때 target 디렉터리안에 잇는 jar 파일이나 war 파일을 배포하게 됩니다.
 
+## 동작 과정
+1. 웹 어플리케이션이 실행되면, ServletContainter(ex. 톰캣 서버)이 자신의 설정 파일인 web.xml을 로딩합니다.
+2. web.xml 등록되어있는 ContextLoaderListener (Java ClasS)의 인스턴스가 메모리에 생성됩니다.
+- web.xml 등록된 ContextLoaderListner 코드 
+```
+<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+```
+- ContextLoaderListner는 ServletContextListenr 인터페이스를 구현하고 있으며, Root Application Context를 생성하는 역할을 합니다. (정확히는 ContextLoaderListner 내부에 부모객체로 존재하는 ContextLoader가 Root Application Context는 생성합니다.)
+3. 생성된 ContextLoaderListener 는 applicationContext.xml을 로딩하여 스프링 IoC Container에 해당하는 Root Application Context 생성합니다.
+- 또한 applicationContext.xml 에 등록된 bean들이 생성되어 Root Applicatoin Context에 저장됩니다.
+- 이때 생성되는 bean들은 웹과 관련없는 객체들입니다.
+- 예를 들어, DB에 접근하기 위한 객체인 repository나 databaseDataSource 클래스 객체를 생성합니다.
+- applicationContext.xml 코드 예시입니다.
+```
+<context:component-scan base-package="/basepacakge주소">
+        <context:include-filter type="annotation" 
+                                expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Component"/>
+        
+    </context:component-scan>
+```
+- context:component-scan 태그를 통해서 ContextLoaderListner내부의 ContextLoader가 bean 생성위해 스캔할 범위(base-package)를 지정합니다.
+- context:component-scan 태그의 하위태그로 include-filter태그를 추가하여 스캔할 대상을 지정합니다.
+- 위에서는 @Repository, @Service, @Component 어노테이션이 붙은 클래스를 스캔하여 bean으로 생성한다는 의미입니다.
+- 여기까지가 톰캣이 시작될 때 수행되는 과정입니다.
 
+4. 클라이언트로 부터 요청이 들어오면, 요청이 들어온 url 을 보고 해당 <servelt-mappring> 태그를 참조하여 요청에 대응하는 servlet을 맵핑시켜줍니다.
+- web.xml 의 servlet 관련 코드
+	
+```
+<servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+```
+- web.xml에는 <servlet> 태그를 통해서 사용할 dispatcher가 설정되어있습니다.
+- 위에서는 url-pattern이 /인것이 dispatcher 서블렛으로 지정되어있기 때문에 모든 요청이 dispatcher 서블렛과 맵핑됩니다.
+- 만약 해당 서블릿으로 요청이 처음들어온 경우라면, servel-name에 해당하는 dispatcher뒤에 -servlet.xml이 붙은 dispatcher-servlet.xml 파일을 읽어드립니다.
+- dispatcher-servlet.xml 에는 아래와 같은 내용을 담고 있습니다.
+
+```
+<mvc:annotation-driven></mvc:annotation-driven> <!-- Annotation 활성화 -->
+    <context:component-scan base-package="Controller"/><!-- Component 패키지 지정 -->
+	
+```
+- 이는 DispatcherServlet이 요청을 받았을 때 base-package 범위에서 @Controller 어노테이션으로 지정된 것을 스캔한다는 코드입니다.
+- 따라서 아래와 같이 base-package에 속한 클래스의 선언부에 @Controller 어노테이션을 추가하면 해당 클래스는 스캔이 되어 싱글톤 형태의 객체로 생성됩니다. 그리고 생성된 객체는 Web Application Context(IoC 컨테이너)에 저장됩니다.
+- dispatcher-servlet.xml에서 설정한 anntation 뿐만 아니라, 여러 annotaion 을 스캔합니다. 그 중 하나가 @Autowired라는 어노테이션입니다. @Autowired이 지정된 변수에 Root Applicatoin Context 에 존재하는 객체를 가져다가 넣게 됩니다. 즉, @Autowired가 지정된 변수에 의존성 주입이 일어납니다.  
+- 또한 @RequestMapping 이라는 annotaion 을 만나게 되면, Handler Mapping을 하게 됩니다.   
+즉, 어떤 요청이 올 때 어떤 메서드를 실행하는지 맵핑 테이블을 만들게 됩니다.  
+개발자는 @RequestMapping 어노테이션을 이용하여 요청 URL 과 메소드를 연결하고, 해당 메소드에 수행할 작업을 작성하면됩니다. 
+(보통 Controller의 메소드에 @RequestMapping 어노테이션이 쓰이기 때문에, 해당 메소드에서 수행할 로직은 주로 데이터를 받아와서 뷰페이지에 전달하는 로직입니다.)  
+```
+@Controller
+class OwnerController {
+	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	@GetMapping("/owners/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Owner owner = new Owner();
+		model.put("owner", owner);
+		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
+}
+```
+- MappingTable이 생성된 이후 들어오는 요청은 DispatcherServlet이 service() 메서드를 실행하여 HandlerMapping에게 질의를 합니다. HanldlerMapping에 대한 질의 결과를 통해 요청을 메소드에게 mapping시킵니다.
 
 
 > 참고 : 
 >>https://doublesprogramming.tistory.com/16
+
 >>https://victorydntmd.tistory.com/161
+
 >>https://mangkyu.tistory.com/18
+
 >>https://mangkyu.tistory.com/13
+
 >>http://lazyrodi.github.io/2017/09/03/2017-09-03-spring-structure/
->>https://victorydntmd.tistory.com/161
+
+>>https://doublesprogramming.tistory.com/84
+
