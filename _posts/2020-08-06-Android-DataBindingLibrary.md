@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android - 데이터 바인딩 라이브러리(Data Binding Library)"
+title:  "Android - 데이터 바인딩 라이브러리(Data Binding Library) 소개"
 date:   2020-08-06 22:12:17 -400
 lastmod : 2020-08-10 11:59:17 -400
 sitemap :
