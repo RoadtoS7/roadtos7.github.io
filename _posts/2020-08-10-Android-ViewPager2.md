@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android - ViewPager2의 어댑터1: FragmentStateAdapter"
+title:  "Android - ViewPager2의 어댑터"
 date:   2020-08-10 14:12:17 -400
 lastmod : 2020-08-10 14:12:17 -400
 sitemap :
