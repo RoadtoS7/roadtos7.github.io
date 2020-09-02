@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android - 데이터 바인딩 라이브러리(Data Binding Library) 소개"
+title:  "Android - 데이터 바인딩 라이브러리(Data Binding Library): 소개"
 date:   2020-08-06 22:12:17 -400
 lastmod : 2020-08-10 11:59:17 -400
 sitemap :
@@ -11,7 +11,7 @@ categories: Android
 
 ## Data Binding Library (데이터 바인딩 라이브러리) 란?
 한국말로 "데이터 결합 라이브러리" 라고도 불리는 데이터 바인딩 라이브러리(Data Binding Library)는 프로그래밍적인 방식이 아니라 선언적인 방식으로 UI와 데이터를 연결시킬 수 있도록 하는 라이브러리 입니다.  
-데이터 바인딩 라이브러리는 Android Architecture Components의 일환으로 등장하여, 유지보수가 쉽고, 테스트가 용이한 앱을 만드는데 도움을 줍니다.  
+데이터 바인딩 라이브러리는 Android Architecture Components의 일환으로 등장했으며, 유지보수가 쉽고, 테스트가 용이한 앱을 만드는데 도움을 주고 있습니다.  
 
 액티비티 코드에서 UI를 구성요소들은 UI 프레임워크 메서드 내에 다음과 같이 정의됩니다.
 ```kotlin
@@ -63,6 +63,7 @@ xml 레이아웃 파일에서 뷰에 데이터를 직접 할당할 수 있습니
 - `android:text` 속성에 대한 바인딩 어댑터와 같이, 자주 쓰이는 어댑터들은 `android.databinding.adapters` 패키지에서 꺼내서 사용할 수 있습니다.  
 - `android.databinding.adapters`패키지에 존재하는 어댑터들은 [구글의 어댑터 Git 페이지](https://android.googlesource.com/platform/frameworks/data-binding/+/refs/heads/studio-master-dev/extensions/baseAdapters/src/main/java/androidx/databinding/adapters)를 참조하세요.
 - 이와 같이 제공되는 바인딩 어댑터를 사용할 수도 있고, 아래 예시와 같이 커스텀 어댑터를 생성하여 사용할 수도 있습니다.
+
 ```kotlin
 @BindingAdapter("app:goneUnless")
 fun goneUnless(view: View, visible: Boolean) {
@@ -71,7 +72,7 @@ fun goneUnless(view: View, visible: Boolean) {
 ```
 
 3. 레이아웃 뷰와 아키텍처 구성요소들 연결
-- Android Support Library에는 성능이 뛰어나고, 테스트와 유지관리가 쉬운 앱을 만드는데 사용할 수 있는 (Android Architecture Components)[https://developer.android.com/topic/libraries/architecture]가 존재합니다.  
+- Android Support Library에는 성능이 뛰어나고, 테스트와 유지관리가 쉬운 앱을 만드는데 사용할 수 있는 [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)가 존재합니다.  
 - 이 아키텍처 구성요소를 데이터 바인딩 라이브러리와 함께 사용한다면, UI 개발을 한층 더 단순화 시킬 수 있습니다.  
 
 4. 양방향 데이터 바인딩
@@ -83,4 +84,4 @@ fun goneUnless(view: View, visible: Boolean) {
 <br/>
 <br/>
 
-참고: https://developer.android.com/topic/libraries/data-binding
+참고: [https://developer.android.com/topic/libraries/data-binding](https://developer.android.com/topic/libraries/data-binding)
