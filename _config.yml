@@ -5,6 +5,8 @@ author:             RoadtoS7
 baseurl:            ""
 url:                "https://https://roadtos7.github.io/"
 
+_category_dir: category/
+tag_dir: tag/
 # Social Profiles
 twitter_username:
 github_username:    RoadtoS7
