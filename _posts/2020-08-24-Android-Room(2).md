@@ -75,6 +75,7 @@ Room은 앱이 컴파일 될 동안에 `Dao`클래스 내의 쿼리에 오류가
 
 3. version
   - 데이터베이스 버전
+  - 프로그래머가 데이터베이스를 업데이트 할 때마다 숫자를 1씩 증가시켜서 지정해줍니다.  
 
 4. views
   - 데이터베이스 내에 포함될 데이터베이스 뷰들을 나열합니다.
@@ -95,7 +96,7 @@ abstract class AppDatabase : RoomDatabase() {
 Sunflower 프로젝트에서 데이터베이스에 해당하는 AppDatabase의 경우 데이터베이스 조건에 따라 `RoomDatabase`를 상속받는 추상클래스입니다.  
 그리고 `@Database` 어노테이션 내에 엔티티 목록을 포함하고 있으며,
 ```
-@Database(entities =[GardenPlanting::class, Plant::class],)
+@Database(entities =[GardenPlanting::class, Plant::class], version = 1)
 ```
 
 
@@ -120,6 +121,8 @@ AppDatabase.kt 코드
 @Database(entities = [GardenPlanting::class, Plant::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
+  abstract fun gardenPlantingDao(): GardenPlantingDao
+  abstract fun plantDao(): PlantDao
   // ...
 }  
 ```
@@ -132,7 +135,11 @@ class Converters{
 }
 ```
 
-데이터베이스 인스턴스는 리소스 소모를 많이 하며, 단일 프로세스 내에서 여러 인스턴스에 접근할 필요가 거의 없기 때문에 싱글톤으로 생성합니다. 따라서 `AppDatabase`에서도 데이터베이스 인스턴스 Singleton 디자인 패턴으로 생성되었음을 알 수 있습니다.
+<br/>
+<br/>
+
+데이터베이스 인스턴스는 리소스 소모를 많이 하며, 단일 프로세스 내에서 여러 인스턴스에 접근할 필요가 거의 없기 때문에 **싱글톤** 으로 생성합니다. 따라서 `AppDatabase`에서도 데이터베이스 인스턴스를 얻기 위해 사용하는 `getInstance()`함수를 살펴볼 때, 데이터베이스 인스턴스 Singleton 디자인 패턴으로 생성되었음을 알 수 있습니다.
+
 ```
 companion object{
   @Volatile private val instance: AppDatabase? = null
@@ -144,3 +151,5 @@ companion object{
   }
 }
 ```
+
+다음 포스팅에서는 `Room`의 요소중 `Entity`에 대해서 자세히 알아보도록 하겠습니다.
