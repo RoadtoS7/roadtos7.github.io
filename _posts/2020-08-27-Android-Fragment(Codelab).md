@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Android
+background: "/img/classic_blue.jpeg"
 ---
 
 > 이 포스팅은 구글 Codelabs에서 "Create a Room fragment"을 공부하며 작성한 포스팅입니다.
