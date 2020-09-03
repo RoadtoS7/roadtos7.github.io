@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Kotlin
+background: "/img/classic_blue.jpeg"
 ---
 
 ## open
