@@ -23,7 +23,8 @@ Room은 데이터베이스, 엔티티, DAO로 구성되어 있습니다.
 위의 조건을 만족하는 데이터베이스의 인스턴스는 `Room.databaseBuilder()` 또는 `Room.inMemoryDatabaseBuilder()`를 호출하여 얻을 수 있습니다.  
 
 코드로 나타내면 다음과 같습니다.  
-```
+
+```Kotlin
 val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
@@ -36,7 +37,8 @@ val db = Room.databaseBuilder(
 하지만 엔티티와 DAO는 한 데이터베이스 안에서 유일해야 합니다.
 
 아래 예시 코드에서는 총 2개의 엔티티와 3개의 Dao를 가지는 Database를 나타냅니다.
-```
+
+```Kotlin
 // Song and Album are classes annotated with @Entity.
 @Database(version = 1, entities = {Song.class, Album.class})
 abstract class MusicDatabase extends RoomDatabase {
@@ -85,7 +87,7 @@ Room은 앱이 컴파일 될 동안에 `Dao`클래스 내의 쿼리에 오류가
 ## Sunflower Database 분석 - AppDatabase.kt
 
 ### AppDatabase.kt
-```
+```Kotlin
 @Database(entities =[GardenPlanting::class, Plant::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -96,20 +98,23 @@ abstract class AppDatabase : RoomDatabase() {
 
 Sunflower 프로젝트에서 데이터베이스에 해당하는 AppDatabase의 경우 데이터베이스 조건에 따라 `RoomDatabase`를 상속받는 추상클래스입니다.  
 그리고 `@Database` 어노테이션 내에 엔티티 목록을 포함하고 있으며,
-```
+
+```Kotlin
 @Database(entities =[GardenPlanting::class, Plant::class], version = 1)
 ```
 
 
 인자가 0개이고, `@Dao`어노테이션이 지정된 클래스를 반환하는 추상 메서드를 포함하고 있습니다.
-```
+
+```Kotlin
 abstract fun getPlaningDao(): GardenPlantingDao
 abstract fun plantDao(): PlantDao
 ```
 
 이제 조건 외에 `AppDatabase`에 기술된 코드 의미를 분석해보도록 하겠습니다.  
 `AppDatabase`의 속성을 볼 때, `GardenPlanting`엔티티와 `Plant`엔티티를 가지며, `AppDatabase`의 버전은 1입니다. 그리고 `exportSchema`가 false로 되어있기 때문에 따로 데이터베이스 스키마가 저장되고 있지 않음을 알 수 있습니다.
-```
+
+```Kotlin
 @Database(entities = [GardenPlanting::class, Plant::class], version = 1, exportSchema = false)
 ```
 Room은 primitive 데이터 타입과 primitive 데이터에 대한 wrapper 타입만 지원합니다.  
@@ -118,7 +123,8 @@ Room은 primitive 데이터 타입과 primitive 데이터에 대한 wrapper 타�
 `AppDatabase`에서도 Calendar 타입을 사용하기 위해 `Converter`를 만들고 데이터베이스에 `TypeConverter`로서 지정해주었습니다.
 
 AppDatabase.kt 코드
-```
+
+```Kotlin
 @Database(entities = [GardenPlanting::class, Plant::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -129,7 +135,8 @@ abstract class AppDatabase : RoomDatabase() {
 ```
 
 Converters.kt 코드
-```
+
+```Kotlin
 class Converters{
     @TypeConverter fun calendarToDatestamp(calender: Calendar): Long = calender.timeInMills
     @TypeConverter fun datestampToCalendar(value: Long): Calendar = Calendar.getInstance().apply{ timeInMills = value}
@@ -141,7 +148,7 @@ class Converters{
 
 데이터베이스 인스턴스는 리소스 소모를 많이 하며, 단일 프로세스 내에서 여러 인스턴스에 접근할 필요가 거의 없기 때문에 **싱글톤** 으로 생성합니다. 따라서 `AppDatabase`에서도 데이터베이스 인스턴스를 얻기 위해 사용하는 `getInstance()`함수를 살펴볼 때, 데이터베이스 인스턴스 Singleton 디자인 패턴으로 생성되었음을 알 수 있습니다.
 
-```
+```Kotlin
 companion object{
   @Volatile private val instance: AppDatabase? = null
 
