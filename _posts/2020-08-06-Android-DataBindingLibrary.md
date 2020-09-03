@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Android
+background: "/img/classic_blue.jpeg"
 ---
 
 ## Data Binding Library (데이터 바인딩 라이브러리) 란?
