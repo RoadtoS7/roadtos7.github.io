@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Nodejs
+background: "/img/classic_blue.jpeg"
 ---
 
 Node.js를 이용하여 웹 애플리케이션을 만들 때, 프로그래밍 언어로 자바스크립트를 사용합니다.  
