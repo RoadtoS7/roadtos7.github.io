@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Nodejs
+background: "/img/classic_blue.jpeg"
 ---
 
 ## 모듈(Module) 이란?
