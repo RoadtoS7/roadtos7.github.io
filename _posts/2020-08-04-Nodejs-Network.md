@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Nodejs
+background: "/img/classic_blue.jpeg"
 ---
 
 Node.js를 이용하여 서버 웹애플리케이션을 만들기에 앞서서 인터넷이 동작하는 방식에 대하여 간략히 다루어보고자 합니다.  
