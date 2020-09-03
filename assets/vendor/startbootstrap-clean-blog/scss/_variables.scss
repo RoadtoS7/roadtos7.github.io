@@ -20,7 +20,7 @@ $red:     #dc3545 !default;
 $orange:  #fd7e14 !default;
 $yellow:  #ffc107 !default;
 $green:   #28a745 !default;
-$teal:    #0085A1 !default;
+$teal:    #0F4C81 !default;
 $cyan:    #17a2b8 !default;
 
 $primary:       $teal !default;
@@ -31,3 +31,6 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+
+$prev-teal:     #0085A1 !default;
+$prev-primary:  $prev-teal !default;
