@@ -16,11 +16,12 @@ Android의 `ViewPager2`를 공부하던 중, 구글에서 제공한 `ViewPager2`
 Kotlin 공식 문서를 살펴보면, 기본적으로 코틀린의 모든 클래스는 상속이 불가능합니다. 그리고 코틀린에서는 상속 불가능한 클래스를 `final` 타입이라고 합니다.  
 상속 가능한 클래스로 만들기 위해서는 `open`키워드를 사용해야 합니다. 말 그대로, 상속에 열려있는 클래스를 만든다고 생각하면 이해하기 쉽습니다.  
 
-![image](https://user-images.githubusercontent.com/57262833/90097538-1fa26200-dd71-11ea-9ee2-854848d96f03.png)
+<img src=https://user-images.githubusercontent.com/57262833/90097538-1fa26200-dd71-11ea-9ee2-854848d96f03.png width=500px/>
+
 
 위의 예시에서 전자제품을 나타내는 `ElectronicProduct` 클래스를 선언한 후, 이 클래스를 상속받는 `RiceCooker` 클래스를 만들었습니다. 그런데 `ElectronicProduct` 클래스의 경우 `open` 키워드를 사용하지 않고, 선언했기 때문에 상속이 불가능한 `final` 타입입니다. 따라서 예시와 같이 빨간 줄로 에러가 뜨는 것을 확인할 수 있습니다.  
 
-<img src=https://user-images.githubusercontent.com/57262833/90097693-86c01680-dd71-11ea-9dd3-e8bc987932b8.png width=500px>
+<img src=https://user-images.githubusercontent.com/57262833/90097693-86c01680-dd71-11ea-9dd3-e8bc987932b8.png width=500px/>
 
 이번에는 `ElectronicProduct`클래스에 `open` 키워드를 추가했으며, 결과적으로 `RiceCooker`의 선언문에서 `ElectronicProduct` 떴던 빨간 줄이 사라지고 오류가 해결된 것을 확인할 수 있습니다.  
 
