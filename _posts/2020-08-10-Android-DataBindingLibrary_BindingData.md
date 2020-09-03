@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Android
+background: "/img/classic_blue.jpeg"
 ---
 
 > 본 포스팅은 Android에서 Android Jetpack 사용 예시로 제공하는 Sunflower 프로젝트를 클론코딩하며 분석하고 있습니다.
