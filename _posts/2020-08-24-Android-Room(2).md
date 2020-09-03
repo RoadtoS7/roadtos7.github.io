@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Android
+background: "/img/classic_blue.jpeg"
 ---
 
 Room은 데이터베이스, 엔티티, DAO로 구성되어 있습니다.  
