@@ -47,8 +47,9 @@ background: "/img/classic_blue.jpeg"
 - 네번째 인자는 인플레이트된 뷰들의 계층관계가 세번째 인자에 붙여져야하는지를 boolean 값으로 나타냅니다.  
 만약 네번째 인자로 false값이 지정된다면, 세번째 인자 값은 XML 리소스에서 루트 뷰에 대한 LayoutParams값을 나타냅니다.
 
-- 일반적으로 프레그먼트에서 사용되는 데이터 바인딩 객체는 다음과 같이 생성됩니다.  
-```
+- 일반적으로 프레그먼트에서 사용되는 데이터 바인딩 객체는 다음과 같이 생성됩니다.
+  
+```Kotlin
 override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                          savedInstanceState: Bundle?): View? {
    val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,
@@ -67,7 +68,8 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 - 추가한 `<fragment>`의 `android:name`을 추가하고자 하는 프레그먼트의 코틀린 파일 경로를 전부 입력합니다.
 
 - 예시 코드는 다음과 같습니다.
-```
+
+````Kotlin
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
