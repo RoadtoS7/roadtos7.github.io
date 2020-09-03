@@ -7,6 +7,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Android
+background: "/img/classic_blue.jpeg"
 ---
 
 이 포스팅은 Android Architecture Components 중 하나인 데이터 바인딩 라이브러리(Data Binding Library)에 대한 시리즈 포스팅 중 두번째 포스팅에 해당합니다.  
