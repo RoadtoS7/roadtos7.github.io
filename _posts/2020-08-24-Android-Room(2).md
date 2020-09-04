@@ -24,6 +24,13 @@ Room은 데이터베이스, 엔티티, DAO로 구성되어 있습니다.
 
 코드로 나타내면 다음과 같습니다.  
 
+{% highlight Kotlin %}
+val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-name"
+        ).build()
+{% endhighlight %}
+
 ```Kotlin
 val db = Room.databaseBuilder(
             applicationContext,
