@@ -17,7 +17,10 @@
   {% include google-analytics.html %}
 
   <!-- syntax.css -->
-  <link rel="stylesheet" href="/assets/syntax.css">
+  {% block stylesheets %}
+    <link rel="stylesheet" href="/assets/syntax.css">
+  {% endblock %}
+
 
 </body>
 
