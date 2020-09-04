@@ -134,6 +134,10 @@
 .highlight .nf, .highlight .fm {
   color: #a6e22e;
 }
+.highlight .p {
+  color: #ffffff;
+  background-color: #272822;
+}
 .highlight .vc {
   color: #ffffff;
   background-color: #272822;
