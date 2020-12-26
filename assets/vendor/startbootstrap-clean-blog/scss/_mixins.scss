@@ -66,3 +66,6 @@
 @mixin sans-serif-font() {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+@mixin nanum-gothic(){
+  font-family: 'Nanum Gothic', sans-serif;
+}
