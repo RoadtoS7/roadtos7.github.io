@@ -2,7 +2,7 @@
 layout: post
 title:  "Android - ViewPager2의 어댑터"
 date:   2020-08-10 14:12:17 -400
-lastmod : 2020-08-10 14:12:17 -400
+lastmod : 2020-12-29 14:12:17 -400
 sitemap :
   changefreq : daily
   priority : 1.0
@@ -24,7 +24,7 @@ background: "/img/classic_blue.jpeg"
 
 - SunflowerPagerAdapter.kt 코드
 
-```
+{% highlight Kotlin %}
 const val MY_GARDEN_PAGE_INDEX = 0
 const val PLANT_LIST_PAGE_INDEX = 1
 
@@ -44,13 +44,16 @@ class SunflowerPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
         return tabFragmentsCreators[position]?.invoke() ?: throw IndexOutOfBoundsException()
     }
 }
-```
+{% endhighlight %}
+
+
 
 위 코드를 볼 때, `SunflowerPagerAdapter`는 `FragmentStateAdapter`를 상속받고 있음을 알 수 있습니다.
 `FragmentStateAdapter`는 `ViewPager2`의 어댑터를 생성할 때 사용되는 클래스 중 하나로,  `ViewPager2`와 `Fragment`를 함께 사용할 때 주로 사용되며 특히, 이 때 `Fragment`로 하나의 화면을 표시할 때 주로 사용됩니다.
 `Sunflower`프로젝트에서는 `MY GARDEN`탭과 연결되는 `GardenFragment`와 `PLANT LIST`탭과 연결되는 `PlantListFragment`가 화면의 일부분을 차지하면서, 화면을 표시할 때 사용되므로 `FragmentStateAdapter`를 사용하고 있음을 추측할 수 있습니다.  
 
-<img src=https://user-images.githubusercontent.com/57262833/91941703-97422c00-ed34-11ea-8655-947e4dea7243.png width=500px>
+![탭 사진](https://user-images.githubusercontent.com/57262833/91941703-97422c00-ed34-11ea-8655-947e4dea7243.png)
+
 
 <br/>
 <br/>
@@ -67,7 +70,7 @@ class SunflowerPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
 
 - FragmentStateAdapterActivity.kt 코드
 
-```
+{% highlight Kotlin %}
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -96,7 +99,7 @@ class FragmentStateAdapterActivity : AppCompatActivity() {
         }
     }
 }
-```
+{% endhighlight %}
 
 `HomeFragment`와 `MenuFragment`는 `TextView`하나씩을 가지고 있습니다.  
 위 코드에서 `viewpager2`의 어댑터는 `FragmentStateAdapter`의 익명객체입니다.
@@ -123,29 +126,34 @@ class FragmentStateAdapterActivity : AppCompatActivity() {
 <br/>
 <br/>
 
-가장 먼저 위 예시처럼 `FragmentStateAdapter`에 `FragmentActivity`를 인자로 받는 것이 존재합니다.  
-```
+가장 먼저 위 예시처럼 `FragmentStateAdapter`에 `FragmentActivity`를 인자로 받는 것이 존재합니다.
+  
+{% highlight Kotlin %}
 public FragmentStateAdapter(fragmentStateAdapter FragmentStateAdapter)
-```
+{% endhighlight %}
+
 이 생성자는 `ViewPager2`가 액티비티 내에서 동작할 때 주로 쓰입니다.  
 
 <br/>
 <br/>
 
 두번째는 인자로 `Fragment`를 받는 것입니다.
-```
+
+{% highlight Kotlin %}
 public FragmentStateAdapter(Fragment fragment)
-```
+{% endhighlight %}
+
 이 생성자는 프레그먼트 내에서 동작하는 `ViewPager2`를 만들 때 주로 사용합니다.  
 
 <br/>
 <br/>
 
-세번째 `FragmentStateAdapter`생성자는 첫번째 인자로 `FragmentManager`를 받고 두번째 인자로는 `Lifecycle`을 받습니다.  
-```
+세번째 `FragmentStateAdapter`생성자는 첫번째 인자로 `FragmentManager`를 받고 두번째 인자로는 `Lifecycle`을 받습니다.
+  
+{% highlight Kotlin %}
 public FragmentStateAdapter(FragmentManager fragmentManager,
                             Lifecycle lifecycle)
-```
+{% endhighlight %}
 
 첫번째 인자인 `fragmentManager`에는 `ViewPager2`호스트의 `FragmentManager`를 넣습니다.  
 두번째 인자인 `lifecycle`에는 `ViewPager2`호스트의 `LifeCycle`을 넣습니다.  
@@ -169,7 +177,7 @@ public FragmentStateAdapter(FragmentManager fragmentManager,
 
 - `HomeViewPagerFragment.kt`에서 `ViewPager2` 어댑터를 설정하고, `TabLayout`과 `ViewPager2`를 연결하는 코드
 
-  ```
+{% highlight Kotlin %}
   viewPager.adapter = SunflowerPagerAdapter(this)
 
       // Set the icon and text for each tab
@@ -177,7 +185,8 @@ public FragmentStateAdapter(FragmentManager fragmentManager,
           tab.setIcon(getTabIcon(position))
           tab.text = getTabTitle(position)
       }.attach()
-  ```
+{% endhighlight %}
+
 <br/>
 <br/>
 
@@ -188,7 +197,7 @@ public FragmentStateAdapter(FragmentManager fragmentManager,
 
 - TabActivity 코드
 
-```
+{% highlight Kotlin %}
 class TabActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -215,7 +224,7 @@ class TabActivity : AppCompatActivity() {
         }
     }
 }
-```
+{% endhighlight %}
 
 위 코드에서는 `viewpager`의 어댑터로 `FragmentStateAdapter`를 상속받은 `MenuViewPagerAdapter`를 사용하고 있습니다.
 (자세한 코드가 궁금하다면 github 프로젝트를 확인해주세요.)  
@@ -225,20 +234,21 @@ class TabActivity : AppCompatActivity() {
 <br/>
 <br/>
 
-```
+{% highlight Kotlin %}
 TabLayoutMediator(tabs, viewpager){ tab, position->
     tab.text = getTabTitle(position)
 }.attach()
-```
+{% endhighlight %}
 
 `TabLayoutMediator` 구현 코드를 더 자세히 살펴보도록 하겠습니다.  
-`TabLayoutMediator`는 3개의 인자를 받습니다.  
-```
+`TabLayoutMediator`는 3개의 인자를 받습니다.
+  
+{% highlight Kotlin %}
 public TabLayoutMediator (TabLayout tabLayout,
                 ViewPager2 viewPager,
                 TabLayoutMediator.TabConfigurationStrategy tabConfigurationStrategy)
 
-```
+{% endhighlight %}
 
 첫번째 파라미터인 `tabLayout`와 두번째 파라미터인 `viewPager`에는 연결하려는 `TabLayout`과 `ViewPager2`를 순서대로 넣습니다.  
 세번째 파라미터로는 `TabLayoutMediator.TabConfigurationStrategy`를 구현하여 넣습니다.  
