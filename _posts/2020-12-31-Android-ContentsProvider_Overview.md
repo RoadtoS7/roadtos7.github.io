@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Android - 내용 제공자(콘텐츠 프로바이더, Contents Provider)"
+title:  "Android - 내용 제공자(콘텐츠 프로바이더, Contents Provider) 개요"
 date:   2020-12-31 23:04:17 -400
 lastmod : 2020-12-31 22:04:17 -400
 sitemap :
