@@ -86,7 +86,7 @@ background: "/img/classic_blue.jpeg"
 
 <br/>
 
-## :tree: Broadcast Reciever
+## :three: Broadcast Reciever
 - **브로드캐스트 리시버는 시스템이 앱에게 이벤트를 전달할 수 있도록 하고, 앱으로 하여금 시스템 전역 브로드 캐스트 알림에 응답할 수 있도록 한다.**
 
 - 브로드캐스트 리시버는 앱으로 들어갈 수 있는 있는 진입점이기 때문에, **현재 실행되지 않은 앱에도 브로드 캐스트를 전달할 수 있다.**
