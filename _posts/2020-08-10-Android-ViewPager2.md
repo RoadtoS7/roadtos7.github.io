@@ -173,7 +173,7 @@ public FragmentStateAdapter(FragmentManager fragmentManager,
 `Sunflower`프로젝트의 `HomeViewPagerFragment`에서도 다음과 같은 `TabLayout`을 구현하기 위해 `TabLayoutMediator`를 사용했습니다.
 - `HomeViewPagerFragment`의 `TabLayout` 구현 모습  
 
-  <img src=https://user-images.githubusercontent.com/57262833/91941703-97422c00-ed34-11ea-8655-947e4dea7243.png width=500px>
+  ![탭 사진](https://user-images.githubusercontent.com/57262833/91941703-97422c00-ed34-11ea-8655-947e4dea7243.png)
 
 - `HomeViewPagerFragment.kt`에서 `ViewPager2` 어댑터를 설정하고, `TabLayout`과 `ViewPager2`를 연결하는 코드
 
