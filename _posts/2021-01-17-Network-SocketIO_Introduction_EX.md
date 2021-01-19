@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Socket.io의 개요"
-date:   2020-01-17 22:37:17 -400
-lastmod : 2020-01-17 22:37:17 -400
+date:   2021-01-17 22:37:17 -400
+lastmod : 2021-01-17 22:37:17 -400
 sitemap :
   changefreq : daily
   priority : 1.0
