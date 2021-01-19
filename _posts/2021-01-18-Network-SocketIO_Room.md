@@ -1,0 +1,79 @@
+---
+layout: post
+title:  "Socket.io - Room(방)"
+date:   2020-01-18 02:41:17 -400
+lastmod : 2020-01-18 02:41:17 -400
+sitemap :
+  changefreq : daily
+  priority : 1.0
+categories: Network
+background: "/img/classic_blue.jpeg"
+---
+
+## Room(방)
+- Socket.IO에서 방은 여러 소켓들이 참여(join)하고 떠날 수 있는(leave) 채널을 말한다.
+- 방은 모든 클라이언트가 아니라, 일부 클라이언트에게 이벤트를 전송할 때 사용된다.
+- 방은 서버에서만 사용될 수 있는 개념이다.  
+클라이언트는 자신이 참여(join)하고 있는 방 리스트에 접근할 수 없다. 
+
+### 방에 참여하고 떠나기
+- 특정 클라이언트 소켓을 주어진 채널(룸)에 참여시키려면 `join()` 함수를 호출하면 된다.  
+
+```javascript
+io.on('connection', socket => {
+  socket.join('some room');
+});
+```
+
+- 한 룸에 속하는 모든 클라이언트에게 이벤트를 전송하려면 `in` 혹은 `to` 함수를 호출하면 된다.
+
+```javascript
+io.to('some room').emit('some event');
+```
+
+- 여러 룸에 한번에 동일한 이벤트를 보낼 수 있다.
+
+```javascript
+io.to('room1').to('room2').to('room3').emit('some event');
+```
+    
+-주의할 점: 이때 집합의 합집합 연산이 적용된다.  
+즉, room1과 room2 동시에 존재하는 소켓일지라도, 한번의 이벤트만을 받는다.
+
+- 또한 특정 소켓 인스턴스를 가지고, 해당 소켓이 속한 룸에 이벤트를 전송할 수 있다.  
+이 경우 메서드가 호출된 소켓은 제외하고 나머지 소켓을 통해서만 이벤트가 전송된다.
+
+![예시 사진](https://socket.io/images/rooms2.png) 
+
+- 방에서 해당 소켓을 내보내려면 `join()`과 마찬가지로 `leave()`메서드를 호출하면 된다.
+
+
+### Default Room
+`Socket.IO`의 모든 소켓은 랜덤이고, 추측불가능하며, 고유한 식별자인 아이디로 구분된다.
+- 편의성을 위해서 각 소켓은 자신의 아이디로 구분되는 룸에 자동으로 참여된다.
+- 이런 특성 덕분에, private 한 메시지를 전송하는 것이 쉽다.
+
+```javascript
+io.on("connection", socket => {
+  socket.on("private message", (anotherSocketId, msg) => {
+    socket.to(anotherSocketId).emit("private message", socket.id, msg);
+  });
+});
+```
+
+### Disconnection
+- 소켓이 연결이 끊기면, 자신이 속한 모든 채널을 떠나게(`leave`)된다. 
+- `disconnecting` 이벤트를 리슨하고 있음으로써 연결이 끊긴 소켓이 존재했던 룸을 가지고 와서 추가적인 작업을 할 수 있다.
+
+```javascript
+io.on('connection', socket => {
+  socket.on('disconnecting', () => {
+    console.log(socket.rooms); // the Set contains at least the socket ID
+  });
+
+  socket.on('disconnect', () => {
+    // socket.rooms.size === 0
+  });
+});
+```
+
