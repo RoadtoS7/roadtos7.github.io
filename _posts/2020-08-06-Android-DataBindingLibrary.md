@@ -15,6 +15,7 @@ background: "/img/classic_blue.jpeg"
 데이터 바인딩 라이브러리는 Android Architecture Components의 일환으로 등장했으며, 유지보수가 쉽고, 테스트가 용이한 앱을 만드는데 도움을 주고 있습니다.  
 
 액티비티 코드에서 UI를 구성요소들은 UI 프레임워크 메서드 내에 다음과 같이 정의됩니다.
+
 ```kotlin
 findViewById<TextView>(R.id.sample_text).apply {
     text = viewModel.userName
@@ -41,6 +42,7 @@ xml 레이아웃 파일에서 뷰에 데이터를 직접 할당할 수 있습니
 `data`요소는 레이아웃에서 루트 레벨에 존재하는 UI 요소와 같은 레벨에 존재해야 합니다.
 - 게다가, 두 요소는 모두 `layout`태그로 감싸져야 합니다.  
 - 예시 코드
+
 ```xml
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:app="http://schemas.android.com/apk/res-auto">
