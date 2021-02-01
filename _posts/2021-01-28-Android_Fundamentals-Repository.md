@@ -2,7 +2,7 @@
 layout: post
 title:  "Android Fundamentals - Repository"
 date:   2021-01-28 19:12:17 -400
-lastmod : 2021-01-28 19:12:17 -400
+lastmod : 2021-03-01 19:12:17 -400
 sitemap :
   changefreq : daily
   priority : 1.0
@@ -49,7 +49,7 @@ background: "/img/classic_blue.jpeg"
 1. Retrofit
     - Retrofit은 안드로이드에서 type-safe한 REST 클라이언트를 구현하는데 사용되는 네트워킹 라이브러리이다.
       
-    - Retrofit이 네트워킹 경과를 로컬에 저장해놓도록 설정할 수 있다.
+    - Retrofit이 네트워킹 결과를 로컬에 저장해놓도록 설정할 수 있다.
 
     - 사용할 때: 단순한 요청 혹은 응답, 자주 일어나지 않는 네트워크 호출, 작은 데이터 집합을 캐싱할 때 사용하면 좋다. 
 
@@ -133,8 +133,10 @@ fun getDatabase(context: Context): VideosDatabase {
 - Android 기기의 내부 DB는 디스크(파일시스템)에 위치합니다.  
 따라서 데이터베이스에 데이터를 저장하기 위해서는 디스크 IO를 수행해야 한다.  
 - 디스크 IO는 느린 작업이며, 디스크 IO가 완료될 때까지 해당 스레드는 블락 상태가 된다. 
-- 따라서 디스크 IO는 디스크 디스패처(Disk Dispatcher)에서 수행해야 한다.
-- 디스크 디스패처는   
+- 따라서 디스크 IO는 디스크 디스패처(Disk Dispatcher)내에서 수행해야 한다.
+- `withConext(Dispatcher.IO){...}` 를 실행하면, 디스크 디스패처는 블락킹 IO작업을 공유 스레드 풀로 넘긴다.  
+
+
 
 
 
