@@ -3,7 +3,6 @@ layout: post
 title:  "Android - Dependency Injection"
 date:   2021-02-03 14:12:17 -400
 lastmod : 2021-02-03 14:12:17 -400
-sitemap :
 changefreq : daily
 priority : 1.0
 categories: Android
