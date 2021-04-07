@@ -39,7 +39,7 @@ android {
 코드로 나타내면 다음과 같습니다.  
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
     <layout xmlns:android="http://schemas.android.com/apk/res/android">
        <data>
            <variable name="user" type="com.example.User"/>
