@@ -18,14 +18,14 @@ google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
-highlighter:        rouge
-paginate:           5
-paginate_path:      "/posts/page:num/"
+highlighter:        Rouge
+paginate: 5
+paginate_path: "/posts/page:num/"
 plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
-  - jemoji ## emoji
+  - jemoji          ## emoji
 
 ## fonts
 google_fonts: "Nanum+Gothic:400,700"
