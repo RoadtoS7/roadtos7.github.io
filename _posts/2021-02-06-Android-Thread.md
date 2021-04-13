@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Android - Context"
-date:   2021-02-06 23:28:17 -400
-lastmod : 2021-02-06 23:28:17 -400
-sitemap :
-  changefreq : daily
-  priority : 1.0
+title: "Android - Context"
+date: 2021-02-06 23:28:17 -400
+lastmod: 2021-02-06 23:28:17 -400
+sitemap:
+  changefreq: daily
+  priority: 1.0
 categories: Android
 background: "/img/classic_blue.jpeg"
 ---
