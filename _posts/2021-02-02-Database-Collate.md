@@ -27,18 +27,18 @@ Binary Collation의 장점은 문자열 비교가 매우 빠르고 간단하기 
 COLLATE NOCASE는 대소문자를 구분하는 쿼리에도 영향을 미친다.  
 만약 'aa'를 값으로 가지는 칼럼과 'aA'를 값으로 가지는 칼럼이 둘다 존재할 때, 다음 쿼리문을 실행한다면 'aa'를 값으로 가지는 것만 쿼리의 결과로 반환된다.
   
-```
+{% highlight SQL %}
 select * from table where col = 'aa'
-```
+{% endhighlight %}
 
 하지만 COLLATE NOCASE를 해당 칼럼에 설정해두었다면, 'aa', 'aA'를 가지는 칼럼 둘다 반환된다.  
 
 쿼리에서 COLLATE를 지정할 수도 있다. 즉, 해당 칼럼에 COLLATE를 설정해두지 않았더라도, 쿼리할 때 적용하도록 할 수 있는 것이다.  
 단, 쿼리문에서 지정한 경우는 칼럼에 설정해 둔 경우보다 속도가 느리다.
 
-```
+{% highlight SQL %}
 select * from table where col = 'aa' COLLATE NOCASE
-```
+{% endhighlight %}
 
    
   
