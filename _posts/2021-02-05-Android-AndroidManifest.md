@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Android - AndroidManifest.xml"
-date:   2021-02-05 18:21:17 -400
-lastmod : 2021-02-05 18:21:17 -400
-sitemap :
-  changefreq : daily
-  priority : 1.0
+title: "Android - AndroidManifest.xml"
+date: 2021-02-05 18:21:17 -400
+lastmod: 2021-02-05 18:21:17 -400
+sitemap:
+  changefreq: daily
+  priority: 1.0
 categories: Android
 background: "/img/classic_blue.jpeg"
 ---

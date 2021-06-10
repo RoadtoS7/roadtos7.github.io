@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Paging - With Network and DB (1)"
-date:   2021-02-01 16:21:17 -400
-lastmod : 2021-02-01 16:21:17 -400
-sitemap :
-  changefreq : daily
-  priority : 1.0
+title: "Paging - With Network and DB (1)"
+date: 2021-02-01 16:21:17 -400
+lastmod: 2021-02-01 16:21:17 -400
+sitemap:
+  changefreq: daily
+  priority: 1.0
 categories: Android
 background: "/img/classic_blue.jpeg"
 ---
