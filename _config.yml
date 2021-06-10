@@ -1,14 +1,14 @@
-title: EveryDay Libary
-email: your-email@example.com
-description: 공부한 것들을 차곡차곡 쌓아가는 곳
-author: RoadtoS7
+title: "EveryDay Libary"
+email: "your-email@example.com"
+description: "공부한 것들을 차곡차곡 쌓아가는 곳"
+author: "RoadtoS7"
 baseurl: "/"
 url: "https://roadtos7.github.io"
-encoding: UTF-8
+encoding: "UTF-8"
 
 
 # Social Profiles
-github_username: RoadtoS7
+github_username: "RoadtoS7"
 
 # Build settings
 markdown: kramdown
