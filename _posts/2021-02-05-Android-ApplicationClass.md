@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Android - Application Class"
-date:   2021-02-05 18:16:17 -400
-lastmod : 2021-02-05 18:16:17 -400
-sitemap :
+title: "Android - Application Class"
+date: 2021-02-05 18:16:17 -400
+lastmod: 2021-02-05 18:16:17 -400
+sitemap:
   changefreq : daily
   priority : 1.0
 categories: Android
