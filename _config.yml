@@ -23,3 +23,6 @@ plugins:
 
 ## fonts
 google_fonts: "Nanum+Gothic:400,700"
+
+## app link
+include: [".well_known"]
