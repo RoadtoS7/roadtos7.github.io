@@ -62,7 +62,88 @@ system server는 안드로이드 플랫폼의 핵심 서비스들을 생성한�
 <br/>
 <br/>
 
+## 런처 애플리케이션에서 사용자가 앱 아이콘을 클릭하면 무슨 일이 일어날까?  
 
+클릭 이벤트는 `startActivity(intent)` 호출로 변환된다.
+그리고 Binder IPC를 통해서 ActivityManagerService 로 전달된다.  
+
+그리고 ActivityManagerService는 다음과 같은 여러 단계를 거쳐서 `startActivity(intent)` 호출을 처리한다.
+
+1. intent 객체의 목적지에 대한 정보를 수집한다.  
+
+    이 작업은 PackageManager 객채의 resolveIntent() 메서드를 호출하여 이루어 진다. 
+    이때 디폴트 파라미터로 PackageManager.MATCH_DEFAULT_ONLY, PackageManager.GET_SHARED_FILES 플래그가 사용된다.  
+
+2. 목적지에 대한 정보는 intent 객체에 다시 저장하여 이 작업을 다시 하지 않도록 예방한다.
+
+3. 유저가 목적지 컴포넌트를 실행할 권한이 있는지 체크한다.  
+이 작업은 `grantUriPermissionChecked()` 메서드를 호출하여 이루어진다.  
+
+1. 만약 유저가 권한을 가지고 있다면, ActivityManagerService는 타겟 액티비티가 새로운 테스크에서 생성되어야 하는지를 체크한다.  
+새로운 테스크 생성 여부는 FLAG_ACTIVITY_NEW_TASK와 FLAG_ACTIVITY_CLEAR_TOP과 같은 인텐트 플레그에 따라서 결정된다.  
+
+3. ProcessRecord 인스턴스가 목적지 프로세스에 이미 존재 하는지를 체크한다.  
+만약 ProcessRecord 인스턴스가 존재하지 않는다면, ActivityManager는 목적지 컴포넌트를 생성하기 위해 새로운 프로세스를 시작해야 한다.  
+
+이 과정을 거쳐서 최종적으로 애플리케이션이 실행된다.  
+
+이 과정을 나타낸 도식화하면 다음과 같다.  
+
+<img src="https://miro.medium.com/max/1400/1*PgmbDe-cd9Z8l3_8cw2yww.png" width=700/>  
+
+
+<br/>
+<br/>
+
+## 프로세스가 시작될 때까지의 크게 3 단계로 이루어져 있다.  
+
+1. Process 생성
+2. Process와 애플리케이션 연결
+3. Activity 시작 or 서비스 시작 or 인텐트 리시버 시작
+
+### 1. Process 생성
+
+ActivityManagerService는 startProcessLocked() 메서드를 호출하여 새로운 프로세스를 생성한다.  
+이 메서드는 소켓 인터페이스를 통해서 Zygote 프로세스에게 새로운 프로세스 생성을 요청한다.  
+Zygote는 fork를 호출하고, ActivityThread 객체를 생성하는 ZygoteInit.main() 함수를 호출한다.  이 함수는 새롭게 생성된 프로세스의 id를 결과값으로 반환한다.  
+
+모든 프로로세스는 기본적으로 하나의 스레드를 가지고 있다.  
+메인 스레드는 메시지큐에 있는 메시지를 처리하기 위해 Looper 인스턴스를 가지고 있다. 그리고 메인 스레드는 매번 run() 메서드를 호출할 대마다 Looper.loop()을 호출한다.  
+Looper의 역할은 메시지 큐에서 메시지를 pop하여 각 메시지를 처리하는 데 필요한 함수를 호출한다.  
+메시지를 처리 후, ActivityThread는 Looper.prepareLoop() 그리고 Looper.loop()을 차례로 호출하여 message loop을 메시지 loop을 시작한다. 
+
+이러한 일련의 메서드 호출을 자세히 그림으로 나타내면 다음과 같다.   
+<img src="https://miro.medium.com/max/2000/1*JymZYEYdVk5kGA0q7qA8ig.png" width=700>
+
+<br/>
+<br/>
+
+## 2. 애플리케이션 바인딩
+다음 단계에서는 생성된 프로세스와 애플리케이션을 연결한다.  
+이 작업은 thread객체의 bindApplication() 함수를   호출하여 이루어진다. 
+
+이 메서드는 메시지 큐에 BIND_APPLICATION 메시지를 보낸다.   
+이 메시지는 Handler 객체에 의해서 꺼내지고, 꺼내진 메시지는 Handler 객체의 handleMessage()의해서 처리된다.  
+handleMessage()는 각 메시지에 맞는 처리 작업을 수행하는데, 이 경우에는 handleBindApplication()이 호출된다.  
+handleBindApplcation()은 makeApplication()을 호출하여 애플리케이션에 속하는 클래스들을 메모리에 로드한다.  
+
+이 과정을 그림으로 나타내면 다음과 같다.  
+<img src="https://miro.medium.com/max/2000/1*UmwlBmdwJip3AdKtSVypjQ.png" width=700>
+
+## 3. 액티비티 시작하기
+앞선 단계를 거쳐서 시스템은 애플리케이션을 담당할 프로세스를 생성 완료했다.  
+그리고 이 프로세스의 메모리에는 애플리케이션의 클래스들이 로드되어 있다.  
+액티비티를 시작하는 함수 호출 순서는 새롭게 프로세스가 시작된 경우나 기존에 프로세스가 이미 실행된 경우나 동일하다.  
+
+여러 함수 호출 중에서도 실질적으로 액티비티를 시작시키는 메서드는 realStartActivity() 메서드이다. 이 메서드는 application 스레드 객체의 scheduleLaunchActivity() 함수를 호출한다.  
+이 메서드는 LAUNCH_MESSAGE를 메시지 큐에 전달하고, 이 메시지는 handleLaunchActivity 메서드에 의해서 처리된다.  
+
+예를 들어서 Video Browser 애플리케이션을 사용자가 실행했다고 가정할 때, 액티비티를 시작하는 함수 호출 단계는 다음과 같다.  
+
+<img src="https://miro.medium.com/max/2000/1*lMIXA7wMIxntOtF0P7Xk_w.png" width=700>  
+
+이 과정을 거친 후, 액티비티는 onCreate() 메서드가 되면서 자신의 생명주기를 관리하기 시작한다.  
+onRestart()함수가 호출되면 포그라운드로 액티비티가 오게 되고 onStart()가 호출되면 사용자와 상호작용하기 시작한다.  
 
 
 
