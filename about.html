@@ -3,6 +3,10 @@ layout: default
 title: Category
 description: 포스팅 카테고리
 background: '/img/classic_blue.jpeg'
+permalink: categories/codingtest
 ---
 
+
+{% assign posts = site.categories.CodingTest %}
+{% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
 
