@@ -1,5 +1,6 @@
 ---
 layout: post
+background: "/img/classic_blue.jpeg"
 title:  "Socket.io - Socket 인스턴스에 대한 기본 사항"
 date:   2020-01-18 02:41:17 -400
 lastmod : 2020-01-18 02:41:17 -400
@@ -7,7 +8,6 @@ sitemap :
   changefreq : daily
   priority : 1.0
 categories: Network
-background: "/img/classic_blue.jpeg"
 ---
 
 ## id
