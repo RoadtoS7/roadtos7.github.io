@@ -6,15 +6,6 @@ baseurl: "/"
 url: "https://roadtos7.github.io"
 encoding: UTF-8
 
-# Comment
-repository: "RoadtoS7/roadtos7.github.io"
-comments: 
-  provider: "utterances"
-  utterances:
-    theme: "boxy-light"
-    issue_term: "pathname"
-
-
 # Social Profiles
 github_username: "RoadtoS7"
 
