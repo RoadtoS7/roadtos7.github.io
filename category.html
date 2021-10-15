@@ -6,7 +6,14 @@ background: '/img/classic_blue.jpeg'
 permalink: categories
 ---
 
+<article class="post-preview">
+    
+    <h2 class="post-title">알고리즘 문제 풀이</h2>
 
-{% assign posts = site.categories.codingtest %}
-{% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    {% assign posts = site.categories.codingtest %}
+    {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    
+</article>
+
+
 
