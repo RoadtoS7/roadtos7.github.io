@@ -1,6 +1,7 @@
 ---
 title: "Spring 02 - 스프링 폴더 구조"
 date: "2020-05-20 21:58:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: Spring
 ---
 ## 스프링 폴더 구조

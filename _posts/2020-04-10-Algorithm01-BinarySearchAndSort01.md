@@ -1,7 +1,8 @@
 ---
 title: "Algorithm 01 - BinarySearch & Sort 01"
 data: "2020-04-10 19:19:07 -400"
-categories: Algoritm
+background: "/img/classic_blue.jpeg"
+categories: Algorithm
 ---
 # Algorithm 01 - BinarySearch & Sort 01
 ## 1.1 이진 검색(Binary Search)

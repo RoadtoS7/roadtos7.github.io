@@ -1,7 +1,8 @@
 ---
 title: "자료구조: Linked List 01 - Singl Linked List"
 data: "2020-04-10 19:44:17 -400"
-categories: Data Structure
+background: "/img/classic_blue.jpeg"
+categories: DataStructure
 ---
 
 ## 자료구조: Linked List 01 - Singl Linked List

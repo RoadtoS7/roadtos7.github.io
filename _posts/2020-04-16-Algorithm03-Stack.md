@@ -1,7 +1,8 @@
 ---
 title: "DataStructure01 - SinglyLinkedList(단일 연결리스트)"
 date: "2020-04-16 20:37:17 -400"
-categories: Algorithm
+background: "/img/classic_blue.jpeg"
+categories: DataStructure
 ---
 
 ## Stack

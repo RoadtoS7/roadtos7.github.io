@@ -1,6 +1,7 @@
 ---
 title: "Android - 액티비티 생명주기"
 date: 2020-01-12 11:44:28 -0400
+background: "/img/classic_blue.jpeg"
 categories: 
     - Android 
     - activity 

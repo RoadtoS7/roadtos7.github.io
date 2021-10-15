@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX 06 - 스케쥴러(Scheduler)"
 date: "2020-04-23 14:12:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 ---
 

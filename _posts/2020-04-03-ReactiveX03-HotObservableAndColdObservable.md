@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX 03- 뜨거운 Observable & 차가운 Observable"
 time: "2020-04-03 15:36:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 ---
 

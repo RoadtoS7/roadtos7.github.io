@@ -1,7 +1,8 @@
 ---
 title: "Python_01 Class(클래스)"
 date: 2020-03-21 23:36:07 -0400
-categories: Python
+background: "/img/classic_blue.jpeg"
+categories: Language
 ---
 
 # Class

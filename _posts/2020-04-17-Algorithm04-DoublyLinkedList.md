@@ -2,6 +2,7 @@
 title: "Algorithm05 - DoublyLinkedList(2중 연결리스트)"
 data: "2020-04-17 22:58:17 -400"
 categories: Algorithm
+background: "/img/classic_blue.jpeg"
 ---
 
 ## DoublyLinkedList(2중 연결리스트)

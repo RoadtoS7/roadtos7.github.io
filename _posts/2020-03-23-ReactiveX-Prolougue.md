@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX_리액티브 프로그래밍"
 date: 2020-03-23 14:58:17 -0400
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 --- 
 

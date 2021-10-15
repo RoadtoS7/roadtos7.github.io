@@ -1,6 +1,7 @@
 ---
 title: "Zero-Knowledge Proof - 영지식 증명"
 date: 2020-01-26 11:44:28 -0400
+background: "/img/classic_blue.jpeg"
 categories: cryptography
 ---
 

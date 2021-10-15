@@ -1,7 +1,8 @@
 ---
 title: "리눅스 커널 모듈: 2. Hello World"
 date: 2020-03-01 20:36:07 -0400
-categories: LinuxKernelModule
+background: "/img/classic_blue.jpeg"
+categories: Linux
 ---
 
 # Chapter 2. Hello World

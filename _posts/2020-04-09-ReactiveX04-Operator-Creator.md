@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX 04 - Creator(생성 연산자)"
 date: "2020-04-14 14:03:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 ---
 

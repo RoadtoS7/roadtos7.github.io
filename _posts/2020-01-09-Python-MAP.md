@@ -1,7 +1,8 @@
 ---
 title: "Python - map"
 date: 2020-01-09 14:25:28 -0400
-categories: python syntax map
+background: "/img/classic_blue.jpeg"
+categories: Language
 ---
 
 # map

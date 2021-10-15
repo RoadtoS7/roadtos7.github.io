@@ -1,6 +1,7 @@
 ---
 title: "Baekjoon 2751번 - 수 정렬하기 2"
 date: "2020-05-13 23:07:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: Algorithm
 ---
 

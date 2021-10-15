@@ -2,6 +2,7 @@
 title: "리눅스 커널 모듈: 개요"
 date: 2020-03-01 20:36:07 -0400
 categories: Linux LinuxKernelModule
+background: "/img/classic_blue.jpeg"
 ---
 # 리눅스 커널 모듈 개요
 ## Kernel Module 이란 무엇일까?  

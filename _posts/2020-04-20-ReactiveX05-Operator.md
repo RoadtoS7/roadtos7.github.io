@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX05 - Operator(연산자)"
 date: "2020-04-20 14:49:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 ---
 

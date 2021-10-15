@@ -1,7 +1,8 @@
 ---
 title: "Zero-Knowledge Proof"
 date: 2020-01-20 17:26:28 -0400
-categories: cryptography z
+categories: cryptography 
+background: "/img/classic_blue.jpeg"
 ---
 
 # 영지식 증명(Zero Knowledge Proof)

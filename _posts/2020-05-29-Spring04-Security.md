@@ -1,6 +1,7 @@
 ---
 title: "Spring 04 - 보안"
 date: "2020-05-29 14:05:17 -400"
+background: "/img/classic_blue.jpeg"
 categories: Spring
 ---
 

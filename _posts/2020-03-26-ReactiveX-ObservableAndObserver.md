@@ -1,6 +1,7 @@
 ---
 title: "ReactiveX_Observable & Observer"
 date: 2020-03-23 14:58:17 -0400
+background: "/img/classic_blue.jpeg"
 categories: ReactiveX
 --- 
 

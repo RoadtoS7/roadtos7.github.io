@@ -1,6 +1,7 @@
 ---
 title: "머신러닝을 위한 Pythonic Code 01 - Split & Join"
 date: 2020-03-24 22:20:17 -0400
+background: "/img/classic_blue.jpeg"
 categories: MachineLearning
 --- 
 
