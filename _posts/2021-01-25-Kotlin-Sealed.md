@@ -6,7 +6,7 @@ lastmod : 2021-01-18 14:41:17 -400
 sitemap :
   changefreq : daily
   priority : 1.0
-categories: Network
+categories: Language
 background: "/img/classic_blue.jpeg"
 ---
 

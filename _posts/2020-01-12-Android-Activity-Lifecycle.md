@@ -1,7 +1,10 @@
 ---
 title: "Android - 액티비티 생명주기"
 date: 2020-01-12 11:44:28 -0400
-categories: android activity lifecycle
+categories: 
+    - Android 
+    - activity 
+    - lifecycle
 ---
 
 ## 액티비티 생명주기

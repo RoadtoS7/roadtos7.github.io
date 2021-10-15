@@ -8,12 +8,50 @@ permalink: categories
 
 <article class="post-preview">
     
-    <h2 class="post-title">알고리즘 문제 풀이</h2>
+    <h3 class="post-title">📝 알고리즘 문제 풀이</h2>
 
     {% assign posts = site.categories.codingtest %}
     {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
     
 </article>
+
+<article class="post-preview">
+    
+    <h3 class="post-title">💚 Android</h2>
+
+    {% assign posts = site.categories.Android %}
+    {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    
+</article>
+
+<article class="post-preview">
+    
+    <h3 class="post-title">🌐 Network</h2>
+
+    {% assign posts = site.categories.Network %}
+    {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    
+</article>
+
+<article class="post-preview">
+    
+    <h3 class="post-title">🎩 ReactiveX</h2>
+
+    {% assign posts = site.categories.ReactiveX %}
+    {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    
+</article>
+
+<article class="post-preview">
+    
+    <h3 class="post-title">🎩 BackEnd</h2>
+
+    {% assign posts = site.categories.Spring %}
+    {% for post in posts %} {% include category.html type=page.entries_layout %} {% endfor %}
+    
+</article>
+
+
 
 
 

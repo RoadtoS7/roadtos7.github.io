@@ -1,7 +1,7 @@
 ---
 title: "내가 보려고 만든 Kotlin 개념 1탄 (Java와의 차이점 중심으로)"
 date: 2020-02-09 13:38:28 -0400
-categories: Kotlin 
+categories: Language 
 ---
 ## 대략적인 목차
 1. 표현식
