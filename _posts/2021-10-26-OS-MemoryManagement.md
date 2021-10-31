@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[OS] MemoryManagement"
+title: "[OS] 메모리 관리 기법"
 date: 2021-10-26 15:13:17 -400
 lastmod: 2021-10-26 15:13:17 -400
 sitemap:
