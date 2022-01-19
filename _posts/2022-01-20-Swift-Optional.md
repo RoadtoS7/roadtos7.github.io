@@ -4,11 +4,11 @@ title: "[iOS] Optional"
 date: 2022-01-20 15:13:17 -400
 lastmod: 2022-01-20 15:13:17 -400
 sitemap:
-changefreq : daily
-priority : 1.0
+  changefreq : daily
+  priority : 1.0
 categories:
-- iOS
-  background: "/img/classic_blue.jpeg"
+  - iOS
+background: "/img/classic_blue.jpeg"
 ---
 
 # Optional & Unwrapping
