@@ -7,7 +7,7 @@ sitemap:
   changefreq : daily
   priority : 1.0
 categories:
-  - iOS
+  - Swift
 background: "/img/classic_blue.jpeg"
 ---
 
@@ -137,11 +137,7 @@ guard `Bool 또는 Optional Binding ` else {
   - `throw`
 
 <aside>
-👨‍💻 from **Terry**
-
----
-
-특정 값이 너무 중요해서 다음 코드에서 nil이 되면 안되는 경우 사용
+👨‍💻 특정 값이 너무 중요해서 다음 코드에서 nil이 되면 안되는 경우 사용
 
 </aside>
 
