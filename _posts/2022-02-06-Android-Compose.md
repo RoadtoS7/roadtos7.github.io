@@ -66,7 +66,8 @@ val spaceSize: Int by animateIntAsState(if (isClicked) 20 else -50)
 
 - UI는 계층적으로 구성된다. 계층적인 UI는 Composable Function에서 다른 Composable Function을 호출함으로써 만들 수 있다.
 - 두개의 `Text()`를 연달아서 호출하면 각 텍스트 뷰에 대한 위치 지정을 하지 않았으므로 겹쳐서 나타나게 된다.
-![image](https://user-images.githubusercontent.com/57262833/152686838-ac3dcb88-de45-455d-9b17-cdbebd3307e9.png)
+<img src="https://user-images.githubusercontent.com/57262833/152686838-ac3dcb88-de45-455d-9b17-cdbebd3307e9.png" height=200>
+
 
 ### Column, Row
 
