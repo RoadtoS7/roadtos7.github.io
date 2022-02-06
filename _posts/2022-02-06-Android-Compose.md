@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "[Android] Compose"
-date: 2022-02-07 00:05:17 -400
-lastmod: 2022-02-07 00:49:17 -400
+date: 2022-01-07 00:05:17 -400
+lastmod: 2022-01-07 00:49:17 -400
 sitemap:
   changefreq : daily
   priority : 1.0
