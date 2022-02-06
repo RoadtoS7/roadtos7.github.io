@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "[Android] Compose"
-date: 2022-01-22 00:37:17 -400
-lastmod: 2022-01-20 15:13:17 -400
+date: 2022-02-07 00:05:17 -400
+lastmod: 2022-02-07 00:49:17 -400
 sitemap:
-changefreq : daily
-priority : 1.0
-categories:
-- Swift
-  background: "/img/classic_blue.jpeg"
+  changefreq : daily
+  priority : 1.0
+categories: 
+  - Android
+background: "/img/classic_blue.jpeg"
 ---
 
 ## Compose Tutorial
