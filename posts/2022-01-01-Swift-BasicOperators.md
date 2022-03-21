@@ -171,7 +171,43 @@ var colorNameToUse = userDefinedColorName ?? defaultColorName
 <br/>
 
 ## 범위 연산자(Range Operator)
+1. 닫힌 범위 연산자 (Closed Range Operator)
+- 특정 횟수 만큼 반복문을 돌아야 할 때 유용하다.
 
+{% highlight Swift %}
+
+for index in (1...5) {
+    print("\(index) times 5 is \(index * 5)")
+}
+
+{% endhighlight %}
+
+2. Half-Open Range Operator
+- list를 순회할 때 유용하다.
+
+{% highlight Swift %}
+
+let names = ["Anna", "Alex", "Brian", "Jack"]
+let count = names.count
+for i in 0..<count {
+    print("Person \(i + 1) is called \(names[i])")
+}
+
+{% endhighlight %}
+
+4. One-Sided Ranges
+- Python에서 list slicing과 같다.
+{% highlight Swift %}
+
+{% endhighlight %}
+
+- 사용 용도 1. slicing (array의 일부만 필요할 때 사용한다.)
+
+- 사용 용도 2. iteration (순회)
+  - 끝 숫자를 명시한 One-Sided Ranges 는 Range의 시작 지점을 알 수 없으므로, 순회할 수 없다.
+  - 반면에 시작 숫자를 명시한 One-Sided Ranges는 순회할 수 있다.
+
+- 사용 용도 3. 범위에 속하는 숫자인지 확인
 
 
 
