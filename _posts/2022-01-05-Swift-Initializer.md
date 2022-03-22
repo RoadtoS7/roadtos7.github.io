@@ -4,8 +4,8 @@ title: "[Swift] Initializer"
 date: 2022-01-05 11:22:17 -400
 lastmod: 2022-01-06 15:13:17 -400
 sitemap:
-changefreq : daily
-priority : 1.0
+  changefreq : daily
+  priority : 1.0
 categories:
 - Swift
   background: "/img/classic_blue.jpeg"
