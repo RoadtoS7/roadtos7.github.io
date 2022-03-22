@@ -2,7 +2,7 @@
 layout: post
 title: "[Programming Paradigm] 선언형 프로그래밍 (Declarative Programming)"
 date: 2022-03-04 11:22:17 -400
-lastmod: 2022-01-20 15:13:17 -400
+lastmod: 2022-03-04 15:13:17 -400
 sitemap:
 changefreq : daily
 priority : 1.0
