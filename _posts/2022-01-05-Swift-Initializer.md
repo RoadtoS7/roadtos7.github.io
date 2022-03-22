@@ -7,8 +7,8 @@ sitemap:
   changefreq : daily
   priority : 1.0
 categories:
-- Swift
-  background: "/img/classic_blue.jpeg"
+  - Swift 
+background: "/img/classic_blue.jpeg"
 ---
 
 ## 초기화(Initialization)
@@ -25,7 +25,7 @@ categories:
 1. `initializer`를 사용
 2. default value를 설정
 
-### :one: initializer를 사용하는 방법
+### 1️⃣ initializer를 사용하는 방법
 1. initializer를 호출하면 인스턴스가 생성된다. 
 2. syntax
 
@@ -37,10 +37,10 @@ init() {
 
 {% endhighlight %}
 
-### :two: default value를 설정하는 방법
+### 2️⃣ default value를 설정하는 방법
 1. 프로퍼티를 선언과 동시에 값을 할당할 수 있다. 이때 프로퍼티에 할당하는 값을 default value라고 한다.
 
-### :bulb: tip
+### 💡 tip
 
 
 
