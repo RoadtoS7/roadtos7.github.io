@@ -1,0 +1,33 @@
+I"<<h2 id="문제">문제</h2>
+<p>Day Of Mourning의 기타리스트 강토가 사용하는 기타에서 N개의 줄이 끊어졌다. 따라서 새로운 줄을 사거나 교체해야 한다.<br />
+강토는 되도록이면 돈을 적게 쓰려고 한다. 6줄 패키지를 살 수도 있고, 1개 또는 그 이상의 줄을 낱개로 살 수도 있다.<br />
+끊어진 기타줄의 개수 N과 기타줄 브랜드 M개가 주어지고, 각각의 브랜드에서 파는 기타줄 6개가 들어있는 패키지의 가격, 낱개로 살 때의 가격이 주어질 때, 적어도 N개를 사기 위해 필요한 돈의 수를 최소로 하는 프로그램을 작성하시오.</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>N, M = map(int, input().split())
+
+# 패키지와 낱개의 가격이 최대 1000원 이라고 했으므로 최소가를 1001원으로 초기화한다.
+minPackPrice = 1001 
+minEachPrice = 1001
+
+# 브랜드의 개수만큼 반복을 돌면서 패키지의 최소가, 낱개의 최소가를 구한다.
+for i in range(M):
+    packPrice, eachPrice = map(int, input().split())
+    if packPrice &lt; minPackPrice:
+        minPackPrice = packPrice
+    if eachPrice &lt; minEachPrice:
+        minEachPrice = eachPrice
+
+# 만약 낱개를 6개 사는 것이 패키지 하나를 사는 것보다 싸다면 총 N개를 낱개로 사는 것이 더 싸다.
+# 만약 낱개를 6개 사는 것이 패키지 하나를 사는 것보다 싸지 않다면, 패키지로 최대한 살 수 있는 만큼 사고 6개씩 사고 남은 나머지는 낱개로 산다.
+# 하지만 6개씩 사고도 남은 나머지를 낱개 가격으로 사는 것보다 1개 패키지를 사는 것이 싸다면 전부 패키지로 산다.
+if minEachPrice * 6 &lt; minPackPrice:
+    print(minEachPrice * N)
+else: 
+    eachCount = N % 6
+    if eachCount * minEachPrice &lt; minPackPrice:
+        print(minPackPrice * (N // 6) + minEachPrice * eachCount)
+    else:
+        print(minPackPrice * (N // 6) + minPackPrice)
+</code></pre></div></div>
+:ET

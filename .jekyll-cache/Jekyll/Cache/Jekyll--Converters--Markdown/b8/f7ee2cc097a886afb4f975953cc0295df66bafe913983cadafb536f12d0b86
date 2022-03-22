@@ -1,0 +1,11 @@
+I"L<h2 id="-풀이">📝 풀이</h2>
+
+<script src="https://gist.github.com/RoadtoS7/de000ccd9f1d0b3afe23805c1782869f.js"></script>
+
+<h2 id="-느낀점">🥑 느낀점</h2>
+<ul>
+  <li>다음 좌표를 구하기 위해, dr, dc를 더할 때 row에 dr을 더하고 column에 dc를 더하는 것을 주의하자!</li>
+</ul>
+
+<p><br /></p>
+:ET

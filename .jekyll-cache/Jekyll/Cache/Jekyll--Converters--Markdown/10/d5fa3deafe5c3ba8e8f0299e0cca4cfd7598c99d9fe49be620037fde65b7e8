@@ -1,0 +1,145 @@
+I"�9<h2 id="clap-introduction">:clap: Introduction</h2>
+<p>Socket.io는 브라우저와 서버간에 <strong>실시간으로 양방향 통신</strong>이 가능하게 하는 라이브러리이다.  <br />
+Socket.io는 <strong>이벤트기반 통신</strong>을 지원한다.</p>
+
+<p>Socket.io는 HTTP Node.js 서버와 통합되는 부분인 socket.io과<br />
+자바스크립트로 작성되었으며 브라우저에서 사용되는 라이브러리인  socket.io-client로 구성되어 있다.</p>
+
+<h2 id="one-socketio의-동작방식">:one: Socket.io의 동작방식</h2>
+<p>클라이언트에서 가능하다면 <strong>웹소켓 커넥션</strong>을 시도하며 가능하지 않다면 <strong>HTTP 롱 폴링</strong>으로 다시 들어간다. 
+(웹소켓: 브라우저와 서버사이에 양방향으로 인터렉션을 가능하게 하는 커뮤니케이션 세션을 열어주는 API이다.<br />
+이 API를 가지고 답에 대해 서버로 폴링할 필요 없이 서버로 메시지를 보내고 응답 이벤트를 받을 수 있다.)</p>
+
+<p>웹 소켓은 서버와 브라우저간에 완전한 이중화 및 낮은 지연시간 채널을 제공하는 커뮤니케이션 프로토콜이다.</p>
+
+<p>다음 웹 소켓 예시에서는 아래의 조건들을 가정합니다.</p>
+<ul>
+  <li>모든 브라우저에서 웹소켓 api를 제공한다 (2020년 현재 97%의 브라우저에서 웹소켓 api를 제공한다.)</li>
+  <li>클라이언트와 웹 소켓간의 통신을 방해하는 프록시, 방화벽과 같은 요소가 없다.</li>
+</ul>
+
+<p>Socket.io를 사용할 때, 클라이언트를 <strong>웹 소켓 API를 둘러싼 아주 얇은 막</strong>으로 생각할 수 있습니다.</p>
+
+<p>따라서 다음과 같은 클라이언트 사이드 코드를 작성하는 것이 아니라,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">ws://localhost:3000</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">onopen</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello!</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>클라이언트에서는 아래와 같은 코드를 작성하게 됩니다.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">(</span><span class="dl">'</span><span class="s1">ws://localhost:3000</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connect</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// either with send()</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello!</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="c1">// or with emit() and custom event names</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">salutations</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Hello!</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">mr</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">john</span><span class="dl">'</span> <span class="p">},</span> <span class="nb">Uint8Array</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]));</span>
+<span class="p">});</span>
+
+<span class="c1">// handle the event sent with socket.send()</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// handle the event sent with socket.emit()</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">greetings</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">elem1</span><span class="p">,</span> <span class="nx">elem2</span><span class="p">,</span> <span class="nx">elem3</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elem1</span><span class="p">,</span> <span class="nx">elem2</span><span class="p">,</span> <span class="nx">elem3</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Socket.io를 사용하여 서버에서 작성하는 코드도 이와 비슷하다. 
+Node.js의 <code class="language-plaintext highlighter-rouge">EventEmitter</code>클래스를 상속받는 <code class="language-plaintext highlighter-rouge">socket</code> 객체를 얻을 수도 있다.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">socket.io</span><span class="dl">'</span><span class="p">)(</span><span class="mi">3000</span><span class="p">);</span>
+
+<span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connection</span><span class="dl">'</span><span class="p">,</span> <span class="nx">socket</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// either with send()</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello!</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="c1">// or with emit() and custom event names</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">greetings</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Hey!</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">ms</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">jane</span><span class="dl">'</span> <span class="p">},</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]));</span>
+
+  <span class="c1">// handle the event sent with socket.send()</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="c1">// handle the event sent with socket.emit()</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">salutations</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">elem1</span><span class="p">,</span> <span class="nx">elem2</span><span class="p">,</span> <span class="nx">elem3</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elem1</span><span class="p">,</span> <span class="nx">elem2</span><span class="p">,</span> <span class="nx">elem3</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><strong>Socket.IO는 플레인 WebSocket 보다 <a href="https://socket.io/docs/v3#Features">추가적인 기능</a> 을 제공한다.</strong></p>
+
+<h2 id="two-socketio에서-착각하기-쉬운-것들">:two: Socket.IO에서 착각하기 쉬운 것들</h2>
+<ol>
+  <li>Socket.IO는 Web Socket의 구현이 아니다.
+Socket.IO는 가능한 경우에만 Web Socket을 전송계층에서 사용하지만, Socket.IO는 전송하는 패킷에 메타 데이터를 추가한다.<br />
+이로 인해 Web Socket 클라이언트는 Socket.IO 서버와 연결할 수 없다.<br />
+그리고 Socket.IO 클라이언트는 일반 Web Socket 서버와 연결할 수 없다.</li>
+</ol>
+
+<h2 id="three-이벤트-기반의-의사소통">:three: 이벤트 기반의 의사소통</h2>
+<p>클라이언트 사이드와 서버 사이드의 <code class="language-plaintext highlighter-rouge">socket</code> 객체는 EventEmitter 클래스를 상속받는다.<br />
+따라서 <code class="language-plaintext highlighter-rouge">socket.emit()</code>을 호출하면 이벤트가 전송된다.<br />
+그리고 이벤트를 수신하는 것은 이벤트 리스너를 등록하는 방식으로 이루어진다. <code class="language-plaintext highlighter-rouge">socket.on(&lt;event name&gt;, &lt;listener&gt;)</code></p>
+
+<h2 id="four-socketio의-메인-기능">:four: Socket.IO의 메인 기능</h2>
+<ol>
+  <li>신뢰성을 가지고 있다.
+다음과 같은 경우에도 서버, 클라이언트 연결이 이루어지도록 하는 신뢰성을 가지고 있다.
+    <ul>
+      <li>프록시 및 로드 밸런서가 있는 경우</li>
+      <li>개인 방화벽 및 바이러스 백신 소프트웨어가 있는 경우</li>
+    </ul>
+  </li>
+</ol>
+
+<p>통신에 신뢰성을 보장하기 위해서 <a href="https://github.com/socketio/engine.io"><code class="language-plaintext highlighter-rouge">Engine.IO</code></a> 를 사용한다.<br />
+이 부분에 대해서는 <a href="https://github.com/socketio/engine.io#goals"><code class="language-plaintext highlighter-rouge">Goals</code></a> 을 읽어보면 된다.
+통신을 할 때 <code class="language-plaintext highlighter-rouge">Engine.IO</code>는 가장 먼저 롱폴링 연결을 한다 그 다음 웹소켓과 같 <code class="language-plaintext highlighter-rouge">테스트</code>된 더 나은 전송(transport)로 업그레이드 한다.</p>
+
+<ol>
+  <li>
+    <p>자동 재연결을 지원한다.
+기본적으로 연결이 끊긴 서버가 다시 사용할 때까지, 계속 연결을 시도한다.<br />
+재연결과 가능한 옵션에 대해서는 <a href="https://socket.io/docs/v3/client-api/#new-Manager-url-options">여기</a> 를 읽어보면 된다.</p>
+  </li>
+  <li>
+    <p>Disconnection 감지
+heartbeat 메커니즘은 <code class="language-plaintext highlighter-rouge">Engion.IO</code>레벨에서 구현되어있다. 이 덕분에 클라이언트와 서버는 언제부터 상대방이 더이상 응답하지 않는지를 알 수 있다.<br />
+이 기능은 연결 핸드쉐이크 동안에 서버와 클라이언트에게  공유되는 시간 초과 밸류들 (pingInterval 및 pingTimeout 매개 변수)를 가지고, 서버와 클라이언트 각각에 설정된 타이머를 통해서 구현된다. <br />
+이 타이머들은 연결이 설정된 이후에 발생하는 클라이언트 호출이 동일한 서버로 전송되도록 요구하기 때문에, 여러 노드를 사용할 때 고정 세션을 요구한다.</p>
+  </li>
+  <li>바이너리를 지원한다.
+다음을 포함한 직렬화 가능한 데이터 구조를 전송할 수 있다.
+    <ul>
+      <li>브라우저에서 ArrayBuffer와 Blob</li>
+      <li>Node.jsdptj ArrayBuffer와 Buffer</li>
+    </ul>
+  </li>
+  <li>멀티 플렉싱을 지원한다.
+    <ul>
+      <li>우리앱에서 (모듈 단위로 혹은 사용권한 기준으로) 관심사 분리를 구현하기 위해서, Socket.IO는 여러 네임스페이스를 만들 수 있도록 해준다.
+각각의 네임스페이스는 분리된 커뮤니케이션 채널로 동작하지만 그 기반에서는 동일한 연결을 공유한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="참고-heartbeat-메커니즘이란">참고! heartbeat 메커니즘이란?</h2>
+<p>대기중인 메시지가 없는 경우 주기적으로 메시지를 전송하는 것을 말한다.
+여기서 전송되는 메시지를 heartbeat라고 한다.
+hearbeat을 보냄으로써 송신 프로그램이 정상적으로 실행중인 상태를 수신자에게 알린다.
+요약: heartbeat를 사용하는 목적은 송신 프로그램과 수신 프로그램간에 네트워크 요청 및 응답이 없을 때,<br />
+ 송신 프로그램이 정산적으로 실행중이라는 상태를 수신 프로그램에게 알리기 위해서 사용한다.</p>
+
+:ET

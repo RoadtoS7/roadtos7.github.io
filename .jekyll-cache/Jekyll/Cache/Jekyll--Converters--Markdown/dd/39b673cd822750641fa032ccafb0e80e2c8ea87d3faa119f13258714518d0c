@@ -1,0 +1,86 @@
+I"8<h2 id="room">Room</h2>
+<ul>
+  <li>Room은 안드로이드 기기 내부 데이터베이스에 대한 추상화 계층을 제공하여,<br />
+데이터베이스에 대한 원할한 액세스를 제공하는 것과 동시에 SQLite를 완벽히 활용할 수 있도록 한다.</li>
+  <li>Room은 앱에서는 데이터를 구조화된 형태로 캐싱하여 사용자가 오프라인상태에서도 앱을 사용할 수 있도록 한다. 
+ 이뿐만 아니라 기기가 온라인 상태가 되었을 때 사용자가 오프라인일 동안 만든 콘텐츠 변경사항이 서버에 동기화되는 것을 자동으로 처리해준다.</li>
+</ul>
+
+<h3 id="room의-구성요소">Room의 구성요소</h3>
+<ol>
+  <li>Database 클래스
+    <ul>
+      <li>데이터베이스를 보관하며, 앱의 지속적인 관계형 데이터에 연결하기 위한 기본 액세스 포인트 역할을 한다.</li>
+    </ul>
+  </li>
+  <li>Data Entity
+    <ul>
+      <li>데이터베이스 내의 테이블을 나타낸다.</li>
+    </ul>
+  </li>
+  <li>DAO(Data Access Object)
+    <ul>
+      <li>데이터베이스에 액세스하는데 사용되는 메서드를 갖는다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="구성요소-구조">구성요소 구조</h4>
+<ul>
+  <li>데이터베이스 클래스는 앱에게 해당 데이터베이스와 연관된 DAO 인스턴스들을 제공한다.</li>
+  <li>앱은 데이터베이스 클래스로부터 받은 DAO 인스턴스를 가지고 데이터베이스에 있는 데이터를 Entity 인스턴스 형태로 가지고올 수 있다.</li>
+  <li>앱은 또한 Enitity 인스턴스를 가지고 해당 인스턴스와 대응되는 테이블에 데이터를 추가하거나 데이터를 수정할 수 있다.</li>
+</ul>
+
+<p><img src="https://developer.android.com/images/training/data-storage/room_architecture.png" alt="Room 구성요소들의 구조" /></p>
+
+<h3 id="예시">예시</h3>
+<ul>
+  <li>하나의 Entity, 하나의 DAO를 가지는 데이터베이스를 Room을 이용하여 만들어보겠다.</li>
+</ul>
+
+<ol>
+  <li>User Entity
+    <ul>
+      <li>User에 대한 정보를 담는 테이블을 User Entity로 나타낸다.</li>
+    </ul>
+  </li>
+</ol>
+
+<pre><code class="language-aidl">@Entity
+data class User(
+    @PrimaryKey val uid: Int, 
+    @ColumnInfo(name = "first_name") val firstName: String?,
+    @ColumnInfo(name = "last_name") val lastName: String?
+)
+
+</code></pre>
+
+<ol>
+  <li>User Dao
+    <ul>
+      <li>User Dao는 앱의 요소들의 User 테이블과 상호작용하기 위해서 사용할 수 있는 메서드를 제공한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<pre><code class="language-aidl">@Dao
+interface UserDao {
+    @Query("SELECT * FROM user")
+    fun getAll(): List&lt;User&gt;
+
+    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
+    fun loadAllByIds(userIds: IntArray): List&lt;User&gt;
+
+    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
+           "last_name LIKE :last LIMIT 1")
+    fun findByName(first: String, last: String): User
+
+    @Insert
+    fun insertAll(vararg users: User)
+
+    @Delete
+    fun delete(user: User)
+}
+</code></pre>
+:ET

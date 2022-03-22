@@ -1,0 +1,7 @@
+I"a<h1 id="algorithm-01---binarysearch--sort-01">Algorithm 01 - BinarySearch &amp; Sort 01</h1>
+<h2 id="11-이진-검색binary-search">1.1 이진 검색(Binary Search)</h2>
+<ul>
+  <li>배열에 데이터들이 오름차 순으로 저장되어있을 때 사용합니다.</li>
+  <li>**즉, 데이터들이 정렬되어 있을 때 사용합니다.</li>
+</ul>
+:ET

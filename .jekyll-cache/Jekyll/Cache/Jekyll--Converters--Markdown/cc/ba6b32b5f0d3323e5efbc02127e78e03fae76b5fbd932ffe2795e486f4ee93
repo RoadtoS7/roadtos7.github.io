@@ -1,0 +1,6 @@
+I"�<h2 id="스프링-폴더-구조">스프링 폴더 구조</h2>
+<p>스프링 폴더 구조는 maven 프로젝트 구조와 같습니다.<br />
+예시를 통해서 더 자세히 알아보도록 하겠습니다.<br />
+예시 프로젝트는 <a href="https://github.com/spring-projects/spring-petclinic">Pet-Clinic</a>입니다.<br />
+<img src="https://user-images.githubusercontent.com/57262833/82396553-24fd5280-9a89-11ea-9c30-e18d8e37438b.png" height="300" /></p>
+:ET

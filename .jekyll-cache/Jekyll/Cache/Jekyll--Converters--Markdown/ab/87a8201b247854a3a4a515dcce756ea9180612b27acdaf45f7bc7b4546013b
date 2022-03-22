@@ -1,0 +1,116 @@
+I"4<h2 id="tablayoutmediator">TabLayoutMediator</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Set the icon and text for each tab
+ TabLayoutMediator(tabLayout, viewPager) { tab, position -&gt;
+     tab.setIcon(getTabIcon(position))
+     tab.text = getTabTitle(position)
+ }.attach()
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">HomeViewPagerFragment</code>에서는 다음과 같이 <code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>를 생성하고 <code class="language-plaintext highlighter-rouge">attach()</code>메서드를 호출하고 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ViewPager2</code>를 <code class="language-plaintext highlighter-rouge">TabLayout</code>과 연결할 때 <code class="language-plaintext highlighter-rouge">TabLayoutMeditator</code>를 사용합니다. <code class="language-plaintext highlighter-rouge">TabLayoutMeditator</code>는 탭을 선택했을 때, ViewPager2의 위치를 선택한 탭과 동기화하고, 사용자가 <code class="language-plaintext highlighter-rouge">ViewPager2</code>를 스크롤 할 때 TabLayout의 스크롤 위치를 동기화합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>는 탭의 움직임에 따라 <code class="language-plaintext highlighter-rouge">ViewPager2</code>를 조정하기 위해 <code class="language-plaintext highlighter-rouge">OnTabSelectedListener</code>를 리슨하고 있습니다. 그리고 탭에 표시할 데이터가 변했을 때, 탭을 재생성하기 위해 <code class="language-plaintext highlighter-rouge">RecyclerView</code>의 <code class="language-plaintext highlighter-rouge">AdapterDataObserver</code>를 리슨하고 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>를 이용하여 <code class="language-plaintext highlighter-rouge">ViewPager2</code>와 <code class="language-plaintext highlighter-rouge">TabLayout</code>을 연결하기 이위해서는 다음과 같은 절차를 거칩니다.</p>
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ViewPager2</code>가 어댑터를 가지고 있어야합니다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>의 인스턴스를 생성합니다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">TabLayoutMeditator</code>의 <code class="language-plaintext highlighter-rouge">attach()</code>를 호출합니다.</p>
+  </li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>의 인스턴스를 생성하는 것은 그저 객체를 생성하는 것일 뿐이고, <code class="language-plaintext highlighter-rouge">attach()</code> 함수를 호출해야만, <code class="language-plaintext highlighter-rouge">TabLayout</code>과 <code class="language-plaintext highlighter-rouge">ViewPager2</code>가 연결됩니다. <code class="language-plaintext highlighter-rouge">HomeViewPagerFragment</code>에서는 <code class="language-plaintext highlighter-rouge">ViewPager2</code>와 <code class="language-plaintext highlighter-rouge">TabLayout</code>을 연결하기 위해 <code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>를 익명객체로 생성한 후, <code class="language-plaintext highlighter-rouge">attach()</code>함수를 호출하는 것을 확인할 수 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TabLayoutMeditator</code>의 인스턴스를 생성할 때, 연결할 <code class="language-plaintext highlighter-rouge">TabLayout</code>과 <code class="language-plaintext highlighter-rouge">ViewPager</code>를 인자로 가질 뿐만 아니라, <code class="language-plaintext highlighter-rouge">TabLayoutMediator.TabConfigure</code>인터페이스 구현체를 받습니다. 위 코드에서도  <code class="language-plaintext highlighter-rouge">TabLayoutMediator(tabLayout, viewPager)</code> 이렇게 인자로 받으며, 람다표현식을 이용하여 <code class="language-plaintext highlighter-rouge">TabLayoutMediator.TabConfigure</code>인터페이스를 구현하고 있습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TabLayoutMediator.TabConfigure</code>는 <code class="language-plaintext highlighter-rouge">onConfigureTab</code> 콜백 메서드를 이용하여, tab의 텍스트를 설정하거나 탭의 스타일링을 합니다. 위 코드에서도 다음과 같이 탭 아이콘을 설정하고, 탭의 택스트를 설정하는 동작을 수행하고 있습니다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tab.setIcon(getTabIcon(position))
+tab.text = getTabTitle(position)
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ViewPager2</code>의 어댑터를 수정하기 위해서는 <code class="language-plaintext highlighter-rouge">TabLayoutMeditator</code>의 <code class="language-plaintext highlighter-rouge">detach()</code>메서드를 호출한 후 <code class="language-plaintext highlighter-rouge">ViewPager2</code>어댑터를 수정한 후에 다시 <code class="language-plaintext highlighter-rouge">attach()</code>메서드를 호출합니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ViewPager2</code>나 <code class="language-plaintext highlighter-rouge">TabLayout</code>을 수정한다면, 새로운 <code class="language-plaintext highlighter-rouge">TabLayoutMediator</code>를 생성하여 연결작업을 해줘야 합니다.</p>
+
+<h2 id="앱-바-설정하기">앱 바 설정하기</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">setSupportActionBar()</code>메서드를 이용하여 <code class="language-plaintext highlighter-rouge">toolbar</code>를 앱바로 설정합니다.
+하지만 이 메서드를 호출하는 것 만으로 <code class="language-plaintext highlighter-rouge">toolbar</code>가 앱바로 설정되는 것은 아닙니다.</p>
+
+<h3 id="toolbar를-앱바로-설정하기">Toolbar를 앱바로 설정하기</h3>
+<p><code class="language-plaintext highlighter-rouge">Toolbar</code>를 앱바로 설정하는 절차  다음과 같습니다.</p>
+
+<ol>
+  <li>액티비티가 다음 예시 코드와 같이 <code class="language-plaintext highlighter-rouge">AppCompatActivity</code>를 상속받는지 확인합니다.
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MyActivity : AppCompatActivity() {
+  // ...
+}
+</code></pre></div>    </div>
+    <p><code class="language-plaintext highlighter-rouge">Toolbar</code>를 앱바로 사용하는 경우 모든 액티비티가 <code class="language-plaintext highlighter-rouge">AppCompatActivity</code>를 상속받아야 합니다.</p>
+  </li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">Sunflower</code>프로젝트에서는 <code class="language-plaintext highlighter-rouge">HomeViewPagerFragment</code>의 베이스 액티비티인 <code class="language-plaintext highlighter-rouge">GardenActvitiy</code>가 다음과 같이 <code class="language-plaintext highlighter-rouge">AppCompatActivity</code>를 상속받고 있음을 확인할 수 있습니다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class GardenActivity : AppCompatActivity() {
+   // ...
+}
+</code></pre></div></div>
+<ol>
+  <li>매니페스트 파일에서 <code class="language-plaintext highlighter-rouge">NoActionBar</code>테마 중의 하나를 사용하도록 <code class="language-plaintext highlighter-rouge">&lt;application&gt;</code> 테마 속성을 설정합니다.<br />
+이렇게 하면, 앱이 네이티브 <code class="language-plaintext highlighter-rouge">ActionBar</code>클래스를 사용하여 앱바를 제공할 수 없습니다.<br />
+<code class="language-plaintext highlighter-rouge">Sunflower</code>에서는 <code class="language-plaintext highlighter-rouge">&lt;application&gt;</code>테마 속성으로 <code class="language-plaintext highlighter-rouge">android:theme="@style/Theme.Sunflower"</code>를 설정하고 있습니다.
+```</li>
+</ol>
+<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.Sunflower" />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+ `styles.xml`리소스 파일에서 `Theme.Sunflower`를 확인해보면, `Base.Theme.Sunflower`를 상속받고 있음을 확인할 수 있으며, `Base.Theme.Sunflower`는 `NoActionBar`테마 중의 하나인 `Theme.MaterialComponents.DayNight.NoActionBar`를 상속받고 있습니다.  
+</code></pre></div></div>
+<style name="Base.Theme.Sunflower" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sunflower_green_500</item>
+        <item name="colorOnPrimary">@color/sunflower_yellow_500</item>
+        <item name="colorPrimaryDark">@color/sunflower_green_700</item>
+        <item name="colorOnSurface">@color/sunflower_black</item>
+        <item name="colorAccent">@color/sunflower_green_700</item>
+        <item name="colorSurface">@color/sunflower_gray_50</item>
+        <item name="colorSecondary">@color/sunflower_yellow_500</item>
+        <item name="android:colorBackground">@color/sunflower_green_500</item>
+    </style>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;style name="Theme.Sunflower" parent="Base.Theme.Sunflower"/&gt;  ```
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Sunflower</code>에서도 <code class="language-plaintext highlighter-rouge">NoActionBar</code>테마를 적용하고 있음을 확인할 수 있습니다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Toolbar</code>를 액티비티의 레이아웃에 추가합니다.
+```xml</li>
+</ol>
+<androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" app:layout_collapseMode="parallax">
+    <TextView android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:gravity="center" android:text="@string/app_name" android:textAppearance="?attr/textAppearanceHeadline5" />
+</androidx.appcompat.widget.Toolbar>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`HomeViewPagerFragment`에서도 `fragment_view_pager.xml`을 확인해보면, 앱바로 사용하기 위한 `Toolbar`가 위와 같이 존재하는 것을 확인할 수 있습니다.  
+
+4. 액티비티의 `onCreate()`메서드에서 액티비티의 `setSupportActionBar()`메서드를 호출합니다. 이때 `Toolbar`를 인자로 넘기면서 호출합니다.  
+`setSupportActionBar()`메서드가 `Toolbar`를 액티비티의 앱바로 설정하는 역할을 합니다.
+`HomeViewPagerFragment`는 프래그먼트이기 때문에 액티비티의 `setSupportActionBar()`메서드를 바로 호출할 수 없습니다. 따라서 베이스 액티비티를 얻어와서, 이를 `AppCompatActivity`로 캐스팅 한 후에, `setSupportActionBar()`를 호출하여 `Toolbar`를 액션바로 설정합니다.
+</code></pre></div></div>
+<p>(activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+```</p>
+
+<blockquote>
+  <p>참고: 베이스 액티비티를 AppCompatActivity로 캐스팅하는 이유는 setSupportActionBar() 메서드가 AppCompatActivity에서 제공되는 메서드이기 때문입니다.</p>
+</blockquote>
+
+<p>Android3.0(API level 11)부터는 기본 테마를 사용하는 모든 액티비티에 <code class="language-plaintext highlighter-rouge">ActionBar</code>가 앱 바로 제공되었습니다. 앱 바의 기능은 새로운 Android 버전이 출시될 때마다 네이티브 <code class="language-plaintext highlighter-rouge">ActionBar</code>에 추가되었기 때문에, 사용자의 기기가 어떤 버전의 Android 를 사용하는지에 따라서 <code class="language-plaintext highlighter-rouge">ActionBar</code>의 동작이 달라졌습니다.</p>
+
+<p>이와 달리, 최근의 앱바 기능들은 <code class="language-plaintext highlighter-rouge">Toolbar</code>의 서포트 라이브러리 버전에 추가되었기 때문 서포트 라이브러리를 사용할 수 있는 모든 기기에서 <code class="language-plaintext highlighter-rouge">Toolbar</code>의 최신 기능을 사용할 수 있습니다. 즉, <code class="language-plaintext highlighter-rouge">Toolbar</code>를 사용하면, 앱이 다양한 기기에서도 일관되게 작동하도록 할 수 있습니다. 따라서 안드로이드에서는 <code class="language-plaintext highlighter-rouge">Toolbar</code>를 이용하여 앱바를 구현하는 것을 권장합니다.</p>
+:ET

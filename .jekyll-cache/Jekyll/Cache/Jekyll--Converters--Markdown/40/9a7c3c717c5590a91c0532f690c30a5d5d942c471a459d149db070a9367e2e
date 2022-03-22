@@ -1,0 +1,78 @@
+I"�<h2 id="singlylinkedlist단일-연결리스트">SinglyLinkedList(단일 연결리스트)</h2>
+<p>```
+class Node:
+  def <strong>init</strong>(self, data):
+    self.data = data<br />
+    self.next = None</p>
+
+<p>class SinglyLinkedList(object):
+  def <strong>init</strong>(self):
+    self.head = None
+    self.count = 0</p>
+
+<p>def append(self, node):
+    if self.head:
+      cur = self.head
+      while cur.next:
+        cur = cur.next
+      cur.next = node
+    else:
+      self.head = node</p>
+
+<p>def getDataAtIndex(self, idx):
+    cur = self.head
+    curIdx = 0</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while curIdx &lt; idx:
+  if cur:
+    cur = cur.next
+    curIdx += 1
+  else:
+    break
+if curIdx == idx:
+  return cur.data
+else:
+  return -1
+</code></pre></div></div>
+
+<p>def getDataIndex(self, data):
+    cur = self.head
+    curIdx = 0
+    while cur:
+      if cur.data == data:
+         return curIdx
+       cur.next = cur
+       curIdx += 1
+    return -1</p>
+
+<p>def insertNodeAtIndex(self, idx, node):
+    prev = None
+    cur = self.head
+    curIdx = 0</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if idx == 0:
+  nextn = cur
+  cur = node
+  node.next = nextn
+else:
+  while curIdx &lt; idx:
+    if cur:
+      prev = cur
+      cur = cur.next
+      curIdx += 1
+    else:
+      break
+  if curIdx == idx:
+    prev.next = node
+    node.next = cur
+  else:
+    return -1
+</code></pre></div></div>
+
+<p>def insertNodeAtData(self, data, node):   <br />
+     idx = self.getDataIndex(data)
+     if idx &gt; 0:      <br />
+       self.insertNodeAtIndex(Node(idx))
+     else:
+       return -1</p>
+:ET

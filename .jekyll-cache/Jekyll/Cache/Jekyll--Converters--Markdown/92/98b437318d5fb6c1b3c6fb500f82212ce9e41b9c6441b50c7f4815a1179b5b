@@ -1,0 +1,3 @@
+I"<p>Kotlin Coroutine은 suspend 키워드를 사용해서 suspending function을 만들 수 있다.<br />
+코루틴은 suspending function을 만나면, 실행을 일시 중지 했다가 suspending function의 실행이 완료되면 실행을 재개한다.</p>
+:ET

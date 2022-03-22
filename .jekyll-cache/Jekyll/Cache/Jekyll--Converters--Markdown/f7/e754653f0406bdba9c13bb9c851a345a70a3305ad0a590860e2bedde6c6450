@@ -1,0 +1,60 @@
+I"�<h2 id="정의">정의</h2>
+<ul>
+  <li>검색, 정렬시 튜플을 구분할 수 있는, 기준이 되는 속성(Attribute)</li>
+</ul>
+
+<h2 id="key-종류">Key 종류</h2>
+<h3 id="one-슈퍼키-super-key">:one: 슈퍼키 (Super Key)</h3>
+<ul>
+  <li>
+    <p>테이블을 구성하는 모든 튜플에 대해<br />
+<code class="language-plaintext highlighter-rouge">유일성</code> 만족 🔵<br />
+<code class="language-plaintext highlighter-rouge">최소성</code> 만족 ❌</p>
+  </li>
+  <li>
+    <p>튜플을 유일하게 구분하기만 하면 됨</p>
+  </li>
+</ul>
+
+<h4 id="bulb-key의-특성을-설명할-때-사용하는-용어-2">:bulb: Key의 특성을 설명할 때 사용하는 용어 2</h4>
+<ol>
+  <li>유일성: 키가 튜플을 유일하게 식별한다.</li>
+  <li>최소성: 튜플을 유일하게 식별하는데 꼭 필요한 속성들로만 구성</li>
+</ol>
+
+<h3 id="two-후보키-candidate-key">:two: 후보키 (Candidate Key)</h3>
+<ul>
+  <li>Tuple을 유일하게 식별하기 위해 사용하는 속성들의 부분 집합.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">유일성</code> 만족 🔵 <br />
+<code class="language-plaintext highlighter-rouge">최소성</code> 만족 🔵</p>
+  </li>
+  <li>슈퍼키 중에서 <code class="language-plaintext highlighter-rouge">최소성</code>을 만족하는 것</li>
+</ul>
+
+<h3 id="three-기본키-primary-key">:three: 기본키 (Primary Key)</h3>
+<ul>
+  <li>
+    <p>후보키 중에서 선택한 메인 키</p>
+  </li>
+  <li>
+    <p>특징</p>
+    <ol>
+      <li>NULL 값을 가질 수 없다.</li>
+      <li>중복된 값을 가질 수 없다.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="four-대체키-alternate-key">:four: 대체키 (Alternate Key)</h3>
+<ul>
+  <li>후보키 중에서 기본키를 제외한 나머지 키</li>
+</ul>
+
+<h3 id="five-외래키-foreign-key">:five: 외래키 (Foreign Key)</h3>
+<ul>
+  <li>다른 릴레이션의 기본키를 그대로 참조하는 속성의 집합</li>
+</ul>
+
+<p><br /></p>
+:ET

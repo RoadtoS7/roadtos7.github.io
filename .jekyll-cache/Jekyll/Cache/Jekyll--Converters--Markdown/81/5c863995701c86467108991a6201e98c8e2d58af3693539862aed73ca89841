@@ -1,0 +1,4 @@
+I"<h2 id="clap-introduction">:clap: Introduction</h2>
+<p>Socket.io는 브라우저와 서버간에 <strong>실시간으로 양방향 통신</strong>이 가능하게 하는 라이브러리이다.  <br />
+Socket.io는 <strong>이벤트기반 통신</strong>을 지원한다.</p>
+:ET

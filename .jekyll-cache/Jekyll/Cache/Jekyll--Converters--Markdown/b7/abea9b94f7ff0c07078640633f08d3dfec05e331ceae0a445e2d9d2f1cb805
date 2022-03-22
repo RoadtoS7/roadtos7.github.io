@@ -1,0 +1,8 @@
+I"(<p>struct와 class는 swift에서 데이터와 메서드를 그룹하여</p>
+<h2 id="struct">Struct</h2>
+<ul>
+  <li>value 타입 ➡️ 할당 연산자를 사용했을 때 값 복사가 일어난다.</li>
+  <li></li>
+  <li>서브 스크립트로 접근할 수 있는 연산자 지원</li>
+</ul>
+:ET

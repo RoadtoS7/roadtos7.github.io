@@ -1,0 +1,77 @@
+I"�<h2 id="stack">Stack</h2>
+<h3 id="1-list-로-구현">1. List 로 구현</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Stack(object):
+  def __init__(self):
+    self.data = []
+    
+  def push(self, data):
+    self.data.append(data)
+  
+  def pop(self):
+    if len(self.data) == 0:
+      return -1
+    else:
+      return self.data.pop()
+      
+  def peek(self):
+    if len(self.data) == 0:
+      return -1
+    else:
+      return self.data[-1]
+  
+</code></pre></div></div>
+
+<h3 id="2-singlylinkedlist로-구현">2. SinglyLinkedList로 구현</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Node:
+  def __init__(self,data):
+    self.data = data
+    self.head = None
+    
+    
+class Stack(object):
+  def __init__(self):
+    self.head = None
+    
+  def push(self, data):
+      newNode = Node(data)
+      newNode.next = self.head
+      self.head = newNode
+      
+  def pop(self):
+    if self.head:
+      data = self.head.data
+      self.head = self.head.next
+      return data
+    else:
+      return -1
+      
+  def peek(self):
+    if self.head:
+      data = self.head.data
+      return data
+    else:
+      return -1
+      
+  def print(self):
+    cur = self.head
+    string = ""
+    while cur:
+      string += str(cur.data)
+      if cur.next:
+        string += "=&gt;"
+      cur = cur.next
+       
+</code></pre></div></div>
+
+<h2 id="3-test-code">3. test code</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  stack = Stack()
+  stack.push(1)
+  stack.push(2)
+  stack.push(3)
+  print(s.peek()) # 3
+  print(s.pop()) # 3
+  print(s.pop()) # 2
+  print(s.pop()) # 1
+  print(s.pop()) # -1 
+</code></pre></div></div>
+:ET

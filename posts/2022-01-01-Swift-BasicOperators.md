@@ -136,7 +136,7 @@ let contentHeight = 40
 let hasHeader = true
 let rowHeight = contentHeight + (hasHeader ? 50 : 20)
 
-{% endhighlight}
+{% endhighlight %}
 
 - 삼항 연산자는 코드의 양을 줄일 수 있어서 유용하지만, 코드를 읽기 어려울 정도로 과다하게 삼항 연산자를 사용하는 것은 삼가해야 한다.
 

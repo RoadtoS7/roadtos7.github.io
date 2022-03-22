@@ -1,0 +1,8 @@
+I"t<h2 id="zero-안드로이드-기본-사항">:zero: 안드로이드 기본 사항</h2>
+<ul>
+  <li>안드로이드 앱을 만들 수 있는 언어로는 Java, Kotlin, C++이 존재한다.</li>
+  <li>안드로이드 SDK 툴은 데이터, 리소스 파일, 소스코드를 함께 컴파일하여 안드로이드 패키지인 APK를 만든다.</li>
+  <li>안드로이드 패키지는 끝에 <code class="language-plaintext highlighter-rouge">.apk</code> 붙는 파일을 말한다.</li>
+  <li>APK 파일은 안드로이드를 기반으로 돌아가는 기기들이 앱을 설치하기 위해서 사용하는 파일이다.</li>
+</ul>
+:ET

@@ -1,0 +1,41 @@
+I"N<h1 id="algorithm-01---binarysearch--sort-01">Algorithm 01 - BinarySearch &amp; Sort 01</h1>
+<h2 id="11-이진-검색binary-search">1.1 이진 검색(Binary Search)</h2>
+<ul>
+  <li>배열에 데이터들이 오름차 순으로 저장되어있을 때 사용합니다.</li>
+  <li>**즉, 데이터들이 정렬되어 있을 때 사용합니다.</li>
+</ul>
+
+<h3 id="저장-필요한-데이터">저장 필요한 데이터</h3>
+<ol>
+  <li>시작 인덱스</li>
+  <li>끝 인덱스</li>
+  <li>가운데 인덱스</li>
+  <li>target 데이터</li>
+  <li>오름차 순으로 정렬된 list 데이터</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def binarySearch(n, data, target):
+  begin = 0
+  end = n - 1
+  while(begin &lt;= end):
+    middle = (begin + end) // 2
+    
+    if data[middle] == target:
+      return middle
+    elif data[middle] &lt; target:
+      start = middle + 1
+    else:
+      end = middle - 1
+    
+    
+  return None
+</code></pre></div></div>
+
+<h2 id="12-버블-정렬">1.2 버블 정렬</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def bubbleSort(data, n):
+  for i in range(n-1, 1):
+    for j in range(0, i):
+      if data[j] &gt; data[j+1]:
+        data[j], data[j+1] = data[j+1], data[j]
+</code></pre></div></div>
+:ET

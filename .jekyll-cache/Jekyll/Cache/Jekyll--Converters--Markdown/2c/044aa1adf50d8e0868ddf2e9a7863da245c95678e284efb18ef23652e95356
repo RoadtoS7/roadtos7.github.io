@@ -1,0 +1,178 @@
+I"�(<h1 id="class">Class</h1>
+
+<p>파이썬에서도 자바와 같이 클래스가 존재한다.<br />
+이번 포스팅에서는 자바의 클래스와 파이썬에서의 클래스의 주된 차이점을 다루려고 한다.<br />
+<br />
+<br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class Calculator:
+  def setData(self, first, second):
+    self.first = first
+    self.second = second
+</code></pre></div></div>
+
+<h2 id="1-클래스-멤버함수의-첫번째-인자로-항상-self-로-명명되어지는-인자가-들어간다">1. 클래스 멤버함수의 첫번째 인자로 항상 self 로 명명되어지는 인자가 들어간다.</h2>
+
+<p>self를 통해서 멤버함수를 호출하는 객체가 전달된다.</p>
+
+<h2 id="2-멤버함수를-호출할-때는-self-파라미터에-해당하는-값은-쓰지-않는다">2. 멤버함수를 호출할 때는 self 파라미터에 해당하는 값은 쓰지 않는다.</h2>
+
+<p>다음 코드와 같이 setData 를 호출할 때는 self에 해당하는 값은 명시하지 않는다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> a = Calculaotor()
+ a.setData(2, 4)
+</code></pre></div></div>
+
+<h2 id="3-멤버-변수를-명시하지-않더라도-멤버함수-안에서-선언한-변수가-자동으로-생성되어-멤버변수가-된다">3. 멤버 변수를 명시하지 않더라도 멤버함수 안에서 선언한 변수가 자동으로 생성되어 멤버변수가 된다.</h2>
+
+<p>a.setData(2, 4) 의 함수 수행문을 살펴본다면 self는 함수를 호출한 객체인 a이기 때문에 다음과 같이 해석된다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; a.first = 2 
+# a 객체에 객체 변수 first 가 생성되고 여기에 값 4가 저장된다.
+
+&gt;&gt;&gt; a.second = 4
+# a 객체에 객체 변수 second 가 생성되고 여기에 값 2가 저장된다.
+
+&gt;&gt;&gt; print(a.first)
+2
+&gt;&gt;&gt; print(a.second)
+4
+</code></pre></div></div>
+
+<p>print(a.first), print(a.second) 의 결과가 정상적으로 출력되는 것으로 볼 때, 멤버변수를 따로 선언하지 않았지만<br />
+first와 second 라는 멤버변수가 생성되었음을 알 수 있다.</p>
+
+<h2 id="4-생성자">4. 생성자</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = Calculator()
+print(a.first)
+</code></pre></div></div>
+<p>위와 같은 코드를 실행하면 print(a.first)에서 a의 객체변수 first가 존재하지 않는다는 에러를 보게 된다.<br />
+우리는 setData() 메소드를 실행해야 first와 second 객체변수가 생성되도록 했기 때문이다.<br />
+따라서 보통 객체에 초기값을 설정해야할 때에는 생성자를 구현하여 객체를 생성하는 하는 시점 (a = Calcualtor()가 호출되는 시점) 에서 객체변수가 생성되도록 한다.</p>
+
+<p>자바에서는 클래스이름과 동일한 함수가 생성자의 역할을 했지만,<br />
+파이썬 에서는 <strong>init</strong>() 라는 이름의 함수를 정의하면 이것이 생성자가 되어 객체를 생성하는 시점( a = Calculator() 가 호출되는 시점) 에 자동으로 호출된다.<br />
+클래스 내에 <strong>init</strong>() 라는 이름의 함수를 정의하면 자동으로 생성자로 인식된다.</p>
+
+<p>예시 코드는 다음과 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Calculator:
+  def __init__(self, first, second):
+    self.first = first
+    self.second = second
+    
+ a = Calculator()
+</code></pre></div></div>
+<p>하지만 위의 코드를 실행하면 오류가 나는 것을 확인할 수 있다.<br />
+왜냐하면 생성자의 매개변수인 first, second에 해당하는 값이 전달되지 않았기 때문이다.</p>
+
+<p>따라서 생성자가 파라미터를 가지고 있다면 다음과 같이 반드시 생성자를 호출할 때 각 파라미터에 알맞은 값을 넘겨주어야한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = Calculator(2, 4)
+</code></pre></div></div>
+
+<h2 id="위와-같이-코드를-작성하면-init-메소드의-매개변수에는-다음과-같은-값이-대입된다">위와 같이 코드를 작성하면 <strong>init</strong>() 메소드의 매개변수에는 다음과 같은 값이 대입된다.</h2>
+<p>매개변수: 값
+self: 생성되는 객체
+first: 2
+second: 4
+—</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; a = FourCal(4, 2)
+&gt;&gt;&gt; print(a.first)
+2
+&gt;&gt;&gt; print(a.second)
+4
+</code></pre></div></div>
+
+<p><strong>init</strong>() 호출 후 객체 a의 객체변수 first와 second가 출력이 정상적으로 되는 것을 보아 a 객체의 객체변수 first와 second 가 생성되었음을 확인할 수 있다.</p>
+
+<h2 id="4-클래스의-상속">4. 클래스의 상속</h2>
+<p>자바에서와 마찬 가지로 파이썬에서도 자식클래스가 부모클래스를 상속받을 수 있다.<br />
+상속이 일어나면, 상속을 받은 클래스(자식클래스)가 상속을 한 클래스(부모클래스)의 상속타입이 public 인 메소드를 그대로 이용할 수 있다.</p>
+
+<p>앞에서 우리가 만든 클래스를 MoreCal 클래스가 상속받는 파이썬 코드는 다음과 같다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MoreCal(Calculator):
+  pass
+</code></pre></div></div>
+
+<p>즉 클래스를 상속하려면 상속받는 클래스(자식클래스) 이름 뒤에 괄호를 적고, 괄호 안에 상속받을 클래스(부모클래스) 의 이름을 적어주면 된다.</p>
+<blockquote>
+  <p>class 자식클래스이름(부모클래스이름)</p>
+</blockquote>
+
+<p>위의 예제에서 MoreCal 클래스는 Calculator 클래스를 상속받았기 때문에 Calculator 클래스의 메소드를 그대로 이용할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; a = MoreFourCal(4, 2)
+&gt;&gt;&gt; a.add()
+6
+&gt;&gt;&gt; a.mul()
+8
+&gt;&gt;&gt; a.sub()
+2
+&gt;&gt;&gt; a.div()
+2
+</code></pre></div></div>
+<p>위의 코드 결과를 볼 때 상속받은 Calculator 클래스의 메소드를 모두 사용할 수 있음을 확인할 수 있다.  <br />
+보통 클래스를 변경하지 않고 클래스의 기능을 추가하거나 기능을 변경할 때 상속을 사용한다.</p>
+
+<h2 id="5-메소드-오버라이딩">5. 메소드 오버라이딩</h2>
+<p>파이썬에서도 메소드 오버라이딩을 이용하여 상속받은 메소드를 재정의하여 사용할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MoreFourCal(Calculator):
+  def div(self):
+      if self.second == 0:
+          retrun 0
+      else:
+        return self.first / self.second
+</code></pre></div></div>
+
+<p>기존 Calculator 클래스의 div() 메소드는 객체변수 second 가 0 일 때와 상관없이, 무조건 객체변수 first 를 second 로 나눈 값을 반환했다.<br />
+하지만 위의 코드에서 MoreFourCal 클래스는 div() 메서드를 오버라이딩하여 객체변수 second 가 0일 경우에는 0을 반환하도록 하고 있다.</p>
+
+<p>자바에서와 마찬가지로 자식클래스 객체가 오버라이딩한 메소드를 호출하면 부모클래스의 함수가 아닌 오버라이딩한 메소드를 호출한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; a = MoreFourCal(4, 0)
+&gt;&gt;&gt; a.div()
+0
+</code></pre></div></div>
+<p>위 예시에서 객체변수 second의 값이 0인 MoreFourCal 클래스 객체의 div() 메소드를 호출했을 때 0 이 출력되는 것을 볼 수 있다.<br />
+그 결과 부모클래스의 div() 메소드가 아니라 자식클래스에서 오버라이딩한 div() 메소드가 호출되는 것을 확인할 수 있다.<br />
+(부모클래스의 div() 함수가 호출되었다면 객체변수 first를 0으로 나누는 것이 되므로 에러가 발생해야한다.)</p>
+
+<h2 id="6-클래스-변수">6. 클래스 변수</h2>
+<p>객체들은 각자 자신의 객체 변수를 다른 객체에 영향을 받지 않고 유지한다.<br />
+하지만 파이썬에는 클래스 변수라는 것이 존재하는데, 이는 클래스의 모든 변수들이 공유하는 변수이다.<br />
+클래스 변수는 다음과 같이 만든다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Family:
+  lastName = "김"
+</code></pre></div></div>
+
+<p>클래스 변수를 사용하는 방법은 두가지가 있다.</p>
+<ol>
+  <li>클래스이름.클래스변수
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; Family.lastName
+김
+</code></pre></div>    </div>
+  </li>
+  <li>객체.클래스변수
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; a = Family()
+&gt;&gt;&gt; b = Family()
+&gt;&gt;&gt; a.lastName
+김
+&gt;&gt;&gt; b.lastName
+김
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>클래스이름을 통해서나 혹은 클래스의 객체를 통해서 클래스 변수를 사용할 수 있다.</p>
+
+<p>클래스변수의 값을 바꾼다면, 클래스 변수는 모든 객체에게 공유되기 때문에<br />
+모든 객체에서 바뀐 클래스 변수의 값을 사용하게 된다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; Family.lastName = "박" # 클래스 변수의 값을 바꿈
+&gt;&gt;&gt; print(a.lastName) # 객체의 클래스 변수 값도 변경됨을 확인할 수 있음
+박
+&gt;&gt;&gt; print(b.lastName) # 객체의 클래스 변수 값도 변경됨을 확인할 수 있음
+</code></pre></div></div>
+<p>하지만 클래스 변수의 경우에는 객체 변수보다 사용하는 비율이 적다.</p>
+
+:ET

@@ -1,0 +1,8 @@
+I"p<h2 id="tablayoutmediator">TabLayoutMediator</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Set the icon and text for each tab
+ TabLayoutMediator(tabLayout, viewPager) { tab, position -&gt;
+     tab.setIcon(getTabIcon(position))
+     tab.text = getTabTitle(position)
+ }.attach()
+</code></pre></div></div>
+:ET

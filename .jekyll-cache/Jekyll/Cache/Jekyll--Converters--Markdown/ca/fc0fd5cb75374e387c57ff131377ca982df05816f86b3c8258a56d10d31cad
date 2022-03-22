@@ -1,0 +1,7 @@
+I"@<h2 id="클로저-closure">클로저 (Closure)</h2>
+<ul>
+  <li>Swift에서 함수의 파라미터로 넘기거나, 함수의 반환값이 될 수 있는 코드 블럭</li>
+  <li><strong>Swift 에서 자신의 영역(scope)에 속하는 변수, 상수의 참조를 캡쳐해서 저장할 수 있다.</strong></li>
+</ul>
+
+:ET

@@ -1,0 +1,76 @@
+I"�<h2 id="id">id</h2>
+<ul>
+  <li>연결된 소켓은 아이디를 갖는다.</li>
+  <li>이 아이디는 서로 연결된 소켓끼리 갖은 값을 갖는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">socket.id</code></li>
+</ul>
+
+<h2 id="connected">connected</h2>
+<ul>
+  <li>해당 소켓이 연결되었는지 여부 boolean 값으로 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">socket.connected</code></li>
+</ul>
+
+<h2 id="socketio-lifecycle">Socket.io Lifecycle</h2>
+<ol>
+  <li>Manager 인스턴스가 서버와 연결(재연결)한다. =  Manager의 open() 함수가 호출된다.</li>
+  <li>소켓이 핸드 셰이크 패킷을 보낸다.</li>
+  <li>연결이 설정되면 connect 이벤트가 발생한다.  -&gt; 서버와 연결이 설정된다.(연결된다.) -&gt; 4번<br />
+그렇지 않으면 connect_error 이벤트가 발생한다. -&gt; 서버와 disconnect 된다. (수동으로 재연결을 시도해야 한다.)</li>
+  <li>서버와 연결이 된 후에 disconnect되면, socket의 disconnect()가 호출되고, manager가 close()된다.<br />
+-&gt; 1번으로 이동해서 자동으로 재연결을 시도한다.</li>
+</ol>
+
+<h2 id="event">Event</h2>
+<h3 id="1-connect">1. connect</h3>
+<ul>
+  <li>서버 소켓과 클라이언트 소켓간 연결이 수립되었을 때 발생하는 이벤트</li>
+  <li>connect 이벤트 핸들러러 내에 다른 이벤트 핸들러를 등록해 놓으면 안된다. <br />
+왜냐하면 새로운 소켓 연결이 수립될 때마다 새로운 핸들러가 등록될 것 이기 때문이다.</li>
+</ul>
+
+<h3 id="2-connect_error">2. connect_error</h3>
+<ul>
+  <li>서버가 연결 요청을 받아드리지 않는 경우 발생한다.</li>
+  <li>이때는 수동으로 재연결 요청을 해야 한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// either by directly modifying the `auth` attribute</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">connect_error</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">abcd</span><span class="dl">"</span><span class="p">;</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// or if the `auth` attribute is a function</span>
+<span class="kd">const</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">({</span>
+  <span class="na">auth</span><span class="p">:</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">connect_error</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+  <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="3-disconnect">3. disconnect</h3>
+<ul>
+  <li>연결이 끊겼을 때 발생하는 이벤트이다.</li>
+</ul>
+
+<h3 id="disconnect-이벤트가-발생하는-이유-목록">disconnect 이벤트가 발생하는 이유 목록</h3>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">io server disconnect</code> : 서버에서 강제적으로 서버 소켓의 연결을 끊은 경우 = <code class="language-plaintext highlighter-rouge">socket.disconnect()</code>을 호출한 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">io client disconnect</code> : 클라이언트에서 수동으로 서버 소켓의 연결을 끊은 경우 = <code class="language-plaintext highlighter-rouge">socket.disconnect()</code>을 호출한 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">ping timeout</code> :  서버가 <code class="language-plaintext highlighter-rouge">ping timeout</code> 이내에 응답하지 않은 경우</li>
+  <li><code class="language-plaintext highlighter-rouge">transport close</code> : 연결이 닫힌 경우 (ex. 사용자가 연결을 유실하거나, wifi에서 4g로의 네트워크 변경이 일어난 경우 )</li>
+  <li><code class="language-plaintext highlighter-rouge">transport error</code> : 연결 중 에러가 발생한 경우 (ex. HTTP long polling 사이클에서 서버가 죽은 경우 )</li>
+</ol>
+
+<ul>
+  <li>주의사항!<br />
+<code class="language-plaintext highlighter-rouge">disconnecting</code>, <code class="language-plaintext highlighter-rouge">newListener</code>, <code class="language-plaintext highlighter-rouge">removeListener</code> 와 같은 이벤트는 특별한 이벤트 이기 때문에 우리가 애플리케이션에서 사용하면 안된다.</li>
+</ul>
+:ET

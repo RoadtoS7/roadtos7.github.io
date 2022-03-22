@@ -1,0 +1,136 @@
+I"�%<h2 id="이벤트-수신">이벤트 수신</h2>
+<ul>
+  <li>이벤트를 수신하는 방법에는 여러가지가 있다.</li>
+</ul>
+
+<h3 id="1-eventemitter-메서드-사용하기">1. EventEmitter 메서드 사용하기</h3>
+<ul>
+  <li>Server 사이드에서는 socket 인스턴스가 EventEmitter 클래스를 상속하고 있다.</li>
+  <li>Client 사이드에서는 socket 인스턴스는 component-emitter 라이브러리에서 제공하는 이벤트 전송자를 사용하며, 이 이벤트 전송자는 EventEmitter 메서드의 일부를 노출시킨다.</li>
+</ul>
+
+<h4 id="1-socketon이벤트-이름-리스너">1. socket.on(이벤트 이름, 리스너)</h4>
+<ul>
+  <li>이벤트에 대한 리스너 함수를 리스너 배열 끝에 추가한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">,</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="2-socketonce이벤트-이름-리스너">2. socket.once(이벤트 이름, 리스너)</h4>
+<ul>
+  <li>지정된 이벤트에 대한 일회성 리스너를 추가한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">socket</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">,</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="3-socketoff이벤트-이름-리스너">3. socket.off(이벤트 이름, 리스너)</h4>
+
+<ul>
+  <li>해당 이벤트에 대한 리스너 배열에서, 특정 리스너를 제거한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">listener</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">,</span> <span class="nx">listener</span><span class="p">);</span>
+
+<span class="c1">// and then later...</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">,</span> <span class="nx">listener</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="4-socketremovealllisteners이벤트-이름">4. socket.removeAllListeners([이벤트 이름])</h4>
+<ul>
+  <li>이벤트 이름이 인자로 주어지지 않은 경우에는 모든 리스너를 제거한다.</li>
+  <li>이벤트 이름이 인자로 주어진 경우에는 해당 이벤트에 등록된 모든 리스너를 제거한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for a specific event</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">removeAllListeners</span><span class="p">(</span><span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// for all events</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">removeAllListeners</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="2-catch-all-listener">2. catch-all listener</h3>
+<h4 id="1--socketonanylistener">1.  socket.onAny(listener)</h4>
+<ul>
+  <li>모든 이벤트에 대해서 실행되는 리스너를 등록한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">socket</span><span class="p">.</span><span class="nx">onAny</span><span class="p">((</span><span class="nx">eventName</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="2-socketprependanylistener">2. socket.prependAny(listener)</h4>
+<ul>
+  <li>모든 이벤트에 대해서 실행되는 리스너를 추가한다.</li>
+  <li>이 리스너는 리스너 배열의 맨 앞에 추가된다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">socket</span><span class="p">.</span><span class="nx">prependAny</span><span class="p">((</span><span class="nx">eventName</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="3-socketoffanylistener">3. socket.offAny([listener])</h4>
+<ul>
+  <li>인자로 리스너가 주어지지 않은 경우, 모든 catch-all 리스너를 제거한다.</li>
+  <li>인자로 리스너가 주어진 경우, 해당 catch-all 리스너만 제거한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">listener</span> <span class="o">=</span> <span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">onAny</span><span class="p">(</span><span class="nx">listener</span><span class="p">);</span>
+
+<span class="c1">// and then later...</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">offAny</span><span class="p">(</span><span class="nx">listener</span><span class="p">);</span>
+
+<span class="c1">// or all listeners</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">offAny</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="3-validation">3. validation</h3>
+<ul>
+  <li>이벤트 인수의 유효성 검사는 Socket.IO 라이브러리의 영역이 아니다.</li>
+  <li>자바스크립트 환경에는 이를 다루는 많은 패키지들이 존재한다.
+    <ul>
+      <li>joi</li>
+      <li>ajv</li>
+      <li>validatorjs</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="4-error-handling">4. Error Handling</h3>
+<ul>
+  <li>Socket.IO 에는 에러 핸들링 API가 존재하지 않는다.</li>
+  <li>따라서 리스너에서 발생할 수 있는 모든 예외를 catch 하여 처리해야 한다.</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">connection</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">list items</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">findItems</span><span class="p">();</span>
+      <span class="nx">callback</span><span class="p">({</span>
+        <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OK</span><span class="dl">"</span><span class="p">,</span>
+        <span class="nx">items</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">({</span>
+        <span class="na">status</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NOK</span><span class="dl">"</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+:ET

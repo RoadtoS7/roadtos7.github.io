@@ -1,0 +1,33 @@
+I"%<h2 id="extension-이란">Extension 이란❓</h2>
+<ul>
+  <li>
+    <p>기존에 존재하는 class, struct, enum, protocol에 새로운 기능을 추가하는 것</p>
+  </li>
+  <li>
+    <p>Extension으로 추가할 수 있는 기능</p>
+    <ol>
+      <li>computed property</li>
+      <li>class/type method</li>
+      <li>생성자</li>
+      <li>subscript</li>
+      <li>protocol 준수</li>
+      <li>protocol의 구현체를 만들 수 있다.</li>
+    </ol>
+  </li>
+</ul>
+
+<p><em>:bulb: 추가할 수 없는 것을 기억하자❗️</em></p>
+<ol>
+  <li>프로퍼티, 메서드 오버라이딩 안된다.</li>
+  <li>stored property(값이 주어진 프로퍼티)는 추가할 수 없다.</li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<h2 id="computed-property-">Computed Property ❓</h2>
+<ul>
+  <li></li>
+</ul>
+
+:ET

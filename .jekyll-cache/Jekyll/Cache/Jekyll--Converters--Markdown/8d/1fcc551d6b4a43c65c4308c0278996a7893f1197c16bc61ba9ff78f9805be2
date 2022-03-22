@@ -1,0 +1,236 @@
+I"�C<blockquote>
+  <p>이 포스팅은 docs.swift.org의 Basic Operator 내용 중, 다른 프로그래밍 언어와 차별화되는 swift만의 특징을 발췌, 요약한 포스팅입니다.</p>
+</blockquote>
+
+<h2 id="assigment-operator">Assigment Operator</h2>
+<ul>
+  <li>할당 연산자의 우측에 튜플을 사용하면, 튜플을 분해하여 여러개의 변수, 상수의 값으로 할당할 수 있다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="p">(</span><span class="nv">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></code></pre></figure>
+
+<p><br />
+<br /></p>
+
+<h2 id="사칙-연산자">사칙 연산자</h2>
+<ul>
+  <li>
+    <p>Swift의 사칙 연산자는 overflow를 발생시키지 않는다.</p>
+  </li>
+  <li>
+    <p>overflow를 일으키는 연산자를 따로 만들어두엇었다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">+</code> 연산자가 string concetation을 지원한다.</p>
+  </li>
+</ul>
+
+<h3 id="나머지-연산자">나머지 연산자</h3>
+<ul>
+  <li>
+    <p>Swift의 나머지 연산자: <code class="language-plaintext highlighter-rouge">%</code></p>
+  </li>
+  <li>
+    <p>Swift의 나머지 연산자는 modulo 연산자와는 다르다.</p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">a % b</code>의 연산 결과와 <code class="language-plaintext highlighter-rouge">a % -b</code> 의 연산 결과가 같다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h2 id="비교-연산자">비교 연산자</h2>
+<h3 id="----"><code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code> 🆚 <code class="language-plaintext highlighter-rouge">===</code>, <code class="language-plaintext highlighter-rouge">!==</code></h3>
+<ul>
+  <li>
+    <p>인스턴스를 비교할 때 좌측 연산자와 우측 연산자 간에 차이가 난다.</p>
+  </li>
+  <li>
+    <p>좌측 연산자는 인스턴스의 프로퍼티 값들이 같은지 확인한다. (같으면 <code class="language-plaintext highlighter-rouge">==</code>에서 true를 반환한다.)</p>
+  </li>
+  <li>
+    <p>우측 연산자는 인스턴스의 주소값이 같은지 확인한다. 다시 말해서, 두 개의 객체가 동일한 인스턴스를 참조하는지를 확인한다. (같으면 <code class="language-plaintext highlighter-rouge">===</code>에서 true를 반환한다.)</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Student</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+  
+  <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="kt">Student</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"a"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="kt">Student</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"a"</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">a</span> <span class="o">===</span> <span class="n">b</span><span class="p">)</span> <span class="c1">// false</span></code></pre></figure>
+
+<ul>
+  <li>위 예시에서 <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code> 는 모두 <code class="language-plaintext highlighter-rouge">Student</code> 클래스의 객체이며, <code class="language-plaintext highlighter-rouge">name</code> 프로퍼티의 값이 같다.
+따라서 <code class="language-plaintext highlighter-rouge">==</code> 결과값은 <code class="language-plaintext highlighter-rouge">true</code>이다. 반면에 둘은 서로 다른 인스턴스를 생성하여 참조하고 있으므로 <code class="language-plaintext highlighter-rouge">===</code> 연산자의 결과값은 <code class="language-plaintext highlighter-rouge">false</code> 이다.</li>
+</ul>
+
+<h3 id="튜플-비교">튜플 비교</h3>
+<ul>
+  <li>
+    <p>서로 다른 2개의 튜플을 비교하는 것은 튜플의 구성요소를 왼쪽에 위치한 것부터 오른쪽에 위치한 것 순으로, 차례대로 비교하는 방식으로 이루어진다.</p>
+  </li>
+  <li>
+    <p>만일 첫번째 위치한 요소들을 비교한 결과, 어느 한 쪽이 크거나 작다면 튜플의 나머지 값들은 비교하지 않고 첫번째 위치한 요소 간의 비교 결과를 튜플 전체에 대한 비교 결과로 반환한다.</p>
+  </li>
+  <li>
+    <p>설명만 들을 경우 잘 이해해되지 않을 수 있다. 예시를 통해 더 자세히 살펴보자.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">"zebra"</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">"apple"</span><span class="p">)</span> <span class="c1">// true</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>위 예시에서 가장 처음으로 이루어지는 작업은 두 튜플의 0번째 인덱스에 위치한 값인 <code class="language-plaintext highlighter-rouge">1</code>과 <code class="language-plaintext highlighter-rouge">2</code>를 비교하는 것이다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">1</code>과 <code class="language-plaintext highlighter-rouge">2</code>를 비교하면, <code class="language-plaintext highlighter-rouge">2</code>가 더 크다.  0번째 인덱스에 위치한 값이 서로 다르기 때문에, 나머지 튜플의 요소는 비교하지 않는다.</p>
+  </li>
+  <li>
+    <p>그리고 두 튜플을 비교한 결과가 바로 0번째 인덱스에 위치한 값(여기에서는 <code class="language-plaintext highlighter-rouge">1</code>과 <code class="language-plaintext highlighter-rouge">2</code>가 이에 해당한다.)을 비교한 결과가 된다.</p>
+  </li>
+  <li>
+    <p>따라서 오른쪽에 위치한 <code class="language-plaintext highlighter-rouge">(2, "apple")</code>의 튜플이 <code class="language-plaintext highlighter-rouge">(1, "zebra")</code>보다 더 큰 튜플이며, 따라서 위 연산 결과로 <code class="language-plaintext highlighter-rouge">true</code>가 반환된다.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">"apple"</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">"bird"</span><span class="p">)</span> <span class="c1">// true</span></code></pre></figure>
+
+<ul>
+  <li>위 예시에서는 두 튜플의 0번째 인덱스에 위치한 값인 <code class="language-plaintext highlighter-rouge">2</code>와 <code class="language-plaintext highlighter-rouge">2</code>를 서로 비교한다. 비교 결과 두 값이 서로 같으므로, 0번째 인덱스에서 넘어가서 1번째 인덱스에 위치한 값을 비교한다.</li>
+  <li>1번째 인덱스에 위치한 <code class="language-plaintext highlighter-rouge">"apple"</code>, <code class="language-plaintext highlighter-rouge">"bird"</code>를 비교한 결과, <code class="language-plaintext highlighter-rouge">"bird"</code>의 값이 더 크므로 두 튜플 중 값이 더 큰 것은 <code class="language-plaintext highlighter-rouge">(2, "bird")</code>가 된다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">)</span> <span class="c1">// true</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>위 예시에서는 두 튜플의 0번째 인덱스에 위치한 값과 1번째 인덱스에 위치한 값이 모두 서로 같으므로, <code class="language-plaintext highlighter-rouge">==</code> 결과 true가 반환된다.</p>
+  </li>
+  <li>
+    <p>튜플을 비교할 때 주의사항‼️: 튜플을 이루는 값들이 모두 비교 연산자를 사용할 수 있는 타입인 경우에만, 해당 튜플을 비교할 수 있다.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="s">"purple"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="s">"purple"</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="c1">// Error</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>위 예시에서 첫번째 줄은 두 튜플의 타입이 (String, Int)이다. 튜플을 이루는 구성요소의 타입인 String, Int 모두 비교 가능한 타입이므로, 튜플에 비교 연산자를 사용할 수 있다.</p>
+  </li>
+  <li>
+    <p>반면에 두번째 줄은 튜플의 타입이 (String, Bool)이다. 튜플의 1번째 인덱스 구성요소가 비교가 불가능한 Bool 타입이므로 이 튜플에는 비교 연산자를 사용할 수 없다.</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Swift에서 비교 연산자를 이용해 비교할 수 있는 최대 튜플의 사이즈는 7이다.  따라서 8개 이상의 구성요소를 갖는 튜플을 비교하기 위해서는 직접 비교 연산자를 구현해야 한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+<br /></p>
+
+<h2 id="삼항-연산자">삼항 연산자</h2>
+<ul>
+  <li>C와 Java에서 제공하는 삼항 연산자와 동일하다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">contentHeight</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="k">let</span> <span class="nv">hasHeader</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="k">let</span> <span class="nv">rowHeight</span> <span class="o">=</span> <span class="n">contentHeight</span> <span class="o">+</span> <span class="p">(</span><span class="n">hasHeader</span> <span class="p">?</span> <span class="mi">50</span> <span class="p">:</span> <span class="mi">20</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>삼항 연산자는 코드의 양을 줄일 수 있어서 유용하지만, 코드를 읽기 어려울 정도로 과다하게 삼항 연산자를 사용하는 것은 삼가해야 한다.</li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h2 id="nil-병합-연산자nil-coalescing-operator">Nil 병합 연산자(Nil-Coalescing Operator)</h2>
+<ul>
+  <li>nil 병합 연산자: <code class="language-plaintext highlighter-rouge">??</code></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">a</span> <span class="p">??</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">?</span> <span class="n">a</span><span class="o">!</span><span class="p">:</span> <span class="n">b</span> <span class="c1">// nil 병합 연산자를 풀어서 썼을 때의 코드이다.</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>nil 병합 연산자는 optional이 값을 가질 경우에는 언래핑(unwrapping)하여 값을 반환하고, optional이 nil을 가질 경우에는 default 값을 반환한다.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">a ?? b</code>에서 <code class="language-plaintext highlighter-rouge">a</code>의 타입은 optional이어야 하며, <code class="language-plaintext highlighter-rouge">b</code>의 타입은 <code class="language-plaintext highlighter-rouge">a</code>가 optional 아닐 때의 타입과 같아야 한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">a</code>가 nil이 아니라면, <code class="language-plaintext highlighter-rouge">b</code>에 위치한 코드는 실행되지 않는다. 이를 <em>shor-circuit evaluation</em> 이라고 한다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">defaultColorName</span> <span class="o">=</span> <span class="s">"red"</span>
+<span class="k">var</span> <span class="nv">userDefinedColorName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="c1">// optional은 값을 할당하지 않아도 default 값으로 nil을 갖는다.</span>
+
+<span class="k">var</span> <span class="nv">colorNameToUse</span> <span class="o">=</span> <span class="n">userDefinedColorName</span> <span class="p">??</span> <span class="n">defaultColorName</span></code></pre></figure>
+
+<p><br />
+<br /></p>
+
+<h2 id="범위-연산자range-operator">범위 연산자(Range Operator)</h2>
+<ol>
+  <li>닫힌 범위 연산자 (Closed Range Operator)
+    <ul>
+      <li>특정 횟수 만큼 반복문을 돌아야 할 때 유용하다.</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">for</span> <span class="n">index</span> <span class="nf">in</span> <span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s"> times 5 is </span><span class="se">\(</span><span class="n">index</span> <span class="o">*</span> <span class="mi">5</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>Half-Open Range Operator
+    <ul>
+      <li>list를 순회할 때 유용하다.</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Anna"</span><span class="p">,</span> <span class="s">"Alex"</span><span class="p">,</span> <span class="s">"Brian"</span><span class="p">,</span> <span class="s">"Jack"</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">count</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">count</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..&lt;</span><span class="n">count</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Person </span><span class="se">\(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="se">)</span><span class="s"> is called </span><span class="se">\(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li>One-Sided Ranges
+    <ul>
+      <li>Python에서 list slicing과 같다.</li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>
+    <p>사용 용도 1. slicing (array의 일부만 필요할 때 사용한다.)</p>
+  </li>
+  <li>사용 용도 2. iteration (순회)
+    <ul>
+      <li>끝 숫자를 명시한 One-Sided Ranges 는 Range의 시작 지점을 알 수 없으므로, 순회할 수 없다.</li>
+      <li>반면에 시작 숫자를 명시한 One-Sided Ranges는 순회할 수 있다.</li>
+    </ul>
+  </li>
+  <li>사용 용도 3. 범위에 속하는 숫자인지 확인</li>
+</ul>
+
+:ET

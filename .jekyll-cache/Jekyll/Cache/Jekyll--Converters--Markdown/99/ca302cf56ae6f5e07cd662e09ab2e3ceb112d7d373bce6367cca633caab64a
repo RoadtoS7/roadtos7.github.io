@@ -1,0 +1,4 @@
+I"\<h2 id="자료구조-linked-list-01---singl-linked-list">자료구조: Linked List 01 - Singl Linked List</h2>
+<h3 id="singly-linked-list">Singly linked list</h3>
+<p>Singly linked list는 데이터와 주소를 다음 노드의 주소를 담고 있는 노드들이 <strong>한줄</strong>로 연결되어있는 방식의 자료구조입니다.</p>
+:ET
