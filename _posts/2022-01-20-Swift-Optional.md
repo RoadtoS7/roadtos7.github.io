@@ -19,7 +19,7 @@ background: "/img/classic_blue.jpeg"
 
 ```swift
 let possibleNumber = "123"
-	let convertedNumber = Int(possibleNumber)
+let convertedNumber = Int(possibleNumber)
 
 var serverResponseCode: Int? = 404
 serverResponseCode = nil
@@ -96,7 +96,7 @@ let convertedNumber = Int(possibleNumber)
      actual number에 옵셔널이 언래핑되서 옵셔널 안의 값이 들어간다.
 - 값이 있는 경우에는 if 문 실행 nil인 경우에는 else문이 실행된다.
 
-### 절대적 언래핑 옵셔널 IUO 타입
+### 절대적 언래핑 옵셔널 IUO 타입 
 Implicitly Unwrapping Optionals
 
 ---
@@ -128,7 +128,7 @@ guard `Bool 또는 Optional Binding ` else {
 
 ✅ 조건이 만족되지 않았을 때, 프로그램의 실행을 `guard` 의 scope 바깥으로 내보낼때 사용
 
-- 주의사항:
+- 주의사항:  
   statements 에  `else` 구문을 작성하거나, `guard` 의 scope 바깥으로 내보내는 코드 작성해야 한다.
 - `guard` 의 scope 바깥으로 내보내는 키워드
   - `return`
