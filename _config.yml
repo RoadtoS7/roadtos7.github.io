@@ -15,9 +15,11 @@ highlighter: rouge
 paginate: 5
 paginate_path: "/posts/page:num/"
 plugins:
+  - jemoji
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
+
 
 ## fonts
 google_fonts: "Nanum+Gothic:400,700"
